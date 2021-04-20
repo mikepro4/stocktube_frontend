@@ -1,0 +1,119 @@
+$animation_easing: cubic-bezier(0.02, 0.41, 0.42, 0.8);
+
+
+// --------------------------------------------------
+@keyframes moveGradient {
+    0% {
+      transform: translateX(15%) translateY(-15%);
+    }
+
+    50% {
+      transform: translateX(-25%) translateY(+15%) ;
+    }
+
+    100% {
+      transform: translateX(15%) translateY(-15%) ;
+    }
+}
+
+.animation-move-gradient {
+    animation: moveGradient 10s 0s linear infinite;
+    transform: translateX(15%) translateY(-15%);
+}
+
+// --------------------------------------------------
+
+@keyframes fadeInSlide {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0px) scale(1);
+    }
+}
+
+.animation-fadeInSlide, .animation-fadeInSlide-1 {
+    opacity: 0;
+    animation: fadeInSlide .2s 0.1s $animation_easing forwards;
+}
+
+.animation-fadeInSlide-2 {
+    opacity: 0;
+    animation: fadeInSlide .2s 0.13s $animation_easing forwards;
+}
+
+.animation-fadeInSlide-3 {
+    opacity: 0;
+    animation: fadeInSlide .2s 0.16s $animation_easing forwards;
+}
+
+.animation-fadeInSlide-4 {
+    opacity: 0;
+    animation: fadeInSlide .2s 0.19s $animation_easing forwards;
+}
+
+// --------------------------------------------------
+
+@keyframes moveArrow {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+      opacity: 1;
+    }
+
+    50% {
+      transform: translateY(0) translateX(10px);
+      opacity: 0;
+    }
+    51% {
+      transform: translateY(-50px) translateX(-50px);
+    }
+    52% {
+      transform: translateY(0) translateX(-10px);
+    }
+}
+
+.animation-moveArrow {
+    animation: moveArrow 0.3s 0s linear forwards;
+}
+
+// --------------------------------------------------
+
+@keyframes fadeInScale {
+    from {
+        transform: scale(0.97, 0.97);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+.animation-fadeInScale {
+    opacity: 0;
+    animation: fadeInScale 0.5s 0.5s $animation_easing forwards;
+}
+
+// --------------------------------------------------
+
+@keyframes slideBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) ;
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+}
+
+.animation-slideBottom {
+    opacity: 0;
+    animation: slideBottom 0.4s ease-out forwards;
+}
+

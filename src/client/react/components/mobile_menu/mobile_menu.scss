@@ -17,6 +17,23 @@
         background: $white;
     }
 
+    .nav-link-container {
+        @extend .animation-slideBottom;
+    }
+
+    @for $i from 1 through 10 {
+        .nav-link-container {
+          &:nth-child(#{$i}) {
+            animation-delay: $i * 0.1s;
+          }
+        }
+    }
+
+    .theme-switch {
+        @extend .animation-slideBottom;
+        animation-delay: 6 * 0.1s;
+    }
+
     .menu-bottom {
         background: $white;
         flex-grow: 0;

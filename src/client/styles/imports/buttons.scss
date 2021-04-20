@@ -16,6 +16,12 @@
             letter-spacing: 0.5px;
         }
 
+        &.small-button {
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
         &:not([class*="control"]) {
             &.theme-light {
                 background: $cobalt4;
@@ -25,6 +31,7 @@
                     background: rgba($cobalt4, 0.15);
                     color: $cobalt4;
                 }
+                
             }
 
             &.theme-dark {
@@ -39,12 +46,6 @@
         }
     }
 
-    .bp3-icon {
-        svg {
-            fill: $black
-        }
-    }
-
     &.theme-dark {
         .bp3-icon {
             svg {
@@ -54,8 +55,10 @@
     }
 
     &:active, &:hover {
-        @media only screen and (max-width: $mobile) {
-            background: none !important;
+        &.control {
+            @media only screen and (max-width: $mobile) {
+                background: none !important;
+            }
         }
     }
 

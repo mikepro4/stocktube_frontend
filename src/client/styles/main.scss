@@ -22,6 +22,12 @@
 @import "../react/components/nav/mobile_nav.scss";
 @import "../react/components/login_buttons/login_buttons.scss";
 
+// form
+@import "../react/components/form/BladeInput.scss";
+
+// pages
+@import "../react/pages/auth/index.scss";
+
 html {
 	// overflow: hidden;
 	// overflow-y: scroll;
@@ -86,12 +92,18 @@ body {
 // -------------------------
 
 a {
-	color: $blue4;
 	text-decoration: none;
+	font-weight: 400;
+}
 
-	&:hover {
-		color: $blue2;
-		text-decoration: none;
+.theme-light {
+
+	a {
+		color: $cobalt4;
+	}
+
+	a:hover {
+		color: $cobalt5;
 
 		@media only screen and (max-width: $mobile) {
             color: inherit !important;
@@ -99,14 +111,40 @@ a {
 
 	}
 
-	&:active {
-		color: $blue3;
+	a:active {
+		color: $cobalt3;
 
 		@media only screen and (max-width: $mobile) {
             color: inherit !important;
         }
 	}
 }
+
+.theme-dark {
+
+	a {
+		color: $yellow;
+	}
+
+	a:hover {
+		color: $yellow;
+
+		@media only screen and (max-width: $mobile) {
+            color: inherit !important;
+        }
+
+	}
+
+	a:active {
+		color: $yellow;
+
+		@media only screen and (max-width: $mobile) {
+            color: inherit !important;
+        }
+	}
+}
+
+
 
 .app {
 	display: block;

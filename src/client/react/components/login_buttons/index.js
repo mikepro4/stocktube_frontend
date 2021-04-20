@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames"
+import { withRouter, NavLink } from "react-router-dom";
 import { Icon, Button, Classes  } from "@blueprintjs/core";
 
 import Logo from "../logo/index"
@@ -27,6 +28,7 @@ class LoginButtons extends Component {
                             className={"theme-"+ this.props.theme}
                             onClick={() =>  {
                                 this.props.hideMenu()
+                                this.props.history.push("/auth/login")
                                 }
                             }
                         />
@@ -38,6 +40,7 @@ class LoginButtons extends Component {
                             className={"theme-"+ this.props.theme}
                             onClick={() =>  {
                                 this.props.hideMenu()
+                                this.props.history.push("/auth/signup")
                                 }
                             }
                         />
@@ -55,7 +58,7 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
     showMenu,
     hideMenu,
-})(LoginButtons);
+})(LoginButtons));
