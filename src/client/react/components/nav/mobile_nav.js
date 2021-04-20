@@ -3,19 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames"
 
-import {
-    toggleTheme
-} from '../../../redux/actions/appActions'
-
-import { Switch } from "@blueprintjs/core";
-
 import NavLinks from "./nav_links"
 
-class Nav extends Component {
+import ThemeSwitch from "../theme_switch"
 
-    handleThemeChange() {
-        this.props.toggleTheme()
-    }
+class Nav extends Component {
 
 	render() {
 
@@ -57,12 +49,7 @@ class Nav extends Component {
                     links={mobileLinks}
                 />
 
-                <Switch 
-                    checked={this.props.theme == "dark"} 
-                    label="Dark Theme" 
-                    onChange={() => this.handleThemeChange()} 
-                />
-
+               <ThemeSwitch />
 
             </div>
         )
@@ -76,5 +63,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-    toggleTheme
 })(Nav);
