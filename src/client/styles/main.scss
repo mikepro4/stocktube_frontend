@@ -13,6 +13,9 @@
 @import "./imports/blueprint_overides";
 @import "./imports/animations";
 
+// components
+@import "../react/components/header/header.scss";
+
 html {
 	// overflow: hidden;
 	// overflow-y: scroll;
@@ -36,6 +39,11 @@ body {
 	left: 0;
 	bottom: 0;
 	overflow-y: scroll;
+
+	&.theme-dark {
+		background: $black;
+		color: $white;
+	}
 }
 
 * {

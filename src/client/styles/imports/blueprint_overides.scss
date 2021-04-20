@@ -1,0 +1,15 @@
+.bp3-button {
+    .bp3-icon {
+        svg {
+            fill: $black
+        }
+    }
+
+    &.theme-dark {
+        .bp3-icon {
+            svg {
+                fill: $white
+            }
+        }
+    }
+}

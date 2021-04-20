@@ -1,6 +1,7 @@
 import {
 	SHOW_APP_MENU,
 	HIDE_APP_MENU,
+	TOGGLE_THEME
 } from "./types";
 
 import moment from "moment";
@@ -54,3 +55,37 @@ export const hideMenu = (success) => async (
 };
 
 /////////////////////////////////////////////////
+
+export const toggleTheme = (theme, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+	if(theme) {
+		dispatch({
+			type: TOGGLE_THEME,
+			payload: theme
+		});
+	} else {
+
+		let newTheme
+			if(getState().app.theme == "light") {
+				newTheme = "dark"
+			} else {
+				newTheme = "light"
+			}
+
+			localStorage.setItem('theme', newTheme);
+			document.body.removeAttribute("class")
+			document.body.classList.add("theme-" + newTheme);
+		dispatch({
+			type: TOGGLE_THEME,
+			payload: newTheme
+		});
+	}
+    
+	if (success) {
+		success();
+	}
+};

@@ -12,7 +12,7 @@ import reducer from "./client/redux/reducers";
 import buildAssets from "../webpack-assets.json";
 
 const PORT = process.env.PORT || 222;
-const BASE_API_URL = process.env.BASE_API_URL || "http://localhost:666";
+const BASE_API_URL = process.env.BASE_API_URL || "http://localhost:5000";
 const HOST = process.env.HOST || `localhost:${PORT}`;
 const PROXY_ROUTE = "/api";
 const PUBLIC_DIR = "public";
