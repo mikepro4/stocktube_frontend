@@ -15,6 +15,7 @@ import { toggleTheme } from "./redux/actions/appActions"
 FocusStyleManager.onlyShowFocusOnTabs();
 
 import Header from "./react/components/header"
+import MobileMenu from "./react/components/mobile_menu"
 
 export let socket
 
@@ -48,6 +49,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className={"app theme-"+ this.props.theme}>
+				{this.props.menuOpen && <MobileMenu/>}
 				<Header />
 				<div className={"app-route-container theme-" + this.props.theme}>
 					{renderRoutes(this.props.route.routes)}
@@ -60,7 +62,8 @@ function mapStateToProps(state) {
 	return {
 		appReducer: state.appReducer,
 		authenticated: state.auth.authenticated,
-		theme: state.app.theme
+		theme: state.app.theme,
+		menuOpen: state.app.menuOpen
 	};
 }
 

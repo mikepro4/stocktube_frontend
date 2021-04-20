@@ -1,6 +1,5 @@
 .app-header{
     z-index: 100;
-    position: sticky;
     width: 100%;
     top: 0px;
     transform: translate3d(0px, 0px, 0px);
@@ -17,17 +16,28 @@
     min-height: 0px;
     min-width: 0px;
     max-width: 100%;
+    position: sticky;
 
+    &.main-header {
+
+        &.theme-light {
+            border-bottom: 1px solid rgba($black, 0.1);
+            background: $white
+        }
+    
+        &.theme-dark {
+            border-bottom: 1px solid rgba($white, 0.1);
+            background: $black
+        }
+    }
     &.theme-light {
-        border-bottom: 1px solid rgba($black, 0.1);
         background: $white
     }
 
     &.theme-dark {
-        border-bottom: 1px solid rgba($white, 0.1);
         background: $black
     }
-
+    
     .app-header-container {
         margin: 0px;
         padding: 0px 16px;

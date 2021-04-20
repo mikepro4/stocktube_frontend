@@ -1,4 +1,6 @@
 .bp3-button {
+    transition: all 0.2s;
+
     .bp3-icon {
         svg {
             fill: $black
@@ -10,6 +12,18 @@
             svg {
                 fill: $white
             }
+        }
+    }
+
+    &:active, &:hover {
+        @media only screen and (max-width: $mobile) {
+            background: none !important;
+        }
+    }
+
+    &:active {
+        @media only screen and (max-width: $mobile) {
+            transform: scale(0.8);
         }
     }
 }

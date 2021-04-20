@@ -15,6 +15,7 @@
 
 // components
 @import "../react/components/header/header.scss";
+@import "../react/components/mobile_menu/mobile_menu.scss";
 
 html {
 	// overflow: hidden;
@@ -51,6 +52,10 @@ body {
 		opacity: 1;
 		background: $black;
 		color: $white;
+	}
+
+	&.no-scroll {
+		overflow: hidden;
 	}
 }
 

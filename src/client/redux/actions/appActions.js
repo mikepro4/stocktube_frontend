@@ -38,6 +38,7 @@ export const showMenu = (success) => async (
 	if (success) {
 		success();
 	}
+	document.body.classList.add("no-scroll");
 };
 
 export const hideMenu = (success) => async (
@@ -52,6 +53,7 @@ export const hideMenu = (success) => async (
 	if (success) {
 		success();
 	}
+	document.body.classList.remove("no-scroll");
 };
 
 /////////////////////////////////////////////////
