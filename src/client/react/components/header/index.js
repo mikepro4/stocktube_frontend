@@ -28,7 +28,7 @@ class Header extends Component {
                             <Button 
                                 minimal="true"
                                 icon="search"
-                                className={"theme-"+ this.props.theme}
+                                className={"control theme-"+ this.props.theme}
                                 onClick={() =>  {
                                     console.log("search")
                                     }
@@ -40,7 +40,7 @@ class Header extends Component {
                             <Button 
                                 minimal="true"
                                 icon="menu"
-                                className={"theme-"+ this.props.theme}
+                                className={"control theme-"+ this.props.theme}
                                 onClick={() =>  {
                                     this.props.showMenu()
                                     }

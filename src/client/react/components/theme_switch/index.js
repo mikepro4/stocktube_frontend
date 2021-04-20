@@ -20,6 +20,7 @@ class ThemeSwitch extends Component {
             <div className="theme-switch">
                 <Switch 
                     checked={this.props.theme == "dark"} 
+                    className={"theme-" + this.props.theme}
                     label="Dark Theme" 
                     onChange={() => this.handleThemeChange()} 
                 />

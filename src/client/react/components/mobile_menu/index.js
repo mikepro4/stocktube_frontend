@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames"
 import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
+import { Switch } from "@blueprintjs/core";
 
 import Logo from "../logo/index"
 
@@ -12,6 +13,7 @@ import {
 } from '../../../redux/actions/appActions'
 
 import MobileNav from "../nav/mobile_nav"
+import LoginButtons from "../login_buttons"
 
 class Header extends Component {
  
@@ -36,7 +38,7 @@ class Header extends Component {
                                 <Button 
                                     minimal="true"
                                     icon="cross"
-                                    className={"theme-"+ this.props.theme}
+                                    className={"control theme-"+ this.props.theme}
                                     onClick={() =>  {
                                         this.props.hideMenu()
                                         }
@@ -46,8 +48,9 @@ class Header extends Component {
                         </ul>
                     </div>
                 </div>
-                <div className="placeholder">
-                    <MobileNav />
+                <MobileNav />
+                <div className={"menu-bottom theme-" + this.props.theme }>
+                    <LoginButtons />
                 </div>
             </div>
 
@@ -57,7 +60,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
 	return {
-        theme: state.app.theme
+        theme: state.app.theme,
+        authenticated: state.auth.authenticated
 	};
 }
 

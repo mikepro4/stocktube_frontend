@@ -1,5 +1,5 @@
 .mobile-menu-container {
-    display: block;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -7,6 +7,7 @@
     bottom: 0;
     z-index: 1000;
     overflow-y: scroll;
+    flex-direction: column;
 
     &.theme-dark {
         background: $black;
@@ -15,4 +16,28 @@
     &.theme-light {
         background: $white;
     }
+
+    .menu-bottom {
+        background: $white;
+        flex-grow: 0;
+        flex-shrink: 0;
+        border-top: $blackLightBorder;
+        padding: 20px 16px;
+
+        &.theme-light {
+            background: $white;
+            border-top: $blackLightBorder;
+        }
+
+        &.theme-dark {
+            background: $black;
+            border-top: $whiteLightBorder;
+        }
+    }
+
+    .nav-container  {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
 }

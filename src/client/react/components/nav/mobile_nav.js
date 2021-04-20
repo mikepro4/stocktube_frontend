@@ -17,10 +17,6 @@ class Nav extends Component {
 				name: "Explore",
 			},
 			{
-			  	url: "/trends",
-				name: "Trends"
-			},
-			{
 			  	url: "/tickers",
 				name: "Tickers",
 			},
@@ -29,8 +25,8 @@ class Nav extends Component {
 				name: "Videos",
 			},
 			{
-			  	url: "/community",
-				name: "Community",
+			  	url: "/colelctions",
+				name: "Collections",
 			},
 			{
 			  	url: "/channels",

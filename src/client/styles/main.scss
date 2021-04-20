@@ -13,10 +13,14 @@
 @import "./imports/blueprint_overides";
 @import "./imports/animations";
 
+@import "./imports/buttons";
+@import "./imports/switch";
+
 // components
 @import "../react/components/header/header.scss";
 @import "../react/components/mobile_menu/mobile_menu.scss";
 @import "../react/components/nav/mobile_nav.scss";
+@import "../react/components/login_buttons/login_buttons.scss";
 
 html {
 	// overflow: hidden;
@@ -114,4 +118,10 @@ a {
 	position: relative;
 	height: 3000px;
 	width: 100%;
+}
+
+.logo {
+	svg {
+		width: 40px
+	}
 }

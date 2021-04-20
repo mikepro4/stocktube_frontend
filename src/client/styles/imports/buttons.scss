@@ -1,0 +1,67 @@
+.bp3-button {
+    width: 100%;
+    border-radius: 100px;
+    font-family: "A";
+    font-weight: 600;
+    font-size: 15px;
+
+    &:not([class*="bp3-intent-"]) {
+        border: none;
+        box-shadow: none;
+        padding: 13px 10px;
+
+        .bp3-button-text {
+            position: relative;
+            top: -2px;
+            letter-spacing: 0.5px;
+        }
+
+        &:not([class*="control"]) {
+            &.theme-light {
+                background: $cobalt4;
+                color: $white;
+    
+                &.bp3-minimal {
+                    background: rgba($cobalt4, 0.15);
+                    color: $cobalt4;
+                }
+            }
+
+            &.theme-dark {
+                background: $yellow;
+                color: $black;
+    
+                &.bp3-minimal {
+                    background: $white;
+                    color: $black;
+                }
+            }
+        }
+    }
+
+    .bp3-icon {
+        svg {
+            fill: $black
+        }
+    }
+
+    &.theme-dark {
+        .bp3-icon {
+            svg {
+                fill: $white
+            }
+        }
+    }
+
+    &:active, &:hover {
+        @media only screen and (max-width: $mobile) {
+            background: none !important;
+        }
+    }
+
+    &:active {
+        @media only screen and (max-width: $mobile) {
+            // transform: scale(0.8);
+        }
+    }
+}
