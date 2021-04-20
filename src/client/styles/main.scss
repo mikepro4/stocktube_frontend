@@ -1,0 +1,86 @@
+// reset
+@import "./imports/reset";
+
+// blueprint
+@import "../../../node_modules/@blueprintjs/core/lib/css/blueprint.css";
+@import "../../../node_modules/@blueprintjs/core/lib/scss/variables.scss";
+
+// imports
+@import "./imports/colors";
+@import "./imports/fonts";
+@import "./imports/variables";
+@import "./imports/links";
+@import "./imports/blueprint_overides";
+@import "./imports/animations";
+
+html {
+	// overflow: hidden;
+	// overflow-y: scroll;
+	touch-action: manipulation;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: $white;
+	font-family: "A", sans-serif;
+	font-weight: 400;
+	-webkit-font-smoothing: subpixel-antialiased;
+	// -webkit-overflow-scrolling: touch;
+	width: 100%;
+	height: 100%;
+	color: $black;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow-y: scroll;
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-overflow-scrolling: touch;
+}
+
+// Selection
+// -------------------------
+
+::selection {
+  background: yellow;
+  color: $black;
+}
+
+::-moz-selection {
+  background: yellow;
+  color: $black;
+}
+
+// Links
+// -------------------------
+
+a {
+	color: $blue4;
+	text-decoration: none;
+
+	&:hover {
+		color: $blue2;
+		text-decoration: none;
+	}
+
+	&:active {
+		color: $blue3;
+	}
+}
+
+.app {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	overflow: hidden;
+	display: flex;
+}
