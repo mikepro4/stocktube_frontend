@@ -34,6 +34,9 @@ class App extends Component {
 		if (theme) {
 			this.props.toggleTheme(theme)
 			document.body.classList.add("theme-" + theme);
+		} else {
+			this.props.toggleTheme("light")
+			document.body.classList.add("theme-light");
 		}
 	}
 

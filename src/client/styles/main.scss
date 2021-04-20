@@ -38,9 +38,17 @@ body {
 	right: 0;
 	left: 0;
 	bottom: 0;
-	overflow-y: scroll;
+	overflow-y: auto;
+	overflow-x: hidden;
+	opacity: 0;
+	transition: opacity 1s;
+
+	&.theme-light {
+		opacity: 1;
+	}
 
 	&.theme-dark {
+		opacity: 1;
 		background: $black;
 		color: $white;
 	}
@@ -83,12 +91,12 @@ a {
 
 .app {
 	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 1;
-	overflow: hidden;
-	display: flex;
+	position: relative;
+}
+
+.placeholder {
+	display: block;
+	position: relative;
+	height: 3000px;
+	width: 100%;
 }

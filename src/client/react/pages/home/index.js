@@ -23,7 +23,7 @@ class HomePage extends Component {
 		return (
      		<div>
                  {this.renderHead()}
-				Home
+				<div className="placeholder">Home</div>
 			</div>
 		);
 	}
