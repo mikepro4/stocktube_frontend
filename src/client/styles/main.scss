@@ -16,6 +16,7 @@
 // components
 @import "../react/components/header/header.scss";
 @import "../react/components/mobile_menu/mobile_menu.scss";
+@import "../react/components/nav/mobile_nav.scss";
 
 html {
 	// overflow: hidden;
@@ -87,10 +88,19 @@ a {
 	&:hover {
 		color: $blue2;
 		text-decoration: none;
+
+		@media only screen and (max-width: $mobile) {
+            color: inherit !important;
+        }
+
 	}
 
 	&:active {
 		color: $blue3;
+
+		@media only screen and (max-width: $mobile) {
+            color: inherit !important;
+        }
 	}
 }
 

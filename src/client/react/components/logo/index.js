@@ -8,7 +8,6 @@ import LogoLight from "../logo/light"
 class Logo extends Component {
 
 	render() {
-
 		return (
             <div>
                 {this.props.theme == "light" ? <LogoLight/> : <LogoDark/>}

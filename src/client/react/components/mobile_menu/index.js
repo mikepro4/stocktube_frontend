@@ -11,15 +11,23 @@ import {
     hideMenu
 } from '../../../redux/actions/appActions'
 
-class Header extends Component {
+import MobileNav from "../nav/mobile_nav"
 
+class Header extends Component {
+ 
 	render() {
 
 		return (
             <div className={"mobile-menu-container theme-" + this.props.theme}>
                 <div className={"app-header theme-" + this.props.theme}>
                     <div className={"app-header-container theme-" + this.props.theme}>
-                        <div className={"app-header-logo theme-" + this.props.theme}>
+                        <div 
+                            className={"app-header-logo theme-" + this.props.theme}
+                            onClick={() =>  {
+                                this.props.hideMenu()
+                                }
+                            }
+                        >
                             <Logo/>
                         </div>
 
@@ -39,7 +47,7 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className="placeholder">
-                    mobile menu content
+                    <MobileNav />
                 </div>
             </div>
 
