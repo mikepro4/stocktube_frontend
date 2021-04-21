@@ -20,10 +20,10 @@ class LoginForm extends Component {
 
 						<div className="transition-element">
 			        <Field
-			          name="login"
+			          name="email"
 			          component={Input}
-			          placeholder="Username or email"
-			          ref="login"
+			          placeholder="Email address"
+			          ref="email"
 			        />
 						</div>
 

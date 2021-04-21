@@ -4,8 +4,9 @@ import { Helmet } from "react-helmet";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import qs from "qs";
-import { Button } from "@blueprintjs/core";
+import { Button, Position, Toaster, Intent } from "@blueprintjs/core";
 
+import { signinUser, authError } from '../../../../redux/actions/authActions'
 import LoginForm from './login_form'
 
 class Login extends Component {
@@ -20,20 +21,40 @@ class Login extends Component {
 		</Helmet>
 	);
 
-	handleSubmit = values => {
-		console.log(values);
+	componentDidMount() {
+        this.props.authError(null)
+    }
 
-		// Fake loading
+    handleFormSubmit({ email, password }) {
+        this.props.signinUser({ 
+            email, 
+            password,
+            history: this.props.history
+		})
 		this.setState({
 			loading: true
 		})
+    }
 
-		setTimeout(() => {
-			this.setState({
-				loading: false
-			})
-		}, 2000)
-	}
+    componentDidUpdate() {
+        if(this.props.error) {
+			if(this.state.loading) {
+				this.showFailToast(this.props.error)
+				this.setState({
+					loading: false
+				})
+			}
+        }
+    }
+
+    showFailToast = (message, id) => {
+		this.refs.toaster.show({
+			message: message,
+			intent: Intent.DANGER,
+			iconName: "cross"
+		});
+		
+	};
 
 	render() {
 		return (
@@ -41,7 +62,7 @@ class Login extends Component {
 				<LoginForm
 					enableReinitialize="true"
 					loading={this.state.loading}
-                    onSubmit={this.handleSubmit.bind(this)}
+                    onSubmit={this.handleFormSubmit.bind(this)}
                     theme={this.props.theme}
 				/>
 
@@ -49,6 +70,8 @@ class Login extends Component {
 					<span className="auth-footer-link-label">Need an account?</span>
 					<Link to="/auth/signup"><Button minimal="true" className={"small-button theme-" + this.props.theme}>Sign up</Button></Link>
 				</div>
+
+				<Toaster position={Position.TOP_CENTER} ref="toaster" />
 			</div>
 		);
 	}
@@ -58,10 +81,13 @@ class Login extends Component {
 function mapStateToProps(state) {
 	return {
         router: state.router,
-        theme: state.app.theme
+        theme: state.app.theme,
+		error: state.auth.error
 	};
 }
 
 export default {
-	component: connect(mapStateToProps, {})(Login)
+	component: connect(mapStateToProps, {
+		signinUser, authError
+	})(Login)
 }

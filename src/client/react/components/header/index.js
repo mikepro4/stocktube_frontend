@@ -5,6 +5,7 @@ import classNames from "classnames"
 import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
 
 import Logo from "../logo/index"
+import * as _ from "lodash"
 
 import {
     showMenu,
@@ -15,7 +16,7 @@ class Header extends Component {
 
 	render() {
 
-		return (
+        return (
             <div className={"app-header main-header theme-" + this.props.theme}>
                 <div className={"app-header-container theme-" + this.props.theme}>
                     <div className={"app-header-logo theme-" + this.props.theme}>
@@ -23,6 +24,12 @@ class Header extends Component {
                     </div>
 
                     <ul className="app-actions">
+
+                        {this.props.user && (
+                            <div className="avatar-container">
+                                <img src={this.props.user.avatar}/>
+                            </div>
+                        )}
                     
                         <li className="action-search">
                             <Button 
@@ -52,12 +59,14 @@ class Header extends Component {
             </div>
 
         )
+		
 	}
 }
 
 function mapStateToProps(state) {
 	return {
-        theme: state.app.theme
+        theme: state.app.theme,
+        user: state.app.user
 	};
 }
 

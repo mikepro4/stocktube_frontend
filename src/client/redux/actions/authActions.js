@@ -136,13 +136,17 @@ export const signoutUser = (success) => async (
 /////////////////////////////////////////////////
 
 
-export const fetchCurrentUser = () => async (dispatch, getState, api) => {
+export const fetchCurrentUser = (success) => async (dispatch, getState, api) => {
 	const res = await api.get("user_details");
 
 	dispatch({
 		type: FETCH_AUTH,
 		payload: res.data
-	})
+    })
+    
+    if(res.data && success) {
+        success()
+    }
 }
 
 /////////////////////////////////////////////////

@@ -8,6 +8,33 @@ import moment from "moment";
 import * as _ from "lodash";
 import qs from "qs";
 
+import { fetchCurrentUser } from "./authActions"
+
+/////////////////////////////////////////////////
+
+export const assignAvatar = ({success }) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    api
+        .post("/assign_avatar", {})
+		.then(response => {
+			console.log(response.data)
+			setTimeout(() => {
+				dispatch(fetchCurrentUser())
+			}, 100)
+			if (success) {
+				success(response.data);
+				
+            }
+		})
+		.catch(() => {
+			console.log("error")
+        });
+}
+
 /////////////////////////////////////////////////
 
 export const updateQueryString = (
@@ -24,6 +51,8 @@ export const updateQueryString = (
 };
 
 /////////////////////////////////////////////////
+
+
 
 
 export const showMenu = (success) => async (
