@@ -1,0 +1,20 @@
+.avatar-container {
+    width: 36px;
+    height: 36px;
+    border: 1px solid $light-gray2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 36px;
+    margin: 3px 0 0 0;
+    overflow: hidden;
+
+    &.default {
+        img {
+            width: 16px;
+            height: 16px;
+            position: relative;
+            top: 1px;
+        }
+    }
+}

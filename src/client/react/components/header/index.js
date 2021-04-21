@@ -12,6 +12,8 @@ import {
     hideMenu
 } from '../../../redux/actions/appActions'
 
+import Avatar from "../avatar/index"
+
 class Header extends Component {
 
 	render() {
@@ -25,11 +27,7 @@ class Header extends Component {
 
                     <ul className="app-actions">
 
-                        {this.props.user && (
-                            <div className="avatar-container">
-                                <img src={this.props.user.avatar}/>
-                            </div>
-                        )}
+                       
                     
                         <li className="action-search">
                             <Button 
@@ -54,6 +52,10 @@ class Header extends Component {
                                 }
                             />
                         </li>
+
+                        {this.props.user && this.props.authenticated && (
+                            <li className="action-user"><Avatar avatarUrl={this.props.user.avatar}/></li>
+                        )}
                     </ul>
                 </div>
             </div>
@@ -66,7 +68,8 @@ class Header extends Component {
 function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
-        user: state.app.user
+        user: state.app.user,
+        authenticated: state.auth.authenticated
 	};
 }
 
