@@ -49,22 +49,10 @@ class Header extends Component {
                     </div>
                 </div>
                 <MobileNav />
-                <div className={"menu-bottom theme-" + this.props.theme }>
-                     {this.props.authenticated ? (
-                         <div>
-                            <Button 
-                                text="Logout"
-                                minimal="true"
-                                className={"theme-"+ this.props.theme}
-                                onClick={() =>  {
-                                    this.props.hideMenu()
-                                    this.props.history.push("/auth/logout")
-                                    }
-                                }
-                        />
-                         </div>
-                     ) :  <LoginButtons />}
-                </div>
+                {this.props.authenticated ? (
+                    <div />
+                ) :  <div className={"menu-bottom theme-" + this.props.theme }><LoginButtons /></div>}
+                
             </div>
 
         )

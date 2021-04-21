@@ -42,5 +42,75 @@
 }
 
 .user-drawer {
-    padding: 30px;
+    padding: 20px;
+
+    .user-details-header {
+        display: flex;
+        width: 100%;
+        position: relative;
+
+        .avatar-container {
+            flex-grow: 0;
+            flex-shrink: 0;
+            margin: 0 15px 15px 0 ;
+        }
+
+        .user-details {
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            .username {
+                margin: 2px 0 1px 0;
+                font-size: 20px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
+
+            .email {
+                color: $gray1;
+                font-size: 12px;
+                letter-spacing: 0.34px;
+            }
+        }
+
+        .bp3-button {
+            position: absolute;
+            top: -9px;
+            right: -2px;
+            width: 30px;
+        }
+
+    }
+
+    ul.drawer-nav-items {
+        width: 100%;
+        li {
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            margin: 5px 0;
+
+            a {
+                color: $black;
+                font-weight: 400;
+                width: 100%;
+                padding: 10px 0 10px 0px;
+                display: block;
+            }
+
+            .bp3-icon {
+                margin: 0 15px 0 0;
+                svg path {
+                    fill: $gray1
+                }
+            }
+        }
+    }
+
+    .drawer-footer {
+        margin: 25px 0 5px 0 ;
+
+        a {
+            color: $gray2
+        }
+    }
 }

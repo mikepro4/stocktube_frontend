@@ -18,7 +18,7 @@ export const initialState = {
 	theme: "light",
 	menuOpen: false,
 	usernameOpen: false,
-	drawerOpen: false
+	drawerOpen: true
 };
 
 export const appReducer = (state = initialState, action) => {

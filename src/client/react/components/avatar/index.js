@@ -13,12 +13,13 @@ class Avatar extends Component {
             <div 
                 className={classNames({
                     "avatar-container": true,
-                    "default": this.props.user.avatarDefault,
+                    "default": this.props.user && this.props.user.avatarDefault,
                     "small": this.props.small,
+                    "medium": this.props.medium,
                     "big": this.props.big
                 })}
             >
-                <img src={this.props.user.avatar}/>
+                <img src={this.props.user && this.props.user.avatar}/>
             </div>
         )
 		

@@ -18,10 +18,19 @@ class Drawer extends Component {
         hide: false
     }
 
+    hideDrawer() {
+        this.setState({
+            hide: true
+        })
+        setTimeout(() => {
+            this.props.hideDrawer()
+        }, 300)
+    }
+
     renderDrawer(type) {
         switch (type) {
             case "user":
-                return (<UserDrawer/>)
+                return (<UserDrawer hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }
@@ -36,12 +45,7 @@ class Drawer extends Component {
                         "hide": this.state.hide
                     })}
                     onClick={() =>  {
-                            this.setState({
-                                hide: true
-                            })
-                            setTimeout(() => {
-                                this.props.hideDrawer()
-                            }, 300)
+                           this.hideDrawer()
                         }
                     }
                 >
