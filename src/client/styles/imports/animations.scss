@@ -117,3 +117,69 @@ $animation_easing: cubic-bezier(0.02, 0.41, 0.42, 0.8);
     animation: slideBottom 0.4s ease-out forwards;
 }
 
+
+// --------------------------------------------------
+
+@keyframes slideDrawer {
+  0% {
+    transform: translateY(150%) ;
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animation-slideDrawer {
+  animation: slideDrawer 0.3s cubic-bezier(.13,.9,.38,1) forwards;
+}
+
+@keyframes hideDrawer {
+  0% {
+    transform: translateY(0) ;
+  }
+
+  100% {
+    transform: translateY(150%);
+  }
+}
+
+.animation-hideDrawer {
+  animation: hideDrawer 0.3s cubic-bezier(.13,.9,.38,1) forwards;
+}
+
+// --------------------------------------------------
+
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+.animation-fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.2s linear forwards;
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+
+  to {
+      opacity: 0;
+  }
+}
+
+.animation-fadeOut {
+  opacity: 0;
+  animation: fadeOut 0.2s linear forwards;
+}
+
+
+

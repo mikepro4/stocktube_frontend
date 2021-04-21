@@ -3,7 +3,9 @@ import {
 	HIDE_APP_MENU,
 	TOGGLE_THEME,
 	SHOW_USERNAME,
-	HIDE_USERNAME
+	HIDE_USERNAME,
+	SHOW_DRAWER,
+	HIDE_DRAWER
 } from "./types";
 
 import moment from "moment";
@@ -13,6 +15,37 @@ import axios from "axios";
 
 import { fetchCurrentUser } from "./authActions"
 
+/////////////////////////////////////////////////
+
+export const showDrawer = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SHOW_DRAWER,
+    });
+
+	if (success) {
+		success();
+	}
+	document.body.classList.add("no-scroll");
+};
+
+export const hideDrawer = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: HIDE_DRAWER ,
+    });
+
+	if (success) {
+		success();
+	}
+	document.body.classList.remove("no-scroll");
+};
 
 /////////////////////////////////////////////////
 

@@ -22,6 +22,7 @@ FocusStyleManager.onlyShowFocusOnTabs();
 import Header from "./react/components/header"
 import MobileMenu from "./react/components/mobile_menu"
 import Username from "./react/components/username"
+import Drawer from "./react/components/drawer"
 
 import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
 
@@ -95,6 +96,7 @@ class App extends Component {
 				<div className={"app theme-"+ this.props.theme}>
 					{this.props.menuOpen && <MobileMenu/>}
 					{this.props.usernameOpen && <Username />}
+					{this.props.drawerOpen && <Drawer type="user" />}
 					<Header />
 					<div className={"app-route-container theme-" + this.props.theme}>
 						{renderRoutes(this.props.route.routes)}
@@ -116,6 +118,7 @@ function mapStateToProps(state) {
 		theme: state.app.theme,
 		menuOpen: state.app.menuOpen,
 		usernameOpen: state.app.usernameOpen,
+		drawerOpen: state.app.drawerOpen,
 		user: state.app.user
 	};
 }

@@ -24,6 +24,9 @@ export const HIDE_APP_MENU = "app/HIDE_APP_MENU"
 export const SHOW_USERNAME = "app/SHOW_USERNAME"
 export const HIDE_USERNAME = "app/HIDE_USERNAME"
 
+export const SHOW_DRAWER = "app/SHOW_DRAWER"
+export const HIDE_DRAWER = "app/HIDE_DRAWER"
+
 export const TOGGLE_THEME = "app/TOGGLE_THEME"
 
 // =============================================================================

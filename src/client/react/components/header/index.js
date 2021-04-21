@@ -9,7 +9,8 @@ import * as _ from "lodash"
 
 import {
     showMenu,
-    hideMenu
+    hideMenu,
+    showDrawer
 } from '../../../redux/actions/appActions'
 
 import Avatar from "../avatar/index"
@@ -54,7 +55,16 @@ class Header extends Component {
                         </li>
 
                         {this.props.user && this.props.authenticated && (
-                            <li className="action-user"><Avatar small={true} /></li>
+                            <li 
+                                className="action-user"
+                                onClick={() => {
+                                    this.props.showDrawer()
+                                }}
+                            >
+                                <Avatar 
+                                    small={true} 
+                                />
+                            </li>
                         )}
                     </ul>
                 </div>
@@ -76,4 +86,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     showMenu,
     hideMenu,
+    showDrawer
 })(Header);

@@ -8,14 +8,17 @@ import {
 	HIDE_APP_MENU,
 	TOGGLE_THEME,
 	SHOW_USERNAME,
-	HIDE_USERNAME
+	HIDE_USERNAME,
+	SHOW_DRAWER,
+	HIDE_DRAWER
 } from "../actions/types";
 
 export const initialState = {
 	user: null,
-	menuOpen: false,
 	theme: "light",
-	usernameOpen: false
+	menuOpen: false,
+	usernameOpen: false,
+	drawerOpen: false
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -54,6 +57,16 @@ export const appReducer = (state = initialState, action) => {
 			return {
 				...state,
 				usernameOpen: false
+			}
+		case SHOW_DRAWER:
+			return {
+				...state,
+				drawerOpen: true
+			}
+		case HIDE_DRAWER:
+			return {
+				...state,
+				drawerOpen: false
 			}
 		default:
 			return state;
