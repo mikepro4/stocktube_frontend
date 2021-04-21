@@ -1,0 +1,47 @@
+.username-content {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 20px 15px;
+    flex-direction: column;
+
+    .avatar-container {
+        margin: 0 auto;
+    }
+
+    .username-title {
+        font-size: 25px;
+        font-weight: 600;
+        margin: 20px 0 5px 0;
+    }
+
+    .username-subtitle {
+        font-size: 12px;
+        margin: 0 0 20px 0;
+    }
+
+    &.theme-light {
+        .username-title {
+            color: $black;
+        }
+
+        .username-subtitle {
+            color: $gray4
+        }
+    }
+
+    &.theme-dark {
+        .username-title {
+            color: $white;
+        }
+
+        .username-subtitle {
+            color: rgba($white, 0.5)
+        }
+    }
+
+    .submit-button {
+        width: 150px;
+        margin: 25px auto;
+    }
+}

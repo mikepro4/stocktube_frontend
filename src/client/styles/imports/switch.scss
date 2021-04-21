@@ -23,15 +23,15 @@
         }
         
         &.bp3-switch input:checked ~ .bp3-control-indicator {
-            background: yellow;
+            background: $yellow;
         }
         
         &.bp3-switch:hover input:checked ~ .bp3-control-indicator {
-            background: yellow;
+            background: $yellow;
         }
         
         &.bp3-switch:active input:checked ~ .bp3-control-indicator {
-            background: yellow !important;
+            background: $yellow !important;
         }
         
         &.bp3-switch .bp3-control-indicator::before {

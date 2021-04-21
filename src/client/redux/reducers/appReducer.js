@@ -6,13 +6,16 @@ import {
 	AUTH_CLEAR,
 	SHOW_APP_MENU,
 	HIDE_APP_MENU,
-	TOGGLE_THEME
+	TOGGLE_THEME,
+	SHOW_USERNAME,
+	HIDE_USERNAME
 } from "../actions/types";
 
 export const initialState = {
 	user: null,
 	menuOpen: false,
-	theme: "light"
+	theme: "light",
+	usernameOpen: false
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -41,6 +44,16 @@ export const appReducer = (state = initialState, action) => {
 			return {
 				...state,
 				theme: action.payload
+			}
+		case SHOW_USERNAME:
+			return {
+				...state,
+				usernameOpen: true
+			}
+		case HIDE_USERNAME:
+			return {
+				...state,
+				usernameOpen: false
 			}
 		default:
 			return state;

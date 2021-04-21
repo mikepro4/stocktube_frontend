@@ -10,8 +10,15 @@ class Avatar extends Component {
 
 	render() {
         return (
-            <div className="avatar-container default">
-                <img src={this.props.avatarUrl}/>
+            <div 
+                className={classNames({
+                    "avatar-container": true,
+                    "default": this.props.user.avatarDefault,
+                    "small": this.props.small,
+                    "big": this.props.big
+                })}
+            >
+                <img src={this.props.user.avatar}/>
             </div>
         )
 		

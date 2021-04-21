@@ -54,7 +54,7 @@ class Input extends Component {
 
         {!this.props.meta.touched || this.props.meta.valid ? (
           <div className={placeholderSmallClassName}>
-            {this.props.placeholder}
+            {this.props.title ? this.props.title : this.props.placeholder}
           </div>) : ""
         }
 

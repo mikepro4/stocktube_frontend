@@ -21,6 +21,9 @@ export const AUTH_CLEAR = "app/AUTH_CLEAR"
 export const SHOW_APP_MENU = "app/SHOW_APP_MENU"
 export const HIDE_APP_MENU = "app/HIDE_APP_MENU"
 
+export const SHOW_USERNAME = "app/SHOW_USERNAME"
+export const HIDE_USERNAME = "app/HIDE_USERNAME"
+
 export const TOGGLE_THEME = "app/TOGGLE_THEME"
 
 // =============================================================================

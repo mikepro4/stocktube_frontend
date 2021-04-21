@@ -54,7 +54,7 @@ class Header extends Component {
                         </li>
 
                         {this.props.user && this.props.authenticated && (
-                            <li className="action-user"><Avatar avatarUrl={this.props.user.avatar}/></li>
+                            <li className="action-user"><Avatar small={true} /></li>
                         )}
                     </ul>
                 </div>

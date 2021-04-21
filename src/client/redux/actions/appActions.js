@@ -1,14 +1,93 @@
 import {
 	SHOW_APP_MENU,
 	HIDE_APP_MENU,
-	TOGGLE_THEME
+	TOGGLE_THEME,
+	SHOW_USERNAME,
+	HIDE_USERNAME
 } from "./types";
 
 import moment from "moment";
 import * as _ from "lodash";
 import qs from "qs";
+import axios from "axios";
 
 import { fetchCurrentUser } from "./authActions"
+
+
+/////////////////////////////////////////////////
+
+export const validateUsername = values => {
+	return axios
+		.post("/api/validate_username", {
+			username: values.username
+		})
+		.then(response => {
+			if (response.status === 200) {
+			}
+		})
+		.catch(error => {
+			throw { username: "Already Exists" };
+		});
+};
+
+/////////////////////////////////////////////////
+
+export const updateUsername = (username, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    api
+        .post("/update_username", {
+			username: username
+		})
+		.then(response => {
+				dispatch(fetchCurrentUser())
+				dispatch(hideUsername())
+			if (success) {
+				success(response.data);
+				
+            }
+		})
+		.catch(() => {
+			console.log("error")
+        });
+}
+
+/////////////////////////////////////////////////
+
+export const showUsername = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: SHOW_USERNAME,
+    });
+
+	if (success) {
+		success();
+	}
+	document.body.classList.add("no-scroll");
+};
+
+export const hideUsername = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: HIDE_USERNAME ,
+    });
+
+	if (success) {
+		success();
+	}
+	document.body.classList.remove("no-scroll");
+};
+
+
 
 /////////////////////////////////////////////////
 
@@ -21,7 +100,6 @@ export const assignAvatar = ({success }) => async (
     api
         .post("/assign_avatar", {})
 		.then(response => {
-			console.log(response.data)
 			setTimeout(() => {
 				dispatch(fetchCurrentUser())
 			}, 100)
@@ -51,9 +129,6 @@ export const updateQueryString = (
 };
 
 /////////////////////////////////////////////////
-
-
-
 
 export const showMenu = (success) => async (
     dispatch,

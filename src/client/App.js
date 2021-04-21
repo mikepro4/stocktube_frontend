@@ -10,12 +10,18 @@ import { FocusStyleManager } from "@blueprintjs/core";
 
 import { io } from "./socket"
 
-import { toggleTheme, assignAvatar } from "./redux/actions/appActions"
+import { 
+	toggleTheme, 
+	assignAvatar,
+	showUsername,
+	hideUsername
+} from "./redux/actions/appActions"
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
 import Header from "./react/components/header"
 import MobileMenu from "./react/components/mobile_menu"
+import Username from "./react/components/username"
 
 import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
 
@@ -25,31 +31,11 @@ class App extends Component {
 	state = {
 		appVisible: false
 	}
+
 	componentDidMount() {
         let socket = io()
 
-		// socket.on('tickerUpdate',(data)=> { 
-		// 	this.props.updateTickersSearchResults(data)
-		// })
-
-		// socket.on('videoUpdate',(data)=>{ 
-		// 	this.props.updateVideosSearchResults(data)
-		// })
 		this.auth()
-
-		const token = localStorage.getItem('token');
-		if (token) {
-			this.props.authUser()
-			this.props.fetchCurrentUser(() => {
-				this.setState({
-					appVisible: true
-				})
-			})
-		} else {
-			this.setState({
-				appVisible: true
-			})
-		}
 
 		const theme = localStorage.getItem('theme');
 		if (theme) {
@@ -66,14 +52,8 @@ class App extends Component {
 			if(this.props.user && !this.props.user.avatar) {
 				
 				this.props.assignAvatar(() => {
-					this.props.fetchCurrentUser(() => {
-						this.setState({
-							appVisible: true
-						})
-						// location.reload();
-					})
+					this.loadUser()
 				})
-				console.log("create avatar")
 			}
 		}
 	}
@@ -82,16 +62,26 @@ class App extends Component {
 		const token = localStorage.getItem('token');
 		if (token) {
 			this.props.authUser()
-			this.props.fetchCurrentUser(() => {
-				this.setState({
-					appVisible: true
-				})
-			})
+			this.loadUser()
 		} else {
 			this.setState({
 				appVisible: true
 			})
 		}
+	}
+
+	loadUser() {
+		this.props.fetchCurrentUser(() => {
+			this.setState({
+				appVisible: true
+			})
+
+			if(this.props.user && !this.props.user.username) {
+				this.props.showUsername()
+			} else {
+				this.props.hideUsername()
+			}
+		})
 	}
 
 	@keydown("ctrl + t")
@@ -104,6 +94,7 @@ class App extends Component {
 			return (
 				<div className={"app theme-"+ this.props.theme}>
 					{this.props.menuOpen && <MobileMenu/>}
+					{this.props.usernameOpen && <Username />}
 					<Header />
 					<div className={"app-route-container theme-" + this.props.theme}>
 						{renderRoutes(this.props.route.routes)}
@@ -124,6 +115,7 @@ function mapStateToProps(state) {
 		authenticated: state.auth.authenticated,
 		theme: state.app.theme,
 		menuOpen: state.app.menuOpen,
+		usernameOpen: state.app.usernameOpen,
 		user: state.app.user
 	};
 }
@@ -134,6 +126,8 @@ export default {
 		authUser, 
 		fetchCurrentUser, 
 		clearCurrentUser,
-		assignAvatar
+		assignAvatar,
+		showUsername,
+		hideUsername
 	})(App)
 };
