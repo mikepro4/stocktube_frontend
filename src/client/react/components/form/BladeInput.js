@@ -28,7 +28,7 @@ class Input extends Component {
       "input-touched": this.props.meta.touched,
       "input-valid": this.props.meta.touched && !this.props.meta.error,
       "input-invalid":this.props.meta.touched && this.props.meta.error,
-      "input-focused": this.state.inputFocused
+      "input-focused": this.props.meta.active
     });
 
     let inputClassName = classnames({
@@ -74,8 +74,8 @@ class Input extends Component {
           {...this.props.input}
           className={inputClassName}
           type={this.props.type}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
+          // onFocus={this.onFocus}
+          // onBlur={this.onBlur}
           autoComplete="new-password"
         />
 

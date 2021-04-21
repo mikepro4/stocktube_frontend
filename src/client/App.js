@@ -17,6 +17,8 @@ FocusStyleManager.onlyShowFocusOnTabs();
 import Header from "./react/components/header"
 import MobileMenu from "./react/components/mobile_menu"
 
+import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
+
 export let socket
 
 class App extends Component {
@@ -30,6 +32,12 @@ class App extends Component {
 		// socket.on('videoUpdate',(data)=>{ 
 		// 	this.props.updateVideosSearchResults(data)
 		// })
+
+		const token = localStorage.getItem('token');
+		if (token) {
+			this.props.authUser()
+			this.props.fetchCurrentUser()
+		}
 
 		const theme = localStorage.getItem('theme');
 		if (theme) {
@@ -69,6 +77,9 @@ function mapStateToProps(state) {
 
 export default {
 	component: connect(mapStateToProps, {
-		toggleTheme
+		toggleTheme,
+		authUser, 
+		fetchCurrentUser, 
+		clearCurrentUser
 	})(App)
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import {  withRouter, NavLink, Link } from "react-router-dom";
 import classNames from "classnames"
 import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
 import { Switch } from "@blueprintjs/core";
@@ -50,7 +50,20 @@ class Header extends Component {
                 </div>
                 <MobileNav />
                 <div className={"menu-bottom theme-" + this.props.theme }>
-                    <LoginButtons />
+                     {this.props.authenticated ? (
+                         <div>
+                            <Button 
+                                text="Logout"
+                                minimal="true"
+                                className={"theme-"+ this.props.theme}
+                                onClick={() =>  {
+                                    this.props.hideMenu()
+                                    this.props.history.push("/auth/logout")
+                                    }
+                                }
+                        />
+                         </div>
+                     ) :  <LoginButtons />}
                 </div>
             </div>
 
@@ -65,7 +78,7 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
     showMenu,
     hideMenu,
-})(Header);
+})(Header));
