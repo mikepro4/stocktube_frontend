@@ -40,7 +40,7 @@ export const profileReducer = function(state = initialState, action) {
                 connection: action.payload,
             };
         case CLEAR_PROFILE:
-            return state;
+            return initialState;
         default:
             return state;
     }
