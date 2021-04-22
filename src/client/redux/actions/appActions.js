@@ -9,7 +9,7 @@ import {
 	UPDATE_TOTAL_PIXELS,
 	UPDATE_TOTAL_SCROLLED_PIXELS,
 	SCROLL_TO,
-	SCROLL_TO_RESET
+	SCROLL_TO_RESET,
 } from "./types";
 
 import moment from "moment";
@@ -21,13 +21,14 @@ import { fetchCurrentUser } from "./authActions"
 
 /////////////////////////////////////////////////
 
-export const showDrawer = (success) => async (
+export const showDrawer = (type, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
     dispatch({
-        type: SHOW_DRAWER,
+		type: SHOW_DRAWER,
+		payload: type
     });
 
 	if (success) {
@@ -42,7 +43,7 @@ export const hideDrawer = (success) => async (
 	api
 ) => {
     dispatch({
-        type: HIDE_DRAWER ,
+        type: HIDE_DRAWER
     });
 
 	if (success) {

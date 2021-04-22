@@ -58,7 +58,7 @@ class Header extends Component {
                             <li 
                                 className="action-user"
                                 onClick={() => {
-                                    this.props.showDrawer()
+                                    this.props.showDrawer("user")
                                 }}
                             >
                                 <Avatar 

@@ -11,6 +11,7 @@ import {
 } from '../../../redux/actions/appActions'
 
 import UserDrawer from "./type/user_drawer"
+import CoverSelect from "./type/cover_select"
 
 class Drawer extends Component {
 
@@ -31,6 +32,8 @@ class Drawer extends Component {
         switch (type) {
             case "user":
                 return (<UserDrawer hideDrawer={() => this.hideDrawer()}/>)
+            case "cover-select":
+                return (<CoverSelect hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }

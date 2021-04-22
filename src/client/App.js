@@ -14,7 +14,7 @@ import {
 	toggleTheme, 
 	assignAvatar,
 	showUsername,
-	hideUsername
+	hideUsername,
 } from "./redux/actions/appActions"
 
 FocusStyleManager.onlyShowFocusOnTabs();
@@ -96,7 +96,7 @@ class App extends Component {
 			<div className={"app theme-"+ this.props.theme}>
 				{this.props.menuOpen && <MobileMenu/>}
 				{this.props.usernameOpen && <Username />}
-				{this.props.drawerOpen && <Drawer type="user" />}
+				{this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
 				<Header />
 				<div className={"app-route-container theme-" + this.props.theme}>
 					{renderRoutes(this.props.route.routes)}
@@ -114,6 +114,8 @@ function mapStateToProps(state) {
 		menuOpen: state.app.menuOpen,
 		usernameOpen: state.app.usernameOpen,
 		drawerOpen: state.app.drawerOpen,
+		drawerType: state.app.drawerType,
+		coverSelectOpen: state.app.coverSelectOpen,
 		user: state.app.user
 	};
 }

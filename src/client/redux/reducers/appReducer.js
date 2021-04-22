@@ -15,6 +15,8 @@ import {
 	UPDATE_TOTAL_SCROLLED_PIXELS,
 	SCROLL_TO,
 	SCROLL_TO_RESET,
+	UPDATE_DRAWER,
+	RESET_DRAWER
 } from "../actions/types";
 
 export const initialState = {
@@ -27,7 +29,8 @@ export const initialState = {
 	theme: "light",
 	menuOpen: false,
 	usernameOpen: false,
-	drawerOpen: false
+	drawerOpen: false,
+	drawerType: null
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -70,12 +73,14 @@ export const appReducer = (state = initialState, action) => {
 		case SHOW_DRAWER:
 			return {
 				...state,
-				drawerOpen: true
+				drawerOpen: true,
+				drawerType: action.payload
 			}
 		case HIDE_DRAWER:
 			return {
 				...state,
-				drawerOpen: false
+				drawerOpen: false,
+				drawerType: null
 			}
 		case UPDATE_TOTAL_PIXELS:
 			return {
@@ -93,11 +98,6 @@ export const appReducer = (state = initialState, action) => {
 			return {
 				...state,
 				scrollTo: action.payload
-			};
-		case SCROLL_TO_RESET:
-			return {
-				...state,
-				scrollTo: null
 			};
 		default:
 			return state;

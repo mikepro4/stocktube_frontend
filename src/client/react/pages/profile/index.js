@@ -22,7 +22,10 @@ import TabBar from "../../components/tab_bar"
 
 import qs from "qs";
 import * as _ from "lodash"
-import { updateQueryString } from "../../../redux/actions/appActions";
+import { 
+    updateQueryString,
+    showDrawer
+} from "../../../redux/actions/appActions";
 import { registerPostInit } from "echarts";
 
 class Profile extends Component {
@@ -185,7 +188,16 @@ class Profile extends Component {
 		return (
      		<div className={"profile-route theme-" + this.props.theme}>
                 
-                <div className="profile-media-container">
+                <div 
+                    className="profile-media-container"
+                    onClick={(e) =>  {
+                        let element = document.elementFromPoint(e.clientX, e.clientY).tagName
+                        if (element == "SECTION") {
+                            this.props.showDrawer("cover-select")
+                        }
+                    }
+                    }
+                >
                     <div className="profile-avatar">
                         <Avatar 
                             user={this.props.user} 
@@ -194,7 +206,10 @@ class Profile extends Component {
                             onSuccess={(url) => this.props.updateAvatar(this.props.loggedInUser._id, url)}
                         />
                     </div>
-                    <div className="profile-background">
+                    <div 
+                        className="profile-background"
+                        
+                    >
                     </div>
                 </div>
 
@@ -260,6 +275,7 @@ export default {
         deleteConnection,
         getFollowers,
         getFollowing,
-        updateAvatar
+        updateAvatar,
+        showDrawer
 	})(Profile))
 }
