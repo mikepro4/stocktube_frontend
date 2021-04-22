@@ -1,0 +1,57 @@
+.tab-container {
+	ul.tab-list {
+		display: flex;
+		width: 100%;
+		overflow-x: auto;
+		padding: 0 25px 20px 15px;
+
+		li.tab-link-container {
+			margin: 0 20px 0 0;
+			position: relative;
+
+			.tab-link-wrapper {
+				transition: 0.2s all;
+				padding: 5px 0 5px 0;
+				font-weight: 500;
+				color: $gray3;
+				font-size: 14px;
+				border-radius: 3px;
+				letter-spacing: 0.34px;
+
+				span {
+					position: relative;
+					top: -1px;
+					white-space: nowrap;
+					user-select: none;
+				}
+
+				&:hover {
+					color: $black;
+					cursor: pointer;
+				}
+			}
+
+			&.tab-link-active {
+
+				.tab-link-wrapper {
+					color: $black;
+				}
+
+				&:after {
+					content: "";
+					height: 2px;
+					position: absolute;
+					left: 0;
+					bottom: -5px;
+					right: 0;
+					background: $black;
+				}
+
+			}
+
+			&:last-child {
+				// padding-right: 50px !important;
+			}
+		}
+	}
+}

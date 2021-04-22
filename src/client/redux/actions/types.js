@@ -37,3 +37,7 @@ export const LOAD_PROFILE = "app/LOAD_PROFILE"
 export const LOAD_PROFILE_SUCCESS = "app/LOAD_PROFILE_SUCCESS"
 export const CLEAR_PROFILE = "app/CLEAR_PROFILE"
 
+export const GET_FOLLOWERS = "app/GET_FOLLOWERS"
+export const GET_FOLLOWING = "app/GET_FOLLOWING"
+export const GET_CONNECTION = "app/GET_CONNECTION"
+

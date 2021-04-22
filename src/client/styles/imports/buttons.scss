@@ -41,6 +41,12 @@
                         stroke: $white
                     }
                 }
+
+                &.outlined {
+                    background: none;
+                    border: 1px solid $light-gray2;
+                    color: $gray2;
+                }
                 
             }
 

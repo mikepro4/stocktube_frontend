@@ -3,27 +3,42 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { loadProfile, clearProfile } from "../../../redux/actions/profileActions"
+import { loadProfile, clearProfile, getConnection, createConnection, deleteConnection } from "../../../redux/actions/profileActions"
 
 import Avatar from "../../components/avatar"
 
 import { Icon, Button, Classes  } from "@blueprintjs/core";
+
+import TabBar from "../../components/tab_bar"
+
+import qs from "qs";
+import * as _ from "lodash"
+import { updateQueryString } from "../../../redux/actions/appActions";
+import { registerPostInit } from "echarts";
 
 class Profile extends Component {
 
     constructor(props){
 		super(props)
 		this.state = {
+            selectedTabId: "1",
+            tabs: [
+                "Posts",
+                "Tickers",
+                "History",
+                "Likes"
+            ]
 		}
     }
     
     static loadData(store, match) {
         if(match.params.username) {
-            return store.dispatch(loadProfile(match.params.username));
+            // return store.dispatch(loadProfile(match.params.username));
         }        
 	}
 
 	componentDidMount() {
+        // this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
 	}
 
     componentDidUpdate(prevprops, prevparams) {
@@ -33,14 +48,37 @@ class Profile extends Component {
         if(prevprops.match.params.username !== this.props.match.params.username) {
             this.loadProfile(this.props.match.params.username)
         }
+
+        if (this.props.location.search) {
+			if (prevparams.selectedTabId !== this.getQueryParams().selectedTabId) {
+				this.setState({
+					selectedTabId: this.getQueryParams().selectedTabId
+				});
+			}
+        }
+        if(this.props.user && this.props.loggedInUser  && !this.props.connection) {
+            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+        }
+
+        if(this.props.user) {
+            if(this.props.user.username !== this.props.match.params.username) {
+                this.loadProfile(this.props.match.params.username)
+            } 
+        }
     }
+
+    getQueryParams = () => {
+		return qs.parse(this.props.location.search.substring(1));
+    };
 
     componentWillUnmount() {
         this.props.clearProfile()
     }
 
     loadProfile(username) {
-        this.props.loadProfile(username)
+        this.props.loadProfile(username, () => {
+            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+        })
     }
     
     renderHead = () => (
@@ -51,34 +89,95 @@ class Profile extends Component {
     )
 
     renderButton() {
-        if(this.props.loggedInUser && (this.props.match.params.username == this.props.loggedInUser.username)) {
-            return (
-                <div className="profile-action-button">
-                     <Button 
-                            text="Edit profile"
-                            minimal="true"
-                            className={"outlined theme-"+ this.props.theme}
-                            onClick={() =>  {
+        if(this.props.connection) {
+            if(this.props.loggedInUser && (this.props.match.params.username == this.props.loggedInUser.username)) {
+                return (
+                    <div className="profile-action-button">
+                         <Button 
+                                text="Edit profile"
+                                minimal="true"
+                                className={"outlined theme-"+ this.props.theme}
+                                onClick={() =>  {
+                                    }
                                 }
-                            }
-                        />
-                </div>
-            )
-        } else {
-            return (
-                <div className="profile-action-button">
-                    <Button 
-                            text="Follow"
-                            className={"theme-"+ this.props.theme}
-                            onClick={() =>  {
-                                }
-                            }
-                        />
-                </div>
-            )
+                            />
+                    </div>
+                )
+            } else {
+                if(this.props.connection.objectSubject) {
+                    return (
+                        <div className="profile-action-button">
+                            <Button 
+                                    text="Following"
+                                    minimal="true"
+                                    className={"theme-"+ this.props.theme}
+                                    onClick={() =>  {
+                                        this.props.deleteConnection(this.props.connection.objectSubject._id, () => {
+                                            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+                                        })
+                                        }
+                                    }
+                                />
+                        </div>
+                    )
+
+                } else {
+                    return (
+                        <div className="profile-action-button">
+                            <Button 
+                                    text="Follow"
+                                    className={"theme-"+ this.props.theme}
+                                    onClick={() =>  {
+                                        this.props.createConnection(this.props.loggedInUser, this.props.user, () => {
+                                            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+                                        })
+                                        }
+                                    }
+                                />
+                        </div>
+                    )
+                }
+                
+            }
         }
+        
     }
 
+    handleTabChange = value => {
+		this.setState({
+			selectedTabId: value
+		});
+
+		this.props.updateQueryString(
+			{ selectedTabId: value },
+			this.props.location,
+			this.props.history
+		);
+
+    };
+    
+    renderTab = () => {
+		switch (this.state.selectedTabId) {
+			case "1":
+				return(<div className="placeholder"><div className="demo-post"></div></div>)
+			case "2":
+				return(
+					<div className="placeholder">2</div>
+				)
+			case "3":
+				return(
+					<div className="placeholder">3</div>
+				)
+			case "4":
+				return(
+					<div className="placeholder">4</div>
+				)
+			default:
+				return ;
+		}
+	}
+
+   
 	render() {
 
 		return (
@@ -121,6 +220,13 @@ class Profile extends Component {
 
                 {this.renderButton()}
 
+                <TabBar
+                    tabs={this.state.tabs}
+                    activeTab={this.state.selectedTabId}
+                    onTabChange={(tab) => this.handleTabChange(tab)}
+                />
+                {this.renderTab()}
+
 			</div>
 		);
 	}
@@ -129,6 +235,7 @@ class Profile extends Component {
 function mapStateToProps(state) {
 	return {
         user: state.profile.user,
+        connection: state.profile.connection,
         theme: state.app.theme,
         loggedInUser: state.app.user
 	};
@@ -137,6 +244,10 @@ function mapStateToProps(state) {
 export default {
 	component: withRouter(connect(mapStateToProps, {
         loadProfile,
-        clearProfile
+        clearProfile,
+        updateQueryString,
+        getConnection,
+        createConnection,
+        deleteConnection
 	})(Profile))
 }
