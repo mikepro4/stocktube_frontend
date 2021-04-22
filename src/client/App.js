@@ -23,6 +23,7 @@ import Header from "./react/components/header"
 import MobileMenu from "./react/components/mobile_menu"
 import Username from "./react/components/username"
 import Drawer from "./react/components/drawer"
+import Scroll from "./react/components/scroll"
 
 import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
 
@@ -100,6 +101,7 @@ class App extends Component {
 				<div className={"app-route-container theme-" + this.props.theme}>
 					{renderRoutes(this.props.route.routes)}
 				</div>
+				<Scroll/>
 			</div>
 		)
 	}

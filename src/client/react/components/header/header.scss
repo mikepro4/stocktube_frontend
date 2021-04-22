@@ -21,14 +21,14 @@
     &.main-header {
 
         &.theme-light {
-            // border-bottom: $blackLightBorder;
+            border-bottom: $blackLightBorder;
             // background: rgba($white, 0.8);
             // backdrop-filter: blur(20px);
             background: $white;
         }
     
         &.theme-dark {
-            // border-bottom: $whiteLightBorder;
+            border-bottom: $whiteLightBorder;
             background: $black
         }
     }
