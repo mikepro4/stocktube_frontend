@@ -191,18 +191,20 @@ class Profile extends Component {
                 <div 
                     className="profile-media-container"
                     onClick={(e) =>  {
-                        let element = document.elementFromPoint(e.clientX, e.clientY).tagName
-                        if (element == "SECTION") {
-                            this.props.showDrawer("cover-select")
+                            let element = document.elementFromPoint(e.clientX, e.clientY).tagName
+                            if (element == "SECTION") {
+                                if(this.props.user._id == this.props.loggedInUser._id) {
+                                    this.props.showDrawer("cover-select")
+                                }
+                            }
                         }
-                    }
                     }
                 >
                     <div className="profile-avatar">
                         <Avatar 
                             user={this.props.user} 
                             huge={true} 
-                            canUpload={true}
+                            canUpload={this.props.user && this.props.loggedInUser && (this.props.user._id == this.props.loggedInUser._id)}
                             onSuccess={(url) => this.props.updateAvatar(this.props.loggedInUser._id, url)}
                         />
                     </div>
