@@ -10,7 +10,8 @@ import {
     createConnection, 
     deleteConnection,
     getFollowers,
-    getFollowing
+    getFollowing,
+    updateAvatar
 } from "../../../redux/actions/profileActions"
 
 import Avatar from "../../components/avatar"
@@ -26,28 +27,15 @@ import { registerPostInit } from "echarts";
 
 class Profile extends Component {
 
-    constructor(props){
-		super(props)
-		this.state = {
-            selectedTabId: "1",
-            tabs: [
-                "Posts",
-                "Tickers",
-                "History",
-                "Likes"
-            ]
-		}
+    state = {
+        selectedTabId: "1",
+        tabs: [
+            "Posts",
+            "Tickers",
+            "History",
+            "Likes"
+        ]
     }
-    
-    static loadData(store, match) {
-        if(match.params.username) {
-            // return store.dispatch(loadProfile(match.params.username));
-        }        
-	}
-
-	componentDidMount() {
-        // this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-	}
 
     componentDidUpdate(prevprops, prevparams) {
         if(!this.props.user && this.props.match.params.username) {
@@ -65,9 +53,7 @@ class Profile extends Component {
 			}
         }
         if(this.props.user && this.props.loggedInUser  && !this.props.connection) {
-            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-            this.props.getFollowers(this.props.user._id)
-            this.props.getFollowing(this.props.user._id)
+            this.updateConnections()
         }
 
         if(this.props.user) {
@@ -87,9 +73,7 @@ class Profile extends Component {
 
     loadProfile(username) {
         this.props.loadProfile(username, () => {
-            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-            this.props.getFollowers(this.props.user._id)
-            this.props.getFollowing(this.props.user._id)
+            this.updateConnections()
         })
     }
     
@@ -99,6 +83,12 @@ class Profile extends Component {
 			<meta property="og:title" content="Homepage" />
 		</Helmet>
     )
+
+    updateConnections() {
+        this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+        this.props.getFollowers(this.props.user._id)
+        this.props.getFollowing(this.props.user._id)
+    }
 
     renderButton() {
         if(this.props.connection) {
@@ -125,9 +115,7 @@ class Profile extends Component {
                                     className={"theme-"+ this.props.theme}
                                     onClick={() =>  {
                                         this.props.deleteConnection(this.props.connection.objectSubject._id, () => {
-                                            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-                                            this.props.getFollowers(this.props.user._id)
-                                            this.props.getFollowing(this.props.user._id)
+                                            this.updateConnections()
                                         })
                                         }
                                     }
@@ -143,9 +131,7 @@ class Profile extends Component {
                                     className={"theme-"+ this.props.theme}
                                     onClick={() =>  {
                                         this.props.createConnection(this.props.loggedInUser, this.props.user, () => {
-                                            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-                                            this.props.getFollowers(this.props.user._id)
-                                            this.props.getFollowing(this.props.user._id)
+                                            this.updateConnections()
                                         })
                                         }
                                     }
@@ -201,7 +187,12 @@ class Profile extends Component {
                 
                 <div className="profile-media-container">
                     <div className="profile-avatar">
-                        <Avatar user={this.props.user} huge={true} />
+                        <Avatar 
+                            user={this.props.user} 
+                            huge={true} 
+                            canUpload={true}
+                            onSuccess={(url) => this.props.updateAvatar(this.props.loggedInUser._id, url)}
+                        />
                     </div>
                     <div className="profile-background">
                     </div>
@@ -219,8 +210,8 @@ class Profile extends Component {
 
                 <ul className="counts-container">
                     <li className="single-count">
-                        <div className="count-number">0%</div>
-                        <div className="count-label">Accuracy</div>
+                        <div className="count-number">0</div>
+                        <div className="count-label">Tickers</div>
                     </li>
 
                     <li className="single-count">
@@ -268,6 +259,7 @@ export default {
         createConnection,
         deleteConnection,
         getFollowers,
-        getFollowing
+        getFollowing,
+        updateAvatar
 	})(Profile))
 }

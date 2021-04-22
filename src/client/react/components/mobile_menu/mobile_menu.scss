@@ -38,17 +38,17 @@
         background: $white;
         flex-grow: 0;
         flex-shrink: 0;
-        border-top: $blackLightBorder;
+        // border-top: $blackLightBorder;
         padding: 20px 16px;
 
         &.theme-light {
             background: $white;
-            border-top: $blackLightBorder;
+            // border-top: $blackLightBorder;
         }
 
         &.theme-dark {
             background: $black;
-            border-top: $whiteLightBorder;
+            // border-top: $whiteLightBorder;
         }
     }
 

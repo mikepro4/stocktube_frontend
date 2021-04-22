@@ -12,6 +12,8 @@ import * as _ from "lodash";
 import qs from "qs";
 import axios from "axios";
 
+import { fetchCurrentUser } from "./authActions"
+
 export const loadProfile = (username, success) => async (
     dispatch,
 	getState,
@@ -174,5 +176,30 @@ export const deleteConnection = (connectionId, success) => async (
         .catch(() => {
         });
 }
+
+// ===========================================================================
+
+
+export const updateAvatar = (userId, url, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/avatar/update", { userId, url })
+        .then(response => {
+            dispatch(loadProfile(response.data.username))
+            dispatch(fetchCurrentUser())
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
 
 
