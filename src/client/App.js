@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import classNames from "classnames";
 import socketIOClient from "socket.io-client";
@@ -91,24 +91,17 @@ class App extends Component {
 	}
 
 	render() {
-		if(this.state.appVisible) {
-			return (
-				<div className={"app theme-"+ this.props.theme}>
-					{this.props.menuOpen && <MobileMenu/>}
-					{this.props.usernameOpen && <Username />}
-					{this.props.drawerOpen && <Drawer type="user" />}
-					<Header />
-					<div className={"app-route-container theme-" + this.props.theme}>
-						{renderRoutes(this.props.route.routes)}
-					</div>
+		return (
+			<div className={"app theme-"+ this.props.theme}>
+				{this.props.menuOpen && <MobileMenu/>}
+				{this.props.usernameOpen && <Username />}
+				{this.props.drawerOpen && <Drawer type="user" />}
+				<Header />
+				<div className={"app-route-container theme-" + this.props.theme}>
+					{renderRoutes(this.props.route.routes)}
 				</div>
-			)
-		} else {
-			return (
-				<div></div>
-			)
-		}
-		
+			</div>
+		)
 	}
 }
 function mapStateToProps(state) {
@@ -124,7 +117,7 @@ function mapStateToProps(state) {
 }
 
 export default {
-	component: connect(mapStateToProps, {
+	component: withRouter(connect(mapStateToProps, {
 		toggleTheme,
 		authUser, 
 		fetchCurrentUser, 
@@ -132,5 +125,5 @@ export default {
 		assignAvatar,
 		showUsername,
 		hideUsername
-	})(App)
+	})(App))
 };

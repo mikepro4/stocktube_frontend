@@ -63,6 +63,7 @@ class Header extends Component {
                             >
                                 <Avatar 
                                     small={true} 
+                                    user={this.props.user}
                                 />
                             </li>
                         )}

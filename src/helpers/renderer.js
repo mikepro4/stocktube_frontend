@@ -56,7 +56,6 @@ export default (
 	);
 
 	const helmetInstance = Helmet.renderStatic();
-
 	const html = `
     <html lang="en">
       <head>

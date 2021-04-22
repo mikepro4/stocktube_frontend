@@ -5,6 +5,7 @@ import { appReducer } from "./appReducer";
 import { authReducer } from "./authReducer";
 import { connectRouter } from "connected-react-router";
 import { modalsReducer } from "./modalsReducer";
+import { profileReducer } from "./profileReducer";
 
 export default (history) => combineReducers({
 	router: connectRouter(history),
@@ -12,4 +13,5 @@ export default (history) => combineReducers({
 	app: appReducer,
 	auth: authReducer,
 	modals: modalsReducer,
+	profile: profileReducer
 })

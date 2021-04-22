@@ -30,3 +30,10 @@ export const HIDE_DRAWER = "app/HIDE_DRAWER"
 export const TOGGLE_THEME = "app/TOGGLE_THEME"
 
 // =============================================================================
+
+// Profile
+
+export const LOAD_PROFILE = "app/LOAD_PROFILE"
+export const LOAD_PROFILE_SUCCESS = "app/LOAD_PROFILE_SUCCESS"
+export const CLEAR_PROFILE = "app/CLEAR_PROFILE"
+

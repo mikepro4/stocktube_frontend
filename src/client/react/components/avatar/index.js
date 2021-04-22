@@ -16,7 +16,8 @@ class Avatar extends Component {
                     "default": this.props.user && this.props.user.avatarDefault,
                     "small": this.props.small,
                     "medium": this.props.medium,
-                    "big": this.props.big
+                    "big": this.props.big,
+                    "huge": this.props.huge
                 })}
             >
                 <img src={this.props.user && this.props.user.avatar}/>
@@ -29,7 +30,6 @@ class Avatar extends Component {
 function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
-        user: state.app.user,
         authenticated: state.auth.authenticated
 	};
 }

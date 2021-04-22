@@ -4,20 +4,27 @@ import Home from "../react/pages/home";
 import Login from "../react/pages/auth/login"
 import Signup from "../react/pages/auth/signup"
 import Logout from "../react/pages/auth/logout"
+import Profile from "../react/pages/profile"
 
 export default [
 	{
 		...App,
 		routes: [
 			{	
-				component: Home,
+				...Home,
 				path: "/",
 				exact: true,
 				params: {
 					name: "home"
 				},
 			},
-
+			{
+				...Profile,
+				path: "/@:username",
+				params: {
+					name: "profile"
+				}
+			},
 			{
 				...Login,
 				path: "/auth/login",
