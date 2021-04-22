@@ -3,7 +3,15 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { loadProfile, clearProfile, getConnection, createConnection, deleteConnection } from "../../../redux/actions/profileActions"
+import { 
+    loadProfile, 
+    clearProfile, 
+    getConnection, 
+    createConnection, 
+    deleteConnection,
+    getFollowers,
+    getFollowing
+} from "../../../redux/actions/profileActions"
 
 import Avatar from "../../components/avatar"
 
@@ -58,6 +66,8 @@ class Profile extends Component {
         }
         if(this.props.user && this.props.loggedInUser  && !this.props.connection) {
             this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+            this.props.getFollowers(this.props.user._id)
+            this.props.getFollowing(this.props.user._id)
         }
 
         if(this.props.user) {
@@ -78,6 +88,8 @@ class Profile extends Component {
     loadProfile(username) {
         this.props.loadProfile(username, () => {
             this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+            this.props.getFollowers(this.props.user._id)
+            this.props.getFollowing(this.props.user._id)
         })
     }
     
@@ -114,6 +126,8 @@ class Profile extends Component {
                                     onClick={() =>  {
                                         this.props.deleteConnection(this.props.connection.objectSubject._id, () => {
                                             this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+                                            this.props.getFollowers(this.props.user._id)
+                                            this.props.getFollowing(this.props.user._id)
                                         })
                                         }
                                     }
@@ -130,6 +144,8 @@ class Profile extends Component {
                                     onClick={() =>  {
                                         this.props.createConnection(this.props.loggedInUser, this.props.user, () => {
                                             this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+                                            this.props.getFollowers(this.props.user._id)
+                                            this.props.getFollowing(this.props.user._id)
                                         })
                                         }
                                     }
@@ -208,12 +224,12 @@ class Profile extends Component {
                     </li>
 
                     <li className="single-count">
-                        <div className="count-number">5,450</div>
+                        <div className="count-number">{this.props.followers && this.props.followers.count}</div>
                         <div className="count-label">Followers</div>
                     </li>
 
                     <li className="single-count">
-                        <div className="count-number">100</div>
+                        <div className="count-number">{this.props.following && this.props.following.count}</div>
                         <div className="count-label">Following</div>
                     </li>
                 </ul>
@@ -237,7 +253,9 @@ function mapStateToProps(state) {
         user: state.profile.user,
         connection: state.profile.connection,
         theme: state.app.theme,
-        loggedInUser: state.app.user
+        loggedInUser: state.app.user,
+        followers: state.profile.followers,
+        following: state.profile.following,
 	};
 }
 
@@ -248,6 +266,8 @@ export default {
         updateQueryString,
         getConnection,
         createConnection,
-        deleteConnection
+        deleteConnection,
+        getFollowers,
+        getFollowing
 	})(Profile))
 }
