@@ -9,16 +9,14 @@ import Dropzone from "react-dropzone";
 import axios from "axios";
 
 import { 
-    updateCover,
-    updateCoverGradient
+    updateAvatar,
+    updateAvatarGradient
 } from "../../../../redux/actions/profileActions"
-
 
 import Gradients from "../../gradients"
 import UploadButton from "../../upload_button"
 
-
-class CoverSelect extends Component {
+class AvatarSelect extends Component {
 
     state = {
         loading: false,
@@ -49,7 +47,7 @@ class CoverSelect extends Component {
 			const formData = new FormData();
 			formData.append("file", file);
 			formData.append("tags", `stocktube`);
-			formData.append("upload_preset", "lacclrie"); 
+			formData.append("upload_preset", "fxyrzlso"); 
 			formData.append("api_key", "DhgKXiXYQqQj0nEB74w_70HfPWI"); 
 			formData.append("timestamp", (Date.now() / 1000) | 0);
 
@@ -68,7 +66,7 @@ class CoverSelect extends Component {
                         progress: null
                     });
 
-                    this.props.updateCover(this.props.user._id, data.secure_url)
+                    this.props.updateAvatar(this.props.user._id, data.secure_url)
                     // this.props.hideDrawer()
 				});
 		});
@@ -81,11 +79,11 @@ class CoverSelect extends Component {
                     <div className={"user-details-container theme-" + this.props.theme}>
                         <div className="drawer-header">
                             <div className="drawer-title">
-                                Cover image
+                                Avatar image
                             </div>
 
                             <div className="drawer-description">
-                            Upload at least 1440x550px image
+                            Upload at least 200x200px image
                             </div>
 
                             <Button 
@@ -124,8 +122,8 @@ class CoverSelect extends Component {
                         </Dropzone>
 
                         <Gradients
-                            updateGradient={(gradient) =>  this.props.updateCoverGradient(this.props.user._id, gradient)}
-                            background={true}
+                            updateGradient={(gradient) =>  this.props.updateAvatarGradient(this.props.user._id, gradient)}
+                            avatar={true}
                             rect={true}
                         />
                         </div>
@@ -147,6 +145,6 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
-    updateCover,
-    updateCoverGradient
-})(CoverSelect));
+    updateAvatar,
+    updateAvatarGradient
+})(AvatarSelect));

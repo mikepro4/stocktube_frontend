@@ -255,7 +255,7 @@ export const updateAvatarGradient = (userId, gradient, success) => async (
 ) => {
 
     await api
-        .post("/cover/update_cover_gradient", { userId, gradient })
+        .post("/cover/update_avatar_gradient", { userId, gradient })
         .then(response => {
             dispatch(loadProfile(response.data.username))
             dispatch(fetchCurrentUser())

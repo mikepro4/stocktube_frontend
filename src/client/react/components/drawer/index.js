@@ -12,6 +12,7 @@ import {
 
 import UserDrawer from "./type/user_drawer"
 import CoverSelect from "./type/cover_select"
+import AvatarSelect from "./type/avatar_select"
 
 class Drawer extends Component {
 
@@ -34,6 +35,8 @@ class Drawer extends Component {
                 return (<UserDrawer hideDrawer={() => this.hideDrawer()}/>)
             case "cover-select":
                 return (<CoverSelect hideDrawer={() => this.hideDrawer()}/>)
+            case "avatar-select":
+                return (<AvatarSelect hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }

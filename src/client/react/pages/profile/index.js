@@ -214,7 +214,7 @@ class Profile extends Component {
                     className="profile-media-container"
                     onClick={(e) =>  {
                             let element = document.elementFromPoint(e.clientX, e.clientY).tagName
-                            if (element == "SECTION") {
+                            if (element == "DIV") {
                                 if(this.props.user._id == this.props.loggedInUser._id) {
                                     this.props.showDrawer("cover-select")
                                 }

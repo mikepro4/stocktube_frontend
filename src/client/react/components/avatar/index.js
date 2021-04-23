@@ -8,6 +8,10 @@ import * as _ from "lodash"
 import Dropzone from "react-dropzone";
 import axios from "axios";
 
+import {
+    showDrawer
+} from '../../../redux/actions/appActions'
+
 class Avatar extends Component {
 
     state = {
@@ -58,38 +62,16 @@ class Avatar extends Component {
 
 
 	render() {
+        let gradient 
+
+        if(this.props.user) {
+            gradient = this.props.user.avatarGradient 
+        } 
+
         if (this.props.canUpload) {
             return(
-                <Dropzone 
-                    onDrop={this.handleDrop}
-                    accept="image/*"
-                >
-                    {({getRootProps, getInputProps}) => (
-                        <section 
-                           
-                        >
-                            <div 
-                                {...getRootProps()}
-                                className={classNames({
-                                    "avatar-container": true,
-                                    "default": this.props.user && this.props.user.avatarDefault,
-                                    "small": this.props.small,
-                                    "medium": this.props.medium,
-                                    "big": this.props.big,
-                                    "huge": this.props.huge
-                                })}
-                            >
-                                <input {...getInputProps()} />
-                                <img src={this.props.user && this.props.user.avatar} />
-                            </div>
-                        </section>
-                    )}
-                </Dropzone>
-            )
-        } else {
-            return (
-                <div 
-                    className={classNames({
+                <section 
+                    className={"gradient-" +  gradient + " " + classNames({
                         "avatar-container": true,
                         "default": this.props.user && this.props.user.avatarDefault,
                         "small": this.props.small,
@@ -97,8 +79,27 @@ class Avatar extends Component {
                         "big": this.props.big,
                         "huge": this.props.huge
                     })}
+                    onClick={() => this.props.showDrawer("avatar-select") }
                 >
+                    {this.props.user && !this.props.user.avatarGradient ? (
+                        <img src={this.props.user && this.props.user.avatar}  />
+                    ) : "" }
+                </section>
+            )
+        } else {
+            return (
+                <div 
+                    className={"gradient-" +  gradient + " " + classNames({
+                        "avatar-container": true,
+                        "default": this.props.user && this.props.user.avatarDefault,
+                        "small": this.props.small,
+                        "medium": this.props.medium,
+                        "big": this.props.big,
+                        "huge": this.props.huge
+                    })}
+                > {this.props.user && !this.props.user.avatarGradient ? (
                     <img src={this.props.user && this.props.user.avatar}/>
+                ) : "" }
                 </div>
             )
         }
@@ -108,9 +109,10 @@ class Avatar extends Component {
 function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
 	};
 }
 
 export default connect(mapStateToProps, {
+    showDrawer
 })(Avatar);
