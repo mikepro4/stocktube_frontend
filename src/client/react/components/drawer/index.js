@@ -14,6 +14,7 @@ import UserDrawer from "./type/user_drawer"
 import CoverSelect from "./type/cover_select"
 import AvatarSelect from "./type/avatar_select"
 import EditProfile from "./type/edit_profile"
+import NewPost from "./type/new_post"
 
 class Drawer extends Component {
 
@@ -40,6 +41,8 @@ class Drawer extends Component {
                 return (<AvatarSelect hideDrawer={() => this.hideDrawer()}/>)
             case "edit-profile":
                 return (<EditProfile hideDrawer={() => this.hideDrawer()}/>)
+            case "new-post":
+                return (<NewPost hideDrawer={() => this.hideDrawer()} enablePortal/>)
             default:
                 return ;
         }

@@ -28,6 +28,8 @@
 @import "../react/components/tab_bar/index.scss";
 @import "../react/components/gradients/index.scss";
 @import "../react/components/upload_button/index.scss";
+@import "../react/components/post_input/index.scss";
+
 
 // form
 @import "../react/components/form/BladeInput.scss";
@@ -83,6 +85,8 @@ body {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	-webkit-overflow-scrolling: touch;
 }
+
+
 
 // Selection
 // -------------------------

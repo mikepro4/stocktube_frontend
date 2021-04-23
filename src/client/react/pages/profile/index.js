@@ -19,6 +19,7 @@ import Avatar from "../../components/avatar"
 import { Icon, Button, Classes  } from "@blueprintjs/core";
 
 import TabBar from "../../components/tab_bar"
+import TabPosts from "./tab_posts"
 
 import qs from "qs";
 import * as _ from "lodash"
@@ -159,7 +160,7 @@ class Profile extends Component {
     renderTab = () => {
 		switch (this.state.selectedTabId) {
 			case "1":
-				return(<div className="placeholder"><div className="demo-post"></div></div>)
+				return(<TabPosts/>)
 			case "2":
 				return(
 					<div className="placeholder">2</div>
@@ -236,7 +237,7 @@ class Profile extends Component {
                      {this.props.user && this.props.user.username}  
                    </div>
    
-                   {this.props.user && this.props.user.bio.length > 0 ? (
+                   {this.props.user && this.props.user.bio && this.props.user.bio.length > 0 ? (
                        <div className="profile-bio">
                            {this.props.user.bio}
                        </div>

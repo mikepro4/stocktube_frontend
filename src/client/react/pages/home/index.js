@@ -25,6 +25,7 @@ class HomePage extends Component {
                  {this.renderHead()}
 				<div className="placeholder">Home</div>
 			</div>
+				
 		);
 	}
 }

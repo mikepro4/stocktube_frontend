@@ -116,7 +116,7 @@
 
 .standard-drawer {
     padding: 20px;
-    max-height: 700px;
+    max-height: 95%;
     overflow-y: auto;
 
     .drawer-header {
@@ -157,4 +157,96 @@
             margin-top: 20px;
         }
     }
+
+    .drawer-action-header {
+        // display: flex;
+        position: relative;
+        // justify-content: space-between;
+        width: 100%;
+        height: 50px;
+
+        .action-close {
+            flex-grow: 0;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bp3-button.action-close {
+            width: 36px;
+            position: absolute;
+            left: -10px;
+            top: -6px;
+        }
+
+        .bp3-button.drawer-action-button {
+            width: 86px;
+            height: 36px;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            z-index: 2;
+        }
+
+        .drawer-action-title {
+            text-align: center;
+            position: relative;
+            top: 5px;
+            z-index: 1;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: $gray3;
+            letter-spacing: 0.64px;
+        }
+    }
 }
+
+.editor {
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    cursor: text;
+    padding: 16px;
+    border-radius: 2px;
+    margin-bottom: 2em;
+    box-shadow: inset 0px 1px 8px -3px #ABABAB;
+    background: #fefefe;
+  }
+  
+  .editor :global(.public-DraftEditor-content) {
+    min-height: 140px;
+  }
+
+  .public-DraftEditorPlaceholder-inner {
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      opacity: 50%;
+  }
+
+  .DraftEditor-editorContainer {
+      position: relative;
+      z-index: 2;
+      min-height: 200px;
+  }
+
+//   .public-DraftStyleDefault-block {
+//         position: relative;
+//         min-height: 200px;
+//   }
+
+.position-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .portal-container {
+    background-color: lightgray;
+    overflow: hidden;
+    height: 100px;
+    margin-bottom: 100px;
+    display: flex;
+    flex: 1;
+    position: relative;
+  }
+  

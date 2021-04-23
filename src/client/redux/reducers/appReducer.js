@@ -29,8 +29,8 @@ export const initialState = {
 	theme: "light",
 	menuOpen: false,
 	usernameOpen: false,
-	drawerOpen: false,
-	drawerType: null
+	drawerOpen: true,
+	drawerType: "new-post"
 };
 
 export const appReducer = (state = initialState, action) => {
