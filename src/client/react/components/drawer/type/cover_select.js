@@ -15,6 +15,7 @@ import {
 
 
 import Gradients from "../../gradients"
+import UploadButton from "../../upload_button"
 
 
 class CoverSelect extends Component {
@@ -73,15 +74,6 @@ class CoverSelect extends Component {
 		});
     };
     
-    renderButtonTitle() {
-        if(this.state.loading && this.state.progress) {
-            return (
-                <div>Uploading {this.state.progress}%</div>
-            )
-        }
-        return (<div>Upload cover image</div>)
-    }
-
 	render() {
             return (
                 <div className={"app-drawer-content-container standard-drawer theme-" + this.props.theme}>
@@ -89,17 +81,17 @@ class CoverSelect extends Component {
                     <div className={"user-details-container theme-" + this.props.theme}>
                         <div className="drawer-header">
                             <div className="drawer-title">
-                                Cover Image
+                                Cover image
                             </div>
 
                             <div className="drawer-description">
-                            We recommend uploading a cover image of certain size 
+                            Upload at least 1440x550px image
                             </div>
 
                             <Button 
                                 minimal="true"
                                 icon="cross"
-                                className={"control theme-"+ this.props.theme}
+                                className={"control button-close theme-"+ this.props.theme}
                                 onClick={() =>  {
                                     this.props.hideDrawer()
                                     }
@@ -117,28 +109,15 @@ class CoverSelect extends Component {
                                     <div 
                                         {...getRootProps()}
                                         className={classNames({
-                                            "avatar-container": true,
-                                            "default": this.props.user && this.props.user.avatarDefault,
-                                            "small": this.props.small,
-                                            "medium": this.props.medium,
-                                            "big": this.props.big,
-                                            "huge": this.props.huge
+                                            "upload-button-container": true,
                                         })}
                                     >
                                         <input {...getInputProps()} />
-                                            <div 
-                                                className={"upload-button theme-"+ this.props.theme}
-                                                onClick={() =>  {
-                                                    }
-                                                }
-                                            >
-
-                                                <div className="upload-button-progress-bar"></div>
-                                                <div className="upload-button-title">
-                                                    {this.renderButtonTitle()}
-                                                </div>
-
-                                            </div>
+                                           
+                                        <UploadButton
+                                            loading={this.state.loading}
+                                            progress={this.state.progress}
+                                        />
                                     </div>
                                 </section>
                             )}

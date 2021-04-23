@@ -61,7 +61,8 @@ class Gradients extends Component {
                         <div 
                             className={"single-gradient gradient-" + gradient.id + " " + classNames({
                                 "rect": this.props.rect,
-                                "circular": this.props.circular
+                                "circular": this.props.circular,
+                                "active": this.props.user.coverGradient && this.props.user.coverGradient == gradient.id
                             })} 
                             key={gradient.id}
                             onClick={() => this.props.updateGradient(gradient.id)}
@@ -77,6 +78,7 @@ class Gradients extends Component {
 function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
+        user: state.app.user
 	};
 }
 

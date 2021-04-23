@@ -114,3 +114,37 @@
         }
     }
 }
+
+.standard-drawer {
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+
+    .drawer-header {
+        display: flex;
+        width: 100%;
+        position: relative;
+        flex-direction: column;
+
+        .drawer-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+
+        .drawer-description {
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: $gray2;
+        }
+
+        .button-close {
+            position: absolute;
+            top: -9px;
+            right: -2px;
+            width: 30px;
+        }
+
+    }
+}

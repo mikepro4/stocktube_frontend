@@ -1,6 +1,28 @@
 .single-gradient {
-    width: 95px;
+    width: 100%;
     height: 45px;
     border-radius: 6px;
-    margin: 0 20px;
+    display: inline-block;
+    position: relative;
+
+    &.active {
+        &:before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            left: -5px;
+            bottom: -5px;
+            border-radius: 10px;
+            border: 2px solid $cobalt4;
+        }
+    }
+}
+
+.gradient-list {
+    display: grid;
+    margin: 30px 0 10px 0;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
 }
