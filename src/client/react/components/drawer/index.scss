@@ -4,7 +4,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 23;
     display: flex;
     align-items: flex-end;
 
@@ -26,7 +26,6 @@
     .app-drawer-content{
         position: relative;    
         overflow-y: auto;
-        max-height: 350px;
         background: $white;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
@@ -117,7 +116,7 @@
 
 .standard-drawer {
     padding: 20px;
-    max-height: 500px;
+    max-height: 700px;
     overflow-y: auto;
 
     .drawer-header {
@@ -146,5 +145,16 @@
             width: 30px;
         }
 
+    }
+
+    .submit-button {
+        margin: 20px 0 00px 0;
+    }
+    .blade-input-group {
+        margin-bottom: 20px ;
+
+        &:first-child {
+            margin-top: 20px;
+        }
     }
 }

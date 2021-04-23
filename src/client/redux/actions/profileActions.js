@@ -12,7 +12,7 @@ import * as _ from "lodash";
 import qs from "qs";
 import axios from "axios";
 
-import { fetchCurrentUser } from "./authActions"
+import { fetchCurrentUser, authError } from "./authActions"
 
 export const loadProfile = (username, success) => async (
     dispatch,
@@ -264,6 +264,31 @@ export const updateAvatarGradient = (userId, gradient, success) => async (
             }
         })
         .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+
+export const updateProfile = (userId, username, bio, url, originalUsername, history, success, error) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/profile/update", {userId, username, bio, url, originalUsername })
+        .then(response => {
+            dispatch(loadProfile(response.data.username))
+            dispatch(fetchCurrentUser(() => {
+                history.push("/@" + username)
+            }))
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+            error()
         });
 }
 

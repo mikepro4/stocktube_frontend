@@ -53,7 +53,6 @@ class Login extends Component {
 			intent: Intent.DANGER,
 			iconName: "cross"
 		});
-		
 	};
 
 	render() {

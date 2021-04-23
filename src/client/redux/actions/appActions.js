@@ -54,7 +54,7 @@ export const hideDrawer = (success) => async (
 
 /////////////////////////////////////////////////
 
-export const validateUsername = values => {
+export const validateUsername = (values) => {
 	return axios
 		.post("/api/validate_username", {
 			username: values.username

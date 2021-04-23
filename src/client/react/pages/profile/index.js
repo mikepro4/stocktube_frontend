@@ -97,21 +97,19 @@ class Profile extends Component {
         if(this.props.connection) {
             if(this.props.loggedInUser && (this.props.match.params.username == this.props.loggedInUser.username)) {
                 return (
-                    <div className="profile-action-button">
                          <Button 
                                 text="Edit profile"
                                 minimal="true"
                                 className={"outlined theme-"+ this.props.theme}
                                 onClick={() =>  {
+                                    this.props.showDrawer("edit-profile")
                                     }
                                 }
                             />
-                    </div>
                 )
             } else {
                 if(this.props.connection.objectSubject) {
                     return (
-                        <div className="profile-action-button">
                             <Button 
                                     text="Following"
                                     minimal="true"
@@ -123,12 +121,10 @@ class Profile extends Component {
                                         }
                                     }
                                 />
-                        </div>
                     )
 
                 } else {
                     return (
-                        <div className="profile-action-button">
                             <Button 
                                     text="Follow"
                                     className={"theme-"+ this.props.theme}
@@ -139,7 +135,6 @@ class Profile extends Component {
                                         }
                                     }
                                 />
-                        </div>
                     )
                 }
                 
@@ -207,71 +202,77 @@ class Profile extends Component {
    
 	render() {
 
-		return (
-     		<div className={"profile-route theme-" + this.props.theme}>
-                
-                <div 
-                    className="profile-media-container"
-                    onClick={(e) =>  {
-                            let element = document.elementFromPoint(e.clientX, e.clientY).tagName
-                            if (element == "DIV") {
-                                if(this.props.user._id == this.props.loggedInUser._id) {
-                                    this.props.showDrawer("cover-select")
-                                }
-                            }
-                        }
-                    }
-                >
-                    <div className="profile-avatar">
-                        <Avatar 
-                            user={this.props.user} 
-                            huge={true} 
-                            canUpload={this.props.user && this.props.loggedInUser && (this.props.user._id == this.props.loggedInUser._id)}
-                            onSuccess={(url) => this.props.updateAvatar(this.props.loggedInUser._id, url)}
-                        />
-                    </div>
-                    
-                    {this.renderBackground()}
-                </div>
+        if(!this.props.user) {
+            return <div></div>
+        } else {
+            return (
+                <div className={"profile-route theme-" + this.props.theme}>
+                   
+                   <div 
+                       className="profile-media-container"
+                       onClick={(e) =>  {
+                               let element = document.elementFromPoint(e.clientX, e.clientY).tagName
+                               if (element == "DIV") {
+                                   if(this.props.user._id == this.props.loggedInUser._id) {
+                                       this.props.showDrawer("cover-select")
+                                   }
+                               }
+                           }
+                       }
+                   >
+                       <div className="profile-avatar">
+                           <Avatar 
+                               user={this.props.user} 
+                               huge={true} 
+                               canUpload={this.props.user && this.props.loggedInUser && (this.props.user._id == this.props.loggedInUser._id)}
+                               onSuccess={(url) => this.props.updateAvatar(this.props.loggedInUser._id, url)}
+                           />
+                       </div>
+                       
+                       {this.renderBackground()}
+                   </div>
+   
+                   <div className="profile-username">
+                     {this.props.user && this.props.user.username}  
+                   </div>
+   
+                   {this.props.user && this.props.user.bio.length > 0 ? (
+                       <div className="profile-bio">
+                           {this.props.user.bio}
+                       </div>
+                   ) : ""}
+   
+                   <ul className="counts-container">
+                       <li className="single-count">
+                           <div className="count-number">0</div>
+                           <div className="count-label">Tickers</div>
+                       </li>
+   
+                       <li className="single-count">
+                           <div className="count-number">{this.props.followers && this.props.followers.count}</div>
+                           <div className="count-label">Followers</div>
+                       </li>
+   
+                       <li className="single-count">
+                           <div className="count-number">{this.props.following && this.props.following.count}</div>
+                           <div className="count-label">Following</div>
+                       </li>
+                   </ul>
 
-                <div className="profile-username">
-                  {this.props.user && this.props.user.username}  
-                </div>
-
-                {this.props.user && this.props.user.bio ? (
-                    <div className="profile-username">
-                        {this.props.user.bio}
-                    </div>
-                ) : ""}
-
-                <ul className="counts-container">
-                    <li className="single-count">
-                        <div className="count-number">0</div>
-                        <div className="count-label">Tickers</div>
-                    </li>
-
-                    <li className="single-count">
-                        <div className="count-number">{this.props.followers && this.props.followers.count}</div>
-                        <div className="count-label">Followers</div>
-                    </li>
-
-                    <li className="single-count">
-                        <div className="count-number">{this.props.following && this.props.following.count}</div>
-                        <div className="count-label">Following</div>
-                    </li>
-                </ul>
-
-                {this.renderButton()}
-
-                <TabBar
-                    tabs={this.state.tabs}
-                    activeTab={this.state.selectedTabId}
-                    onTabChange={(tab) => this.handleTabChange(tab)}
-                />
-                {this.renderTab()}
-
-			</div>
-		);
+                   <div className="profile-action-button">
+                       {this.renderButton()}
+                   </div>
+   
+                   <TabBar
+                       tabs={this.state.tabs}
+                       activeTab={this.state.selectedTabId}
+                       onTabChange={(tab) => this.handleTabChange(tab)}
+                   />
+                   {this.renderTab()}
+   
+               </div>
+           );
+        }
 	}
 }
 

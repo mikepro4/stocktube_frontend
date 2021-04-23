@@ -38,11 +38,21 @@
     min-height: 33px;
 }
 
+.profile-bio {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    font-size: 15px;
+    margin: 12px 0 0 0;
+    color: $gray2;
+}
+
 .counts-container {
     width: 300px;
     margin: 20px auto 30px auto;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
 
     li {
         text-align: center;
@@ -54,7 +64,7 @@
             top: 10px;
             height: 20px;
             border-right: 1px solid $light-gray4;
-            right: -34px;
+            right: -10px;
         }
 
         &:last-child {
@@ -64,9 +74,10 @@
         }
 
         .count-number {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             letter-spacing: 0.57px;
+            height: 20px;
         }
 
         .count-label {
@@ -81,13 +92,14 @@
 .profile-action-button {
     width: 150px;
     margin: 0 auto 25px auto;
+    height: 46px;
 }
 
 .profile-route {
     .tab-container {
         position: sticky;
         top: 60px;
-        z-index: 100;
+        z-index: 22;
         background: $white;
         padding-top: 5px;
         // background: rgba($white, 0.7);
