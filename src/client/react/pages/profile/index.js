@@ -180,7 +180,29 @@ class Profile extends Component {
 			default:
 				return ;
 		}
-	}
+    }
+    
+    renderBackground() {
+        if(this.props.user && this.props.user.coverGradient) {
+            return (
+                <div 
+                        className={"profile-background gradient-" + this.props.user.coverGradient}
+                >
+                </div>
+            )
+        } else {
+            return(
+                <div 
+                    className="profile-background"
+                    
+                >
+                    {this.props.user && (
+                        <img src={this.props.user.cover}/>
+                    )}
+                </div>
+            )
+        }
+    }
 
    
 	render() {
@@ -208,11 +230,8 @@ class Profile extends Component {
                             onSuccess={(url) => this.props.updateAvatar(this.props.loggedInUser._id, url)}
                         />
                     </div>
-                    <div 
-                        className="profile-background"
-                        
-                    >
-                    </div>
+                    
+                    {this.renderBackground()}
                 </div>
 
                 <div className="profile-username">

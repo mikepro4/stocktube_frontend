@@ -202,4 +202,71 @@ export const updateAvatar = (userId, url, success) => async (
 // ===========================================================================
 
 
+export const updateCover = (userId, url, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/cover/update", { userId, url })
+        .then(response => {
+            dispatch(loadProfile(response.data.username))
+            dispatch(fetchCurrentUser())
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+
+
+// ===========================================================================
+
+
+export const updateCoverGradient = (userId, gradient, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/cover/update_cover_gradient", { userId, gradient })
+        .then(response => {
+            dispatch(loadProfile(response.data.username))
+            dispatch(fetchCurrentUser())
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+
+export const updateAvatarGradient = (userId, gradient, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/cover/update_cover_gradient", { userId, gradient })
+        .then(response => {
+            dispatch(loadProfile(response.data.username))
+            dispatch(fetchCurrentUser())
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+
+
 
