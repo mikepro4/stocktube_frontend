@@ -26,11 +26,54 @@ import createMentionPlugin, {
 import Portal from "react-portal";
 import positionSuggestions from "draft-js-mention-plugin/lib/utils/positionSuggestions";
 
+// import mentionsStyles from './MentionStyles.scss';
+
+// const mentionStyles = {
+//     mentionSuggestions: {
+//         background: "red"
+//     }
+// }
+
 const mentionPlugin = createMentionPlugin();
 
 const { MentionSuggestions } = mentionPlugin;
 
 const plugins = [mentionPlugin, MentionSuggestions];
+
+function Entry(props) {
+    const {
+      mention,
+      theme,
+      searchValue, // eslint-disable-line @typescript-eslint/no-unused-vars
+      isFocused, // eslint-disable-line @typescript-eslint/no-unused-vars
+      ...parentProps
+    } = props;
+  
+    return (
+      <div  {...parentProps}>
+        <div className="mentionSuggestionsEntryContainer">
+            <div className="mentionSuggestionsEntryContainerLeft">
+            <img
+                src={mention.avatar}
+                className="mentionSuggestionsEntryAvatar"
+                role="presentation"
+            />
+            </div>
+
+            <div className="mentionSuggestionsEntryContainerRight">
+            <div className="mentionSuggestionsEntryText">
+                {mention.name}
+            </div>
+
+            <div className="mentionSuggestionsEntryTitle">
+                {mention.title}
+            </div>
+            </div>
+        </div>
+      </div>
+    );
+  }
+  
 
 
 class NewPost extends Component {
@@ -39,8 +82,20 @@ class NewPost extends Component {
         super(props);
     
         this.mentionPlugin = createMentionPlugin({
-        //   positionSuggestions: this._positionSuggestions
-        });
+            mentionComponent(mentionProps) {
+              return (
+                <span
+                  className={mentionProps.className}
+                  // eslint-disable-next-line no-alert
+                  onClick={() => console.log(mentionProps)}
+                >
+                  {mentionProps.children}
+                </span>
+              );
+            },
+            mentionTrigger: ['@', '$'],
+            positionSuggestions: this._positionSuggestions,
+          });
       }
     
       state = {
@@ -80,12 +135,14 @@ class NewPost extends Component {
                 "https://pbs.twimg.com/profile_images/688487813025640448/E6O6I011_400x400.png"
             }
         ],
-        suggestionsOpen: false
+        suggestionsOpen: false,
+        isActive: true
       };
 
     componentDidMount() {
         this.setState({
-            editor: true
+            editor: true,
+            
         })
     }
 
@@ -109,14 +166,33 @@ class NewPost extends Component {
         this.editor.focus();
     };
 
+    getValue() {
+        const blocks = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
+        const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
+        // console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+        
+        const rawEditorContent = convertToRaw(this.state.editorState.getCurrentContent());
+        const entityMap = rawEditorContent.entityMap;
+        // console.log(EditorState.getCurrentContent())
+
+        Object.values(entityMap).map(entity => {
+            console.log(entity.data.mention);
+        }); 
+        
+    }
+
     _positionSuggestions = ({ decoratorRect, popover, state, props }) => {
+
         // NOTE: decoratorRect has no `x` prop in node environment
+ 
         const popoverPosition =
           (decoratorRect.x || decoratorRect.left) + popover.offsetWidth;
         const { left, ...restProps } = positionSuggestions({
           decoratorRect,
           popover,
-          state,
+          state: { 
+              isActive: true
+        },
           props
         });
     
@@ -127,10 +203,12 @@ class NewPost extends Component {
         }
     
         return {
-          left: adjustedLeft || left,
+          left: left,
+          position: "absolute",
+          zIndex: "100",
           ...restProps
         };
-    };
+      };
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin;
@@ -189,6 +267,7 @@ class NewPost extends Component {
                                         suggestionsOpen: value
                                     })
                                 }}
+                                entryComponent={Entry}
                             />
                         </div>
                     }
