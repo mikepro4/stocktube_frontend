@@ -10,6 +10,12 @@
        width: 100%;
     }
 
+    &.mini {
+        margin-top: 2px;
+        width: 24px;
+        height: 24px;
+    }
+
     &.small {
         width: 36px;
         height: 36px;
@@ -33,6 +39,17 @@
     
     &.default {
         border: 1px solid $light-gray2;
+
+        &.mini {
+            background-color: $white;
+
+            img {
+                width: 12px;
+                height: 12px;
+                position: relative;
+                top: 1px;
+            }
+        }
 
         &.small {
             background-color: $white;
