@@ -11,6 +11,11 @@ import {
 import * as _ from "lodash"
 
 import {
+    getSuggestions,
+    suggestionsClear
+} from "../../../../redux/actions/appActions"
+
+import {
     updateCover,
     updateCoverGradient,
     updateProfile
@@ -193,10 +198,12 @@ class NewPost extends Component {
         // this.setState({
         //   suggestions: defaultSuggestionsFilter(value, this.state.suggestions)
         // });
+        this.props.getSuggestions(value)
     };
     
     onAddMention = () => {
         // get the mention object selected
+        this.props.suggestionsClear()
       };
     
     focus = () => {
@@ -302,14 +309,16 @@ class NewPost extends Component {
                             />
                             <MentionSuggestions
                                 onSearchChange={this.onSearchChange}
-                                suggestions={this.state.suggestions}
+                                suggestions={this.props.suggestions}
                                 onAddMention={this.onAddMention}
                                 open={this.state.suggestionsOpen}
                                 onOpenChange={(value) => {
-                                    console.log(value)
                                     this.setState({
                                         suggestionsOpen: value
                                     })
+                                    if(!value) {
+                                        this.props.suggestionsClear()
+                                    }
                                 }}
                                 entryComponent={Entry}
                             />
@@ -332,11 +341,14 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         profileUser: state.profile.user,
+        suggestions: state.app.suggestions
     };
 }
 
 export default withRouter(connect(mapStateToProps, {
     updateCover,
     updateCoverGradient,
-    updateProfile
+    updateProfile,
+    getSuggestions,
+    suggestionsClear
 })(NewPost));

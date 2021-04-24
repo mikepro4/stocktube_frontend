@@ -16,7 +16,9 @@ import {
 	SCROLL_TO,
 	SCROLL_TO_RESET,
 	UPDATE_DRAWER,
-	RESET_DRAWER
+    RESET_DRAWER,
+    SUGGESTIONS_UPDATE,
+    SUGGESTIONS_CLEAR
 } from "../actions/types";
 
 export const initialState = {
@@ -30,7 +32,8 @@ export const initialState = {
 	menuOpen: false,
 	usernameOpen: false,
 	drawerOpen: true,
-	drawerType: "new-post"
+    drawerType: "new-post",
+    suggestions: []
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -94,11 +97,16 @@ export const appReducer = (state = initialState, action) => {
 				...state,
 				totalScrolledPixels: action.pixels
 			};
-		case SCROLL_TO:
+		case SUGGESTIONS_UPDATE:
 			return {
 				...state,
-				scrollTo: action.payload
-			};
+				suggestions: action.payload
+            };
+        case SUGGESTIONS_CLEAR:
+            return {
+                ...state,
+                suggestions: []
+            };
 		default:
 			return state;
 	}

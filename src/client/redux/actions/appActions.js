@@ -9,7 +9,9 @@ import {
 	UPDATE_TOTAL_PIXELS,
 	UPDATE_TOTAL_SCROLLED_PIXELS,
 	SCROLL_TO,
-	SCROLL_TO_RESET,
+    SCROLL_TO_RESET,
+    SUGGESTIONS_UPDATE,
+    SUGGESTIONS_CLEAR
 } from "./types";
 
 import moment from "moment";
@@ -265,4 +267,42 @@ export const resetScrollTo = (px) => async (dispatch) => {
 	dispatch({
 		type: SCROLL_TO_RESET
 	});
+}
+
+/////////////////////////////////////////////////
+
+export const getSuggestions = (query) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    dispatch(suggestionsClear())
+
+    api
+        .post("/suggestions", {
+            query: query
+        })
+		.then(response => {
+            console.log(response.data)
+            dispatch({
+                type: SUGGESTIONS_UPDATE,
+                payload: response.data
+            });
+			if (success) {
+				success(response.data);
+				
+            }
+		})
+		.catch(() => {
+			console.log("error")
+        });
+}
+
+/////////////////////////////////////////////////
+
+export const suggestionsClear = (px) => async (dispatch) => {
+	dispatch({
+		type: SUGGESTIONS_CLEAR,
+    });
 }

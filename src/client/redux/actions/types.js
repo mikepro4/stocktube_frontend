@@ -19,6 +19,9 @@ export const FETCH_MESSAGE = 'fetch_message';
 export const FETCH_AUTH = "app/FETCH_AUTH"
 export const AUTH_CLEAR = "app/AUTH_CLEAR"
 
+export const SUGGESTIONS_UPDATE = "app/SUGGESTIONS_UPDATE"
+export const SUGGESTIONS_CLEAR = "app/SUGGESTIONS_CLEAR"
+
 
 // =============================================================================
 
