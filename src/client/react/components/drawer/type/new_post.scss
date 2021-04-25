@@ -147,7 +147,12 @@
   .DraftEditor-editorContainer {
       position: relative;
       z-index: 2;
-      min-height: 200px;
+  }
+
+  .editing {
+    .DraftEditor-editorContainer {
+        min-height: 400px;
+    }
   }
 
 

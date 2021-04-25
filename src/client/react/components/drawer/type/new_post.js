@@ -26,7 +26,6 @@ import {
     createPost
 } from "../../../../redux/actions/postsActions"
 
-
 import { EditorState } from 'draft-js';
 import Editor from '@draft-js-plugins/editor';
 import createMentionPlugin, {
@@ -211,7 +210,7 @@ class NewPost extends Component {
         }); 
 
         let postItem = {
-            content: rawEditorContent,
+            content: JSON.stringify(rawEditorContent),
             user: this.props.user,
             linkedTickers: mentionTickers,
             linkedUsers: mentionUsers,
@@ -297,7 +296,7 @@ class NewPost extends Component {
                 <div className="placeholder">
                     {/* {this.state.editor && <SimpleMentionEditor onChange={(values) => console.log(values)}/>} */}
 
-                    {this.state.editor && this.props.user &&  <div onClick={this.focus} className="editor">
+                    {this.state.editor && this.props.user &&  <div onClick={this.focus} className="editor editing">
 
                             <div className="post-avatar">
                                 <Avatar user={this.props.user} mini={true}/>
