@@ -40,11 +40,16 @@ import TypeMention from "../../icons/type_mention"
 
 import Avatar from "./../../avatar"
 
+import createLinkifyPlugin from 'draft-js-linkify-plugin';
 const mentionPlugin = createMentionPlugin();
+
+const linkifyPlugin = createLinkifyPlugin({
+    target: '_blank'  
+});
 
 const { MentionSuggestions } = mentionPlugin;
 
-const plugins = [mentionPlugin, MentionSuggestions];
+const plugins = [mentionPlugin, MentionSuggestions, linkifyPlugin];
 
 function Entry(props) {
     const {
@@ -141,6 +146,9 @@ class NewPost extends Component {
             mentionTrigger: ['@', '$'],
             positionSuggestions: this._positionSuggestions,
           });
+          this.linkifyPlugin = createLinkifyPlugin({
+            target: '_blank'  
+        });
       }
     
       state = {
@@ -261,7 +269,7 @@ class NewPost extends Component {
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin;
-        const plugins = [this.mentionPlugin];
+        const plugins = [this.mentionPlugin, this.linkifyPlugin];
 
 
         return (

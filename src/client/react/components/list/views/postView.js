@@ -13,6 +13,8 @@ import * as _ from "lodash"
 import { fromJS} from 'immutable';
 import forEach from 'lodash/forEach';
 
+import * as R from 'remeda'
+
 import {
     getSuggestions,
     suggestionsClear,
@@ -42,11 +44,17 @@ import TypeMention from "../../icons/type_mention"
 
 import Avatar from "./../../avatar"
 
+import createLinkifyPlugin from 'draft-js-linkify-plugin';
+
 const mentionPlugin = createMentionPlugin();
+const linkifyPlugin = createLinkifyPlugin({
+    target: '_blank',
+    component: (params) => <a {...R.omit(params, ['blockKey'])} />
+});
 
 const { MentionSuggestions } = mentionPlugin;
 
-const plugins = [mentionPlugin, MentionSuggestions];
+const plugins = [mentionPlugin, MentionSuggestions, linkifyPlugin];
 
 function Entry(props) {
     const {
@@ -123,7 +131,7 @@ class NewPost extends Component {
                     renderContent = (
                         <span
                             className="mention-tag mention-user"
-                            onClick={() => console.log(mentionProps)}
+                            onClick={() => props.history.push("/@" + mentionProps.mention.user.username)}
                         >
                             <TypeMention/> <span className="mention-label">{mentionProps.children}</span>
                         </span>
@@ -143,6 +151,11 @@ class NewPost extends Component {
             mentionTrigger: ['@', '$'],
             positionSuggestions: this._positionSuggestions,
           });
+
+        this.linkifyPlugin = createLinkifyPlugin({
+            target: '_blank',
+            component: (params) => <a {...R.omit(params, ['blockKey'])} />
+        });
       }
     
       state = {
@@ -160,7 +173,7 @@ class NewPost extends Component {
             //     value.data.mention = fromJS(value.data.mention)
             // })
             // let content = convertFromRaw(newContent)
-            const plugins = [this.mentionPlugin];
+            const plugins = [this.mentionPlugin, this.linkifyPlugin];
 
             const decorators = _.flattenDeep(plugins.map((plugin) => plugin.decorators));
             const decorator = new CompositeDecorator( decorators.filter((decorator, index) => index !== 1) );
@@ -275,7 +288,7 @@ class NewPost extends Component {
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin;
-        const plugins = [this.mentionPlugin];
+        const plugins = [this.mentionPlugin, this.linkifyPlugin];
 
 
         return (
@@ -284,8 +297,8 @@ class NewPost extends Component {
                 <div className="editor">
 
                     <div className="post-avatar">
-                        <Avatar user={this.props.user} mini={true}/>
-                        <div className="post-avatar-username">{this.props.user.username}</div>
+                        <Avatar user={this.props.item.user} mini={true}/>
+                        <div className="post-avatar-username">{this.props.item.user.username}</div>
                     </div>
 
                     <Editor
