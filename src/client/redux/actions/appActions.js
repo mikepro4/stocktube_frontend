@@ -11,7 +11,8 @@ import {
 	SCROLL_TO,
     SCROLL_TO_RESET,
     SUGGESTIONS_UPDATE,
-    SUGGESTIONS_CLEAR
+    SUGGESTIONS_CLEAR,
+    UPDATE_COLLECTION
 } from "./types";
 
 import moment from "moment";
@@ -20,6 +21,20 @@ import qs from "qs";
 import axios from "axios";
 
 import { fetchCurrentUser } from "./authActions"
+
+/////////////////////////////////////////////////
+
+export const updateCollection = (update, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: UPDATE_COLLECTION,
+        payload: update
+    });
+};
+
 
 /////////////////////////////////////////////////
 

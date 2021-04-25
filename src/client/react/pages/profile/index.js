@@ -153,14 +153,23 @@ class Profile extends Component {
 			{ selectedTabId: value },
 			this.props.location,
 			this.props.history
-		);
+        );
+
+        if(this.props.totalScrolledPixels > document.getElementById("profile-tabs").offsetTop) {
+            console.log(document.getElementById("profile-tabs").offsetTop-30)
+            document.getElementById("body").scrollTop = document.getElementById("profile-tabs").offsetTop - 110
+        }
+        
 
     };
     
     renderTab = () => {
 		switch (this.state.selectedTabId) {
 			case "1":
-				return(<TabPosts/>)
+				return(
+                    <TabPosts />
+    
+                    )
 			case "2":
 				return(
 					<div className="placeholder">2</div>
@@ -263,13 +272,17 @@ class Profile extends Component {
                    <div className="profile-action-button">
                        {this.renderButton()}
                    </div>
-   
-                   <TabBar
-                       tabs={this.state.tabs}
-                       activeTab={this.state.selectedTabId}
-                       onTabChange={(tab) => this.handleTabChange(tab)}
-                   />
-                   {this.renderTab()}
+
+                    
+                    <TabBar
+                        tabs={this.state.tabs}
+                        activeTab={this.state.selectedTabId}
+                        onTabChange={(tab) => this.handleTabChange(tab)}
+                    />
+                   
+                   <div id="profile-tabs">
+                    {this.renderTab()}
+                   </div>
    
                </div>
            );
@@ -285,6 +298,8 @@ function mapStateToProps(state) {
         loggedInUser: state.app.user,
         followers: state.profile.followers,
         following: state.profile.following,
+        updateCollection: state.app.updateCollection,
+        totalScrolledPixels: state.app.totalScrolledPixels
 	};
 }
 

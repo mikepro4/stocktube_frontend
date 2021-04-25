@@ -60,20 +60,31 @@ export const loadPost = (id, success) => async (
 // ===========================================================================
 
 
-export const searchPosts = (userId, success) => async (
+export const searchPosts = (type, identifier, offset, limit, query, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
+    let criteria 
+
+    if(type == "user") {
+        criteria = {
+            userId: identifier
+        }
+    }
+
+    if(type == "ticker") {
+        criteria = {
+            symbol: identifier
+        }
+    }
 
     await api
         .post("/posts/search", {
-            criteria: {
-                userId: userId
-            },
+            criteria: criteria,
             sortProperty: "createdAt",
-            offset: 0,
-            limit: 20,
+            offset: offset,
+            limit: limit,
             order: "-1"
         })
         .then(response => {

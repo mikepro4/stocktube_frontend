@@ -38,6 +38,8 @@ export const HIDE_DRAWER = "app/HIDE_DRAWER"
 
 export const TOGGLE_THEME = "app/TOGGLE_THEME"
 
+export const UPDATE_COLLECTION = "app/UPDATE_COLLECTION"
+
 // =============================================================================
 
 // Profile

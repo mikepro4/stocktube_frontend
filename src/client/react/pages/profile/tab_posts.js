@@ -8,15 +8,26 @@ import * as _ from "lodash"
 
 import PostInput from "../../components/post_input"
 
+import { searchPosts } from "../../../redux/actions/postsActions"
+import ListResults  from "../../components/list"
+
+
 class TabPosts extends Component {
 
     render() {
-
         return (
             <div className={"tab-content tab-posts theme-" + this.props.theme}>
-                <div className="placeholder">
-                    {this.props.user && this.props.profileUser && this.props.user._id == this.props.profileUser._id && <PostInput />}
-                </div>
+                {this.props.user && this.props.profileUser && this.props.user._id == this.props.profileUser._id && <PostInput />}
+
+                {this.props.profileUser &&
+                    <ListResults
+                        type="user"
+                        identifier={this.props.profileUser._id}
+                        resultType="post"
+                        searchCollection={this.props.searchPosts}
+                    />
+                }
+                
             </div>
 
         )
@@ -35,4 +46,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    searchPosts
 })(TabPosts);

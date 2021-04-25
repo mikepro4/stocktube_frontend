@@ -18,7 +18,8 @@ import {
 	UPDATE_DRAWER,
     RESET_DRAWER,
     SUGGESTIONS_UPDATE,
-    SUGGESTIONS_CLEAR
+    SUGGESTIONS_CLEAR,
+    UPDATE_COLLECTION,
 } from "../actions/types";
 
 export const initialState = {
@@ -31,9 +32,10 @@ export const initialState = {
 	theme: "light",
 	menuOpen: false,
 	usernameOpen: false,
-	drawerOpen: true,
-    drawerType: "new-post",
-    suggestions: []
+	drawerOpen: false,
+    drawerType: null,
+    suggestions: [],
+    updateCollection: false
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -106,6 +108,11 @@ export const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 suggestions: []
+            };
+        case UPDATE_COLLECTION:
+            return {
+                ...state,
+                updateCollection: action.payload
             };
 		default:
 			return state;

@@ -12,7 +12,8 @@ import * as _ from "lodash"
 
 import {
     getSuggestions,
-    suggestionsClear
+    suggestionsClear,
+    updateCollection
 } from "../../../../redux/actions/appActions"
 
 import {
@@ -221,6 +222,7 @@ class NewPost extends Component {
         // console.log(postItem)
         this.props.createPost(postItem, () => {
             this.props.hideDrawer()
+            this.props.updateCollection(true)
         })
         
     }
@@ -356,5 +358,6 @@ export default withRouter(connect(mapStateToProps, {
     updateProfile,
     getSuggestions,
     suggestionsClear,
-    createPost
+    createPost,
+    updateCollection
 })(NewPost));
