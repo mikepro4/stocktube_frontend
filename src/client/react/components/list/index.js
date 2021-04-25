@@ -30,7 +30,6 @@ class ListResults extends Component {
 	}
 
 	componentDidUpdate(prevprops) {
-        console.log(this.props.location)
         if(prevprops.identifier !== this.props.identifier) {
             this.searchCollection(null, true)
         }

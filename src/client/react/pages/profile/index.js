@@ -38,15 +38,21 @@ class Profile extends Component {
             "Tickers",
             "History",
             "Likes"
-        ]
+        ],
+        newCounts: false
+    }
+
+    componentDidMount() {
+        this.loadProfile(this.props.match.params.username)
     }
 
     componentDidUpdate(prevprops, prevparams) {
-        if(!this.props.user && this.props.match.params.username) {
-            this.loadProfile(this.props.match.params.username)
-        }
         if(prevprops.match.params.username !== this.props.match.params.username) {
+            this.props.clearProfile()
             this.loadProfile(this.props.match.params.username)
+            this.setState({
+                newCounts: false
+            })
         }
 
         if (this.props.location.search) {
@@ -56,15 +62,17 @@ class Profile extends Component {
 				});
 			}
         }
-        if(this.props.user && this.props.loggedInUser  && !this.props.connection) {
-            this.updateConnections()
+
+        if(this.props.user && !this.props.followers) {
+            if(!this.state.newCounts) {
+                this.updateConnections()
+            }
         }
 
-        if(this.props.user) {
-            if(this.props.user.username !== this.props.match.params.username) {
-                this.loadProfile(this.props.match.params.username)
-            } 
+        if(this.props.user && this.props.loggedInUser && !this.props.connection) {
+            this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
         }
+
     }
 
     getQueryParams = () => {
@@ -75,9 +83,11 @@ class Profile extends Component {
         this.props.clearProfile()
     }
 
-    loadProfile(username) {
+    loadProfile(username, update) {
         this.props.loadProfile(username, () => {
-            this.updateConnections()
+            if(update) {
+                this.updateConnections()
+            }
         })
     }
     
@@ -89,9 +99,15 @@ class Profile extends Component {
     )
 
     updateConnections() {
-        this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
+        this.setState({
+            newCounts: true
+        })
         this.props.getFollowers(this.props.user._id)
         this.props.getFollowing(this.props.user._id)
+    }
+    
+    getConnection() {
+        this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
     }
 
     renderButton() {
@@ -118,6 +134,7 @@ class Profile extends Component {
                                     onClick={() =>  {
                                         this.props.deleteConnection(this.props.connection.objectSubject._id, () => {
                                             this.updateConnections()
+                                            this.getConnection()
                                         })
                                         }
                                     }
@@ -132,6 +149,7 @@ class Profile extends Component {
                                     onClick={() =>  {
                                         this.props.createConnection(this.props.loggedInUser, this.props.user, () => {
                                             this.updateConnections()
+                                            this.getConnection()
                                         })
                                         }
                                     }
