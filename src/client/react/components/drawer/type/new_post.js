@@ -21,6 +21,11 @@ import {
     updateProfile
 } from "../../../../redux/actions/profileActions"
 
+import {
+    createPost
+} from "../../../../redux/actions/postsActions"
+
+
 import { EditorState } from 'draft-js';
 import Editor from '@draft-js-plugins/editor';
 import createMentionPlugin, {
@@ -140,38 +145,6 @@ class NewPost extends Component {
     
       state = {
         editorState: EditorState.createEmpty(),
-        suggestions: [
-            {
-                type: "user",
-                name: "hello",
-                user: {"_id":{"$oid":"60822db8e9d09545d899d5fc"},"coverGradient":1,"email":"mikhail2@gmail.com","password":"$2a$10$aN0geE1s/lFp1PyxPDlNUuMofR7nW7RfyPxXcvcsHLLFrFb/LUjB2","created":{"$date":"2021-04-23T02:15:20.725Z"},"__v":0,"avatar":"http://res.cloudinary.com/dcdnt/image/upload/v1619144124/cashmachine/avatars/q6mqhtxvrunb6hilp2ku.png","avatarDefault":true,"username":"hello"},
-            },
-            {
-                type: "user",
-                name: "coolmike",
-                user: {"_id":{"$oid":"60820fec5f866530ba60aaf1"},"coverGradient":3,"email":"mik@mik.mik","password":"$2a$10$GjEIpv3krVOa3siISvxlROmZTb2dFUlic.BcmQa/Jw7KfokfByivm","created":{"$date":"2021-04-23T00:08:12.714Z"},"__v":0,"avatar":"http://res.cloudinary.com/dcdnt/image/upload/v1619136495/cashmachine/avatars/bjvjqx7uoeoqijlykehe.png","avatarDefault":true,"username":"coolmike","cover":null}
-            },
-            {
-                type: "user",
-                name: "machinelord",
-                user: {"_id":{"$oid":"6080fa9a9cfd9aa6cb430c17"},"email":"auth@auth.com","password":"$2a$10$WvDxmPVajCEb3owgmhC/AOkLc.fJAxBZ.OOSbBqqj9GcbLbDz0ZnS","created":{"$date":"2021-04-22T04:24:58.311Z"},"__v":0,"avatar":"http://res.cloudinary.com/dcdnt/image/upload/v1619065501/cashmachine/avatars/m1h0am1pdhamlpdcdbmg.png","avatarDefault":true,"username":"machinelord"}
-            },
-            {
-                type: "ticker",
-                name: "CCIV",
-                ticker: {"_id":{"$oid":"603deeb6da8c3cef41e8b4a5"},"createdAt":{"$date":"2021-03-02T07:52:22.650Z"},"metadata":{"symbol":"CCIV","name":"Churchill Capital Corp"},"__v":0,"last24hours":12,"last48hours":28,"lastWeek":120,"week":[12,16,16,16,21,7,5],"thisWeek":93,"previousWeek":75,"growthRate24":-25,"growthRate48":-12.5,"growthRate72":0,"score":15.344827586206897}
-            },
-            {
-                type: "ticker",
-                name: "AAPL",
-                ticker: {"_id":{"$oid":"603ee5f8e171545d50e21baf"},"createdAt":{"$date":"2021-03-03T01:27:20.690Z"},"metadata":{"symbol":"AAPL","name":"Apple"},"__v":0,"last48hours":21,"last24hours":9,"lastWeek":51,"week":[9,12,17,13,14,6,6],"thisWeek":77,"previousWeek":95,"growthRate24":-25,"growthRate48":-30,"growthRate72":15.151515151515156,"score":11}
-            },
-            {
-                type: "ticker",
-                name: "GSAT",
-                ticker: {"_id":{"$oid":"603ee7fae171545d50e21bf9"},"createdAt":{"$date":"2021-03-03T01:35:54.561Z"},"metadata":{"symbol":"GSAT","name":"Globstar"},"__v":0,"last24hours":0,"last48hours":0,"lastWeek":10,"week":[0,0,1,0,0,0,1],"previousWeek":6,"thisWeek":2,"growthRate24":0,"growthRate48":-100,"growthRate72":100,"score":0.27586206896551724} 
-            }
-        ],
         suggestionsOpen: true,
         isActive: true
       };
@@ -194,10 +167,6 @@ class NewPost extends Component {
     };
 
     onSearchChange = ({ value }) => {
-        console.log(value)
-        // this.setState({
-        //   suggestions: defaultSuggestionsFilter(value, this.state.suggestions)
-        // });
         this.props.getSuggestions(value)
     };
     
@@ -223,7 +192,36 @@ class NewPost extends Component {
         Object.values(entityMap).map(entity => {
             mentions.push(entity)
         }); 
-        console.log(mentions)
+
+        let mentionTickers = []
+        
+        Object.values(mentions).map(mention => {
+            if(mention.data.mention.type == "ticker") {
+                mentionTickers.push(mention.data.mention.ticker.metadata.symbol)
+            }
+        }); 
+
+        let mentionUsers = []
+
+        Object.values(mentions).map(mention => {
+            if(mention.data.mention.type == "user") {
+                mentionUsers.push(mention.data.mention.user._id)
+            }
+        }); 
+
+        let postItem = {
+            content: rawEditorContent,
+            user: this.props.user,
+            linkedTickers: mentionTickers,
+            linkedUsers: mentionUsers,
+            sentiment: "bullish",
+            clientWidth: this.props.clientWidth
+        }
+
+        // console.log(postItem)
+        this.props.createPost(postItem, () => {
+            this.props.hideDrawer()
+        })
         
     }
 
@@ -297,7 +295,13 @@ class NewPost extends Component {
                 <div className="placeholder">
                     {/* {this.state.editor && <SimpleMentionEditor onChange={(values) => console.log(values)}/>} */}
 
-                    {this.state.editor &&  <div onClick={this.focus} className="editor">
+                    {this.state.editor && this.props.user &&  <div onClick={this.focus} className="editor">
+
+                            <div className="post-avatar">
+                                <Avatar user={this.props.user} mini={true}/>
+                                <div className="post-avatar-username">{this.props.user.username}</div>
+                            </div>
+
                             <Editor
                                 editorState={this.state.editorState}
                                 onChange={this.onChange}
@@ -341,7 +345,8 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         profileUser: state.profile.user,
-        suggestions: state.app.suggestions
+        suggestions: state.app.suggestions,
+        clientWidth: state.app.clientWidth
     };
 }
 
@@ -350,5 +355,6 @@ export default withRouter(connect(mapStateToProps, {
     updateCoverGradient,
     updateProfile,
     getSuggestions,
-    suggestionsClear
+    suggestionsClear,
+    createPost
 })(NewPost));

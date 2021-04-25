@@ -182,3 +182,20 @@
             left: 4.3px;
         }
   }
+
+.post-avatar {
+    display: flex;
+    margin-bottom: 12px;
+
+    .avatar-container {
+        margin: 0 7px 0 0;
+    }
+
+    .post-avatar-username {
+        font-size: 14px;
+        font-weight: 600;
+        position: relative;
+        top: -1px;
+        letter-spacing: 0.34px;
+    }
+}

@@ -295,7 +295,7 @@ export const getSuggestions = (query) => async (
             }
 		})
 		.catch(() => {
-			console.log("error")
+			// console.log("error")
         });
 }
 
