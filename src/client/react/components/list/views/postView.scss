@@ -1,7 +1,64 @@
 .list-results {
     .editor {
-        padding: 20px;
-        border-bottom: 10px solid $light-gray5;
+        // border-bottom: 10px solid $light-gray5;
         margin-bottom: 0;
+        box-shadow: 0 1px 0 0 rgba($dark-gray5,0.07);
+
+        .DraftEditor-root {
+            padding: 0 15px 20px 15px;
+        }
     }
+
+}
+
+
+.wall-post-avatar {
+    display: flex;
+    margin-bottom: 12px;
+    position: relative;
+    padding: 20px 15px 0 15px;
+
+    .post-avatar-details {
+        margin: 0 0 0 10px;
+
+        .avatar-container {
+            margin: 0 5px 0 0;
+        }
+    
+        .wall-post-avatar-username {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .wall-post-avatar-username {
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            top: 0px;
+            letter-spacing: 0.34px;
+        }
+    
+        .post-avatar-subtitle {
+            display: flex;
+            font-size: 12px;
+            line-height: 12px;
+            position: relative;
+            top: -1px;
+            color: $gray1;
+        
+            .post-avatar-divider {
+                font-size: 4px;
+                color: $gray4;   
+                margin: 0 5px
+            }
+        }
+    }
+
+    .post-actions {
+        position: absolute;
+        top: 13px;
+        right: 15px;
+        opacity: 0.5;
+    }
+   
 }

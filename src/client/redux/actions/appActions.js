@@ -38,15 +38,24 @@ export const updateCollection = (update, success) => async (
 
 /////////////////////////////////////////////////
 
-export const showDrawer = (type, success) => async (
+export const showDrawer = (type, drawerData, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
-    dispatch({
-		type: SHOW_DRAWER,
-		payload: type
-    });
+    if(drawerData) {
+        dispatch({
+            type: SHOW_DRAWER,
+            payload: type,
+            drawerData: drawerData
+        });
+    } else {
+        dispatch({
+            type: SHOW_DRAWER,
+            payload: type,
+        });
+    }
+    
 
 	if (success) {
 		success();

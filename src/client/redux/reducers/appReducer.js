@@ -34,6 +34,7 @@ export const initialState = {
 	usernameOpen: false,
 	drawerOpen: false,
     drawerType: null,
+    drawerData: {},
     suggestions: [],
     updateCollection: false
 };
@@ -76,16 +77,26 @@ export const appReducer = (state = initialState, action) => {
 				usernameOpen: false
 			}
 		case SHOW_DRAWER:
+            let drawer
+
+            if(action.drawerData) {
+                drawer = action.drawerData
+            } else {
+                drawer = state.drawerData
+            }
 			return {
 				...state,
 				drawerOpen: true,
-				drawerType: action.payload
+                drawerType: action.payload,
+                drawerData: drawer
 			}
 		case HIDE_DRAWER:
 			return {
 				...state,
 				drawerOpen: false,
-				drawerType: null
+                drawerType: null,
+                drawerData: null,
+                suggestions: []
 			}
 		case UPDATE_TOTAL_PIXELS:
 			return {

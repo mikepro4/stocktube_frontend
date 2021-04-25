@@ -10,15 +10,13 @@ import {
 
 import * as _ from "lodash"
 
-import { fromJS} from 'immutable';
-import forEach from 'lodash/forEach';
-
 import * as R from 'remeda'
 
 import {
     getSuggestions,
     suggestionsClear,
-    updateCollection
+    updateCollection,
+    showDrawer
 } from "../../../../redux/actions/appActions"
 
 import {
@@ -45,6 +43,10 @@ import TypeMention from "../../icons/type_mention"
 import Avatar from "./../../avatar"
 
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
+
+import moment from "moment"
+
+import {updateLocale } from "moment"
 
 const mentionPlugin = createMentionPlugin();
 const linkifyPlugin = createLinkifyPlugin({
@@ -245,7 +247,6 @@ class NewPost extends Component {
             clientWidth: this.props.clientWidth
         }
 
-        // console.log(postItem)
         this.props.createPost(postItem, () => {
             this.props.hideDrawer()
             this.props.updateCollection(true)
@@ -284,7 +285,29 @@ class NewPost extends Component {
           borderRadius: "6px",
           ...restProps
         };
-      };
+    };
+
+    getPostTime() {
+        let date =  moment(this.props.item.createdAt).startOf('hour').fromNow( updateLocale("en", {
+            relativeTime: {
+              future: "in %s",
+              past: "%s ",
+              s: "sec",
+              m: "%d m",
+              mm: "%d m",
+              h: "%d h",
+              hh: "%d h",
+              d: "%d d",
+              dd: "%d d",
+              M: "a mth",
+              MM: "%d mths",
+              y: "y",
+              yy: "%d y"
+            }
+        }))
+
+        return(date.replace(/\s/g, ''))
+    }
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin;
@@ -296,9 +319,30 @@ class NewPost extends Component {
 
                 <div className="editor">
 
-                    <div className="post-avatar">
-                        <Avatar user={this.props.item.user} mini={true}/>
-                        <div className="post-avatar-username">{this.props.item.user.username}</div>
+                    <div className="wall-post-avatar">
+
+                        <Avatar user={this.props.item.user} small={true}/>
+
+                        <div className="post-avatar-details">
+                            <div className="wall-post-avatar-username">{this.props.item.user.username}</div>
+                            <div className="post-avatar-subtitle">
+                                <div className="post-avatar-time">{this.getPostTime()}</div>
+                                <div className="post-avatar-divider">●</div>
+                                <div className="post-avatar-sentiment sentiment-bullish">Bullish</div>
+                            </div>
+                        </div>
+
+                        <div className="post-actions">
+                            <Button 
+                                minimal="true"
+                                icon="more"
+                                className={"control theme-"+ this.props.theme}
+                                onClick={() =>  {
+                                    this.props.showDrawer("post-actions", { post: this.props.item })
+                                    }
+                                }
+                            />
+                        </div>
                     </div>
 
                     <Editor
@@ -310,22 +354,6 @@ class NewPost extends Component {
                             this.editor = element;
                         }}
                         placeholder="Share your opinion..."
-                    />
-
-                    <MentionSuggestions
-                        onSearchChange={this.onSearchChange}
-                        suggestions={this.props.suggestions}
-                        onAddMention={this.onAddMention}
-                        open={this.state.suggestionsOpen}
-                        onOpenChange={(value) => {
-                            this.setState({
-                                suggestionsOpen: value
-                            })
-                            if(!value) {
-                                this.props.suggestionsClear()
-                            }
-                        }}
-                        entryComponent={Entry}
                     />
                 </div>
 
@@ -354,5 +382,6 @@ export default withRouter(connect(mapStateToProps, {
     getSuggestions,
     suggestionsClear,
     createPost,
-    updateCollection
+    updateCollection,
+    showDrawer
 })(NewPost));

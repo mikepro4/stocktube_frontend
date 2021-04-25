@@ -15,6 +15,7 @@ import CoverSelect from "./type/cover_select"
 import AvatarSelect from "./type/avatar_select"
 import EditProfile from "./type/edit_profile"
 import NewPost from "./type/new_post"
+import PostActions from "./type/post_actions"
 
 class Drawer extends Component {
 
@@ -43,6 +44,10 @@ class Drawer extends Component {
                 return (<EditProfile hideDrawer={() => this.hideDrawer()}/>)
             case "new-post":
                 return (<NewPost hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "edit-post":
+                return (<NewPost edit={true} post={this.props.drawerData.post} hideDrawer={() => this.hideDrawer()} enablePortal/>)
+            case "post-actions":
+                return(<PostActions post={this.props.post} hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }
@@ -51,7 +56,9 @@ class Drawer extends Component {
 	render() {
 
         return (
-            <div className={"app-drawer theme-" + this.props.theme}>
+            <div className={"app-drawer theme-" + this.props.theme + " " + classNames({
+                "full-screen": this.props.fullScreen
+            })}>
                 <div 
                     className={"app-drawer-background theme-" + this.props.theme + " " + classNames({
                         "hide": this.state.hide
@@ -80,7 +87,8 @@ function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
         user: state.app.user,
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        drawerData: state.app.drawerData
 	};
 }
 

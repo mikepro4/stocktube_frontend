@@ -5,9 +5,8 @@ import classNames from "classnames"
 import { Icon, Button, Classes, Intent, Position, Toaster } from "@blueprintjs/core";
 
 import {
-    convertToRaw,
+    EditorState, convertFromRaw, convertToRaw, ContentState, CompositeDecorator ,
 } from 'draft-js';
-
 import * as _ from "lodash"
 
 import {
@@ -23,10 +22,10 @@ import {
 } from "../../../../redux/actions/profileActions"
 
 import {
-    createPost
+    createPost,
+    updatePost
 } from "../../../../redux/actions/postsActions"
 
-import { EditorState } from 'draft-js';
 import Editor from '@draft-js-plugins/editor';
 import createMentionPlugin, {
   defaultSuggestionsFilter,
@@ -149,14 +148,34 @@ class NewPost extends Component {
           this.linkifyPlugin = createLinkifyPlugin({
             target: '_blank'  
         });
+
+        let finalState
+
+        if(props.edit) {
+
+            const plugins = [this.mentionPlugin, this.linkifyPlugin];
+
+            const decorators = _.flattenDeep(plugins.map((plugin) => plugin.decorators));
+            const decorator = new CompositeDecorator( decorators.filter((decorator, index) => index !== 1) );
+
+            let content =  EditorState.createWithContent(
+                convertFromRaw(JSON.parse(props.drawerData.post.content))
+            )
+            finalState = content
+        } else {
+            finalState = EditorState.createEmpty()
+        }
+
+        this.state = {
+            editorState: finalState,
+            suggestionsOpen: true,
+            isActive: true,
+            postLoaded: false
+          };
+    
       }
     
-      state = {
-        editorState: EditorState.createEmpty(),
-        suggestionsOpen: true,
-        isActive: true
-      };
-
+     
     componentDidMount() {
         this.setState({
             editor: true,
@@ -166,13 +185,13 @@ class NewPost extends Component {
         setTimeout(() => {
             this.focus()
         }, 1000)
-    }
+        
+	}
 
     onChange = editorState => {
         this.setState({
-          editorState
-        });
-
+            editorState
+        })
     };
 
     onSearchChange = ({ trigger, value }) => {
@@ -188,7 +207,7 @@ class NewPost extends Component {
         this.editor.focus();
     };
 
-    getValue() {
+    getValue(update) {
         const blocks = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
         const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
         // console.log(convertToRaw(this.state.editorState.getCurrentContent()))
@@ -228,10 +247,18 @@ class NewPost extends Component {
         }
 
         // console.log(postItem)
-        this.props.createPost(postItem, () => {
-            this.props.hideDrawer()
-            this.props.updateCollection(true)
-        })
+        if(update) {
+            this.props.updatePost(this.props.post._id, postItem, () => {
+                this.props.hideDrawer()
+                this.props.updateCollection(true)
+            })
+        } else {
+            this.props.createPost(postItem, () => {
+                this.props.hideDrawer()
+                this.props.updateCollection(true)
+            })
+        }
+        
         
     }
 
@@ -272,7 +299,6 @@ class NewPost extends Component {
         const { MentionSuggestions } = this.mentionPlugin;
         const plugins = [this.mentionPlugin, this.linkifyPlugin];
 
-
         return (
             <div className={"app-drawer-content-container standard-drawer action-drawer theme-" + this.props.theme}>
 
@@ -288,15 +314,15 @@ class NewPost extends Component {
                     />
 
                     <div className="drawer-action-title">
-                        New post
+                        {this.props.edit ? "Edit post" : "New post"}
                     </div>
 
                     <Button
-                        text="Post"
+                        text={this.props.edit ? "Save" : "Post"}
                         className={"drawer-action-button theme-" + this.props.theme}
                         onClick={() => {
-                            // this.props.hideDrawer()
-                            this.getValue()
+                            let update = this.props.edit ? true : false;
+                            this.getValue(update)
                         }
                         }
                     />
@@ -321,6 +347,7 @@ class NewPost extends Component {
                                 }}
                                 placeholder="Share your opinion..."
                             />
+                            
                             <MentionSuggestions
                                 onSearchChange={this.onSearchChange}
                                 suggestions={this.props.suggestions}
@@ -356,7 +383,8 @@ function mapStateToProps(state) {
         authenticated: state.auth.authenticated,
         profileUser: state.profile.user,
         suggestions: state.app.suggestions,
-        clientWidth: state.app.clientWidth
+        clientWidth: state.app.clientWidth,
+        drawerData: state.app.drawerData
     };
 }
 
@@ -367,5 +395,6 @@ export default withRouter(connect(mapStateToProps, {
     getSuggestions,
     suggestionsClear,
     createPost,
-    updateCollection
+    updateCollection,
+    updatePost
 })(NewPost));

@@ -20,6 +20,7 @@ class ListResults extends Component {
         offset: 0,
         limit: 20,
         count: null,
+        updateCollection: false
     }
 
 	componentDidMount() {
@@ -36,6 +37,9 @@ class ListResults extends Component {
 
 		if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
             if( this.props.updateCollectionValue && !this.state.loading) {
+                this.setState({
+                    updateCollection: true
+                })
                 this.searchCollection(null, true)
             }
         } else {
@@ -81,14 +85,16 @@ class ListResults extends Component {
                         collection: results.all,
                         offset: newOffset,
                         count: results.count,
-                        loading: false
+                        loading: false,
+                        updateCollection: false
                     })
                 } else {
                     this.setState({
                         collection: newCollection,
                         offset: newOffset,
                         count: results.count,
-                        loading: false
+                        loading: false,
+                        updateCollection: false
                     })
                 }
 
@@ -113,12 +119,15 @@ class ListResults extends Component {
 	renderResultItem = (item) => {
 		switch (this.props.resultType) {
 			case "post":
-				return(
-					<PostView
-						item={item}
-						key={item._id}
-					/>
-				)
+                if(!this.state.updateCollection) {
+                    return (<PostView
+                        item={item}
+                        key={item._id}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+                
 			default:
 				return(
 					<div></div>

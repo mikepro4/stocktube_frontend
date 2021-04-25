@@ -21,6 +21,8 @@
         &.hide {
             @extend .animation-fadeOut;
         }
+
+        
     }
     
     .app-drawer-content{
@@ -38,10 +40,16 @@
             @extend .animation-hideDrawer;
         }
     }
+
 }
 
 .user-drawer {
-    padding: 20px;
+    padding: 20px 20px 70px 20px;
+
+    // &.post-actions {
+    //     // height: 280px;
+    //     padding-bottom: 200px;
+    // }
 
     .user-details-header {
         display: flex;

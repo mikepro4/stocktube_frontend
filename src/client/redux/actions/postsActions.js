@@ -119,7 +119,7 @@ export const deletePost = (post, success) => async (
 // ===========================================================================
 
 
-export const updatePost = (postId, postContent, linkedTickers, linkedUsers, success) => async (
+export const updatePost = (postId, postItem, success) => async (
     dispatch,
 	getState,
 	api
@@ -128,13 +128,11 @@ export const updatePost = (postId, postContent, linkedTickers, linkedUsers, succ
     await api
         .post("/post/update", { 
             postId, 
-            linkedTickers,
-            linkedUsers,
-            content: postContent,
+            linkedTickers: postItem.linkedTickers,
+            linkedUsers: postItem.linkedUsers,
+            content: postItem.content
         })
         .then(response => {
-            dispatch(loadProfile(response.data.username))
-            dispatch(fetchCurrentUser())
             if (success) {
                 success(response.data);
             }
