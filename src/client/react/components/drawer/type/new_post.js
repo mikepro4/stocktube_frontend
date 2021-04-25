@@ -172,10 +172,11 @@ class NewPost extends Component {
         this.setState({
           editorState
         });
+
     };
 
-    onSearchChange = ({ value }) => {
-        this.props.getSuggestions(value)
+    onSearchChange = ({ trigger, value }) => {
+        this.props.getSuggestions(value, trigger)
     };
     
     onAddMention = () => {

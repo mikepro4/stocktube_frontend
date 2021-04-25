@@ -286,7 +286,7 @@ export const resetScrollTo = (px) => async (dispatch) => {
 
 /////////////////////////////////////////////////
 
-export const getSuggestions = (query) => async (
+export const getSuggestions = (query, trigger) => async (
     dispatch,
 	getState,
 	api
@@ -296,7 +296,8 @@ export const getSuggestions = (query) => async (
 
     api
         .post("/suggestions", {
-            query: query
+            query: query,
+            trigger: trigger
         })
 		.then(response => {
             console.log(response.data)
