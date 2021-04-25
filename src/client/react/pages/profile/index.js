@@ -111,6 +111,18 @@ class Profile extends Component {
     }
 
     renderButton() {
+        if(!this.props.loggedInUser) {
+            return (
+                <Button 
+                    text="Follow"
+                    className={"theme-"+ this.props.theme}
+                    onClick={() =>  {
+                        alert("please sign in")
+                        }
+                    }
+                />
+            )
+        }
         if(this.props.connection) {
             if(this.props.loggedInUser && (this.props.match.params.username == this.props.loggedInUser.username)) {
                 return (
