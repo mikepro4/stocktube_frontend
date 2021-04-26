@@ -4,6 +4,7 @@ import {
     CLEAR_PROFILE,
     GET_FOLLOWERS,
     GET_FOLLOWING,
+    GET_FOLLOWING_TICKERS,
     GET_CONNECTION
 } from '../actions/types';
 
@@ -96,6 +97,30 @@ export const getFollowing = (objectId, success) => async (
         .then(response => {
             dispatch({
                 type: GET_FOLLOWING,
+                payload: response.data
+            });
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+
+export const getFollowingTickers = (objectId, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/connection/get_ticker_following", { objectId })
+        .then(response => {
+            dispatch({
+                type: GET_FOLLOWING_TICKERS,
                 payload: response.data
             });
             if (success) {

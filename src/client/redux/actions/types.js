@@ -50,5 +50,6 @@ export const CLEAR_PROFILE = "app/CLEAR_PROFILE"
 
 export const GET_FOLLOWERS = "app/GET_FOLLOWERS"
 export const GET_FOLLOWING = "app/GET_FOLLOWING"
+export const GET_FOLLOWING_TICKERS = "app/GET_FOLLOWING_TICKERS"
 export const GET_CONNECTION = "app/GET_CONNECTION"
 

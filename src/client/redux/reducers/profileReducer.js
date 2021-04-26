@@ -4,6 +4,7 @@ import {
     CLEAR_PROFILE,
     GET_FOLLOWERS,
     GET_FOLLOWING,
+    GET_FOLLOWING_TICKERS,
     GET_CONNECTION,
 } from '../actions/types';
 
@@ -11,6 +12,7 @@ export const initialState = {
     user: null,
     loading: false,
     following: null,
+    followingTickers: null,
     followers: null,
     connection: null
 };
@@ -30,6 +32,10 @@ export const profileReducer = function(state = initialState, action) {
         case GET_FOLLOWING:
             return { ...state,
                 following: action.payload,
+            };
+        case GET_FOLLOWING_TICKERS:
+            return { ...state,
+                followingTickers: action.payload,
             };
         case GET_FOLLOWERS:
             return { ...state,

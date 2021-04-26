@@ -11,6 +11,7 @@ import {
     deleteConnection,
     getFollowers,
     getFollowing,
+    getFollowingTickers,
     updateAvatar
 } from "../../../redux/actions/profileActions"
 
@@ -73,6 +74,10 @@ class Profile extends Component {
             this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
         }
 
+        if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
+            this.updateConnections()
+        }
+
     }
 
     getQueryParams = () => {
@@ -104,6 +109,7 @@ class Profile extends Component {
         })
         this.props.getFollowers(this.props.user._id)
         this.props.getFollowing(this.props.user._id)
+        this.props.getFollowingTickers(this.props.user._id)
     }
     
     getConnection() {
@@ -284,7 +290,7 @@ class Profile extends Component {
    
                    <ul className="counts-container">
                        <li className="single-count">
-                           <div className="count-number">0</div>
+                           <div className="count-number">{this.props.followingTickers && this.props.followingTickers.count}</div>
                            <div className="count-label">Tickers</div>
                        </li>
    
@@ -328,7 +334,8 @@ function mapStateToProps(state) {
         loggedInUser: state.app.user,
         followers: state.profile.followers,
         following: state.profile.following,
-        updateCollection: state.app.updateCollection,
+        followingTickers: state.profile.followingTickers,
+        updateCollectionValue: state.app.updateCollection,
         totalScrolledPixels: state.app.totalScrolledPixels
 	};
 }
@@ -343,6 +350,7 @@ export default {
         deleteConnection,
         getFollowers,
         getFollowing,
+        getFollowingTickers,
         updateAvatar,
         showDrawer
 	})(Profile))
