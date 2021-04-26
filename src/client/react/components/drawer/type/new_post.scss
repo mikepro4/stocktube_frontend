@@ -17,7 +17,7 @@
     transform: scaleY(0);
     margin: -16px;
     position: relative;
-    z-index: 100;
+    z-index: 1000;
   }
   
   .mentionSuggestionsEntryContainer {
@@ -38,6 +38,7 @@
   
   .mentionSuggestionsEntry {
     padding: 7px 10px 3px 10px;
+    background: $white;
     transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
   }
   
@@ -151,7 +152,7 @@
 
   .editing {
     .DraftEditor-editorContainer {
-        min-height: 400px;
+        min-height: 160px;
     }
   }
 
@@ -203,4 +204,30 @@
         top: -1px;
         letter-spacing: 0.34px;
     }
+}
+
+.post-helper-bar {
+    border-radius: 6px;
+    height: 36px;
+    position: relative;
+    margin: 0 0 0 20px;
+    z-index: 1;
+
+    ul {
+        li {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $light-gray4;
+            border-radius: 36px;
+            color: $dark-gray4;
+        }
+    }
+}
+
+.editor-container {
+    position: relative;
+    z-index: 20;
 }

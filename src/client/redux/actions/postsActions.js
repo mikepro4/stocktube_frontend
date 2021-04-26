@@ -99,14 +99,14 @@ export const searchPosts = (type, identifier, offset, limit, query, success) => 
 // ===========================================================================
 
 
-export const deletePost = (post, success) => async (
+export const deletePost = (postId, postItem, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
-
+    console.log(postId, postItem)
     await api
-        .post("/posts/delete", { post })
+        .post("/posts/delete", { postId: postId, post: postItem })
         .then(response => {
             if (success) {
                 success(response.data);

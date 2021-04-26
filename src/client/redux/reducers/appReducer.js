@@ -32,8 +32,8 @@ export const initialState = {
 	theme: "light",
 	menuOpen: false,
 	usernameOpen: false,
-	drawerOpen: false,
-    drawerType: null,
+	drawerOpen: true,
+    drawerType: "new-post",
     drawerData: {},
     suggestions: [],
     updateCollection: false

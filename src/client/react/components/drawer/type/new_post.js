@@ -39,6 +39,9 @@ import TypeMention from "../../icons/type_mention"
 
 import Avatar from "./../../avatar"
 
+import ImageUploader from "../../image_uploader/"
+import ImageDisplay from "../../image_display/"
+
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
 const mentionPlugin = createMentionPlugin();
 
@@ -170,8 +173,9 @@ class NewPost extends Component {
             editorState: finalState,
             suggestionsOpen: true,
             isActive: true,
-            postLoaded: false
-          };
+            postLoaded: false,
+            uploadedImages: []
+        };
     
       }
     
@@ -286,21 +290,36 @@ class NewPost extends Component {
         return {
           left: left,
           position: "absolute",
-          zIndex: "100",
+          zIndex: "1000",
           boxShadow: "0 5px 24px 0 rgba(23,32,38,0.13)",
+          background: "white",
           borderRadius: "5px",
           padding: "5px",
           borderRadius: "6px",
           ...restProps
         };
-      };
+    };
+
+    addImage(url) {
+        let newUploadedImage = [
+            ...this.state.uploadedImages,
+            url
+        ]
+
+        this.setState({
+            uploadedImages: newUploadedImage
+        })
+
+        console.log(this.state.uploadedImages)
+
+    }
 
     render() {
         const { MentionSuggestions } = this.mentionPlugin;
         const plugins = [this.mentionPlugin, this.linkifyPlugin];
 
         return (
-            <div className={"app-drawer-content-container standard-drawer action-drawer theme-" + this.props.theme}>
+            <div className={"app-drawer-content-container standard-drawer action-drawer new-post theme-" + this.props.theme}>
 
                 <div className="drawer-action-header">
                     <Button
@@ -331,38 +350,52 @@ class NewPost extends Component {
                 <div className="placeholder">
                     {/* {this.state.editor && <SimpleMentionEditor onChange={(values) => console.log(values)}/>} */}
 
-                    {this.state.editor && this.props.user &&  <div onClick={this.focus} className="editor editing">
+                    {this.state.editor && this.props.user &&  <div  className="editor editing">
+                            <div className="editor-container" onClick={this.focus}>
+                                <div className="post-avatar">
+                                    <Avatar user={this.props.user} mini={true}/>
+                                    <div className="post-avatar-username">{this.props.user.username}</div>
+                                </div>
 
-                            <div className="post-avatar">
-                                <Avatar user={this.props.user} mini={true}/>
-                                <div className="post-avatar-username">{this.props.user.username}</div>
+                                <ImageDisplay images={this.state.uploadedImages} />
+
+                                <Editor
+                                    editorState={this.state.editorState}
+                                    onChange={this.onChange}
+                                    plugins={plugins}
+                                    ref={element => {
+                                        this.editor = element;
+                                    }}
+                                    placeholder="Share your opinion..."
+                                />
+                                
+                                <MentionSuggestions
+                                    onSearchChange={this.onSearchChange}
+                                    suggestions={this.props.suggestions}
+                                    onAddMention={this.onAddMention}
+                                    open={this.state.suggestionsOpen}
+                                    onOpenChange={(value) => {
+                                        this.setState({
+                                            suggestionsOpen: value
+                                        })
+                                        if(!value) {
+                                            this.props.suggestionsClear()
+                                        }
+                                    }}
+                                    entryComponent={Entry}
+                                />
                             </div>
 
-                            <Editor
-                                editorState={this.state.editorState}
-                                onChange={this.onChange}
-                                plugins={plugins}
-                                ref={element => {
-                                    this.editor = element;
-                                }}
-                                placeholder="Share your opinion..."
-                            />
-                            
-                            <MentionSuggestions
-                                onSearchChange={this.onSearchChange}
-                                suggestions={this.props.suggestions}
-                                onAddMention={this.onAddMention}
-                                open={this.state.suggestionsOpen}
-                                onOpenChange={(value) => {
-                                    this.setState({
-                                        suggestionsOpen: value
-                                    })
-                                    if(!value) {
-                                        this.props.suggestionsClear()
-                                    }
-                                }}
-                                entryComponent={Entry}
-                            />
+                            <div className="post-helper-bar">
+                                <ul>
+                                    <li>
+                                        <ImageUploader addImage={(url) => {
+                                            console.log(url)
+                                            this.addImage(url)
+                                        }}/>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     }
 

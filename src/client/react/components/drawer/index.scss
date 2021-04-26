@@ -44,7 +44,7 @@
 }
 
 .user-drawer {
-    padding: 20px 20px 70px 20px;
+    padding: 20px 20px 75px 20px;
 
     // &.post-actions {
     //     // height: 280px;
@@ -130,6 +130,41 @@
     &.action-drawer {
         max-height: 99%;
         padding-top: 0;
+
+        &.new-post {
+            padding: 0 0 20px 0  ;
+
+            .editor-container {
+                // padding: 0 20px;
+
+                .post-avatar {
+                    padding: 0 0 0 20px;
+                }
+
+                .DraftEditor-root {
+                    margin: 0 20px 0 20px;
+                }
+            }
+
+            .drawer-action-header  {
+                padding-top: 0;
+                margin-bottom: 0;
+
+                .drawer-action-title {
+                    top: 22px;
+                }
+
+                .bp3-button.action-close {
+                    top: 12px;
+                    left: 9px;
+                }
+
+                .bp3-button.drawer-action-button {
+                    top: 15px;
+                    right: 16px;
+                }
+            }
+        }
     }
 
     .drawer-header {
