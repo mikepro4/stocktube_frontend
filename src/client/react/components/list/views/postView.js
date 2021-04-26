@@ -54,6 +54,8 @@ const linkifyPlugin = createLinkifyPlugin({
     component: (params) => <a {...R.omit(params, ['blockKey'])} />
 });
 
+import ImageDisplay from "../../image_display/"
+
 const { MentionSuggestions } = mentionPlugin;
 
 const plugins = [mentionPlugin, MentionSuggestions, linkifyPlugin];
@@ -163,7 +165,8 @@ class NewPost extends Component {
       state = {
         editorState: EditorState.createEmpty(),
         suggestionsOpen: true,
-        isActive: true
+        isActive: true,
+        hideText: false
       };
 
     componentDidMount() {
@@ -184,7 +187,17 @@ class NewPost extends Component {
                 editorState: EditorState.createWithContent(
                     convertFromRaw(JSON.parse(this.props.item.content))
                     , decorator)
+            }, () => {
+                const blocks = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
+                const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
+                if(value.length == 1) {
+                    this.setState({
+                        hideText: true
+                    })
+                }
             })
+
+          
         }
         // console.log(convertFromRaw(this.props.item.content))
 	}
@@ -313,6 +326,8 @@ class NewPost extends Component {
         const { MentionSuggestions } = this.mentionPlugin;
         const plugins = [this.mentionPlugin, this.linkifyPlugin];
 
+        
+
 
         return (
 
@@ -345,7 +360,9 @@ class NewPost extends Component {
                         </div>
                     </div>
 
-                    <Editor
+                    {this.props.item && this.props.item.linkedImages && <ImageDisplay images={this.props.item.linkedImages}/>}
+
+                    {!this.state.hideText  && <Editor
                         editorState={this.state.editorState}
                         onChange={this.onChange}
                         readOnly
@@ -354,7 +371,7 @@ class NewPost extends Component {
                             this.editor = element;
                         }}
                         placeholder="Share your opinion..."
-                    />
+                    />}
                 </div>
 
                     

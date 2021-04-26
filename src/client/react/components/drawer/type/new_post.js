@@ -186,6 +186,12 @@ class NewPost extends Component {
             
         })
 
+        if(this.props.drawerData && this.props.drawerData.post && this.props.drawerData.post.linkedImages) {
+            this.setState({
+                uploadedImages: this.props.drawerData.post.linkedImages
+            })
+        }
+
         setTimeout(() => {
             this.focus()
         }, 1000)
@@ -214,8 +220,6 @@ class NewPost extends Component {
     getValue(update) {
         const blocks = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
         const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
-        // console.log(convertToRaw(this.state.editorState.getCurrentContent()))
-        
         const rawEditorContent = convertToRaw(this.state.editorState.getCurrentContent());
         const entityMap = rawEditorContent.entityMap;
         // console.log(EditorState.getCurrentContent())
@@ -241,13 +245,16 @@ class NewPost extends Component {
             }
         }); 
 
+        let finalContent;
+
         let postItem = {
             content: JSON.stringify(rawEditorContent),
             user: this.props.user,
             linkedTickers: mentionTickers,
             linkedUsers: mentionUsers,
             sentiment: "bullish",
-            clientWidth: this.props.clientWidth
+            clientWidth: this.props.clientWidth,
+            uploadedImages: this.state.uploadedImages
         }
 
         // console.log(postItem)
@@ -262,6 +269,10 @@ class NewPost extends Component {
                 this.props.updateCollection(true)
             })
         }
+
+        // console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+        
+        
         
         
     }

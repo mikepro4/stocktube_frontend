@@ -17,7 +17,7 @@ class ImageDisplay extends Component {
            <div className="image-display">
                {this.props.images && this.props.images.map((image) => {
                    return (
-                       <img src={image} />
+                       <img src={image} key={image} />
                    )
                })}
            </div>
