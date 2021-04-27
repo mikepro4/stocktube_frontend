@@ -53,3 +53,16 @@ export const GET_FOLLOWING = "app/GET_FOLLOWING"
 export const GET_FOLLOWING_TICKERS = "app/GET_FOLLOWING_TICKERS"
 export const GET_CONNECTION = "app/GET_CONNECTION"
 
+// =============================================================================
+
+
+// Profile
+
+export const LOAD_TICKER = "app/LOAD_TICKER"
+export const LOAD_TICKER_SUCCESS = "app/LOAD_TICKER_SUCCESS"
+export const CLEAR_TICKER = "app/CLEAR_TICKER"
+export const GET_FOLLOWERS_OF_TICKER = "app/GET_FOLLOWERS_OF_TICKER"
+export const GET_CONNECTION_TO_TICKER = "app/GET_CONNECTION_TO_TICKER"
+
+export const GET_FEATURED_FOLLOWERS = "app/GET_FEATURED_FOLLOWERS"
+export const SET_ACTIVE_FEATURED_VIDEO = "app/SET_ACTIVE_FEATURED_VIDEO"

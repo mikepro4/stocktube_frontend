@@ -15,6 +15,10 @@ import {
     showDrawer
 } from "../../../redux/actions/appActions";
 
+import {
+    loadTicker
+} from "../../../redux/actions/tickerActions";
+
 class Ticker extends Component {
 
     state = {
@@ -28,40 +32,15 @@ class Ticker extends Component {
         newCounts: false
     }
 
+    static loadData(store, match, route, path, query) {
+		return store.dispatch(loadTicker(match.params.ticker));
+	}
+
     componentDidMount() {
-        // this.loadProfile(this.props.match.params.username)
+        // this.props.loadTicker(this.props.match.params.ticker)
     }
 
     componentDidUpdate(prevprops, prevparams) {
-        // if(prevprops.match.params.username !== this.props.match.params.username) {
-        //     this.props.clearProfile()
-        //     this.loadProfile(this.props.match.params.username)
-        //     this.setState({
-        //         newCounts: false
-        //     })
-        // }
-
-        // if (this.props.location.search) {
-		// 	if (prevparams.selectedTabId !== this.getQueryParams().selectedTabId) {
-		// 		this.setState({
-		// 			selectedTabId: this.getQueryParams().selectedTabId
-		// 		});
-		// 	}
-        // }
-
-        // if(this.props.user && !this.props.followers) {
-        //     if(!this.state.newCounts) {
-        //         this.updateConnections()
-        //     }
-        // }
-
-        // if(this.props.user && this.props.loggedInUser && !this.props.connection) {
-        //     this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-        // }
-
-        // if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
-        //     this.updateConnections()
-        // }
 
     }
 
@@ -148,24 +127,24 @@ class Ticker extends Component {
    
 	render() {
 
-        if(!this.props.ticker) {
-            return <div>test</div>
-        } else {
-            return (
-                <div className={"ticker-route theme-" + this.props.theme}>
-                    <TabBar
-                        tabs={this.state.tabs}
-                        activeTab={this.state.selectedTabId}
-                        onTabChange={(tab) => this.handleTabChange(tab)}
-                    />
-                   
-                   <div id="ticker-tabs">
-                       {this.renderTab()}
-                   </div>
-   
-               </div>
-           );
-        }
+        return (
+            <div className={"ticker-route theme-" + this.props.theme}>
+
+                {this.props.ticker.metadata.symbol}
+
+                <TabBar
+                    tabs={this.state.tabs}
+                    activeTab={this.state.selectedTabId}
+                    onTabChange={(tab) => this.handleTabChange(tab)}
+                />
+
+                <div id="ticker-tabs">
+                    {this.renderTab()}
+                </div>
+
+
+            </div>
+        );
 	}
 }
 
@@ -174,13 +153,14 @@ function mapStateToProps(state) {
         loggedInUser: state.app.user,
         updateCollectionValue: state.app.updateCollection,
         totalScrolledPixels: state.app.totalScrolledPixels,
-        ticker: state.app.ticker
+        ticker: state.ticker.ticker
 	};
 }
 
 export default {
 	component: withRouter(connect(mapStateToProps, {
         updateQueryString,
-        showDrawer
+        showDrawer,
+        loadTicker
 	})(Ticker))
 }
