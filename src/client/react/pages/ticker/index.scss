@@ -1,0 +1,15 @@
+.ticker-player {
+    width: 100%;
+    background: $black;
+
+    &.sticky {
+        position: sticky;
+        top: 60px;
+        z-index: 10;
+    }
+
+    .video-container {
+        max-width: 375px;
+        margin: 0 auto;
+    }
+}

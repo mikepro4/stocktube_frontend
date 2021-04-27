@@ -33,6 +33,7 @@ import {
 import YoutubePlayer from "../../components/player/";
 
 import ListResults from "../../components/list"
+import classNames from "classnames";
 
 class Ticker extends Component {
 
@@ -179,7 +180,12 @@ class Ticker extends Component {
             <div className={"ticker-route theme-" + this.props.theme}>
 
 
-                <div className="player">
+                <div 
+                    className={classNames({
+                        "ticker-player": true,
+                        sticky: this.state.selectedTabId == "1"
+                    })}
+                >
                     <YoutubePlayer
                         width="375px"
                         height="210px"
@@ -193,6 +199,8 @@ class Ticker extends Component {
                         identifier={this.props.ticker.metadata.symbol}
                         resultType="video-preview-small"
                         searchCollection={this.props.searchVideos}
+                        horizontal={true}
+                        height="100px"
                     />}
                     
                 </div>

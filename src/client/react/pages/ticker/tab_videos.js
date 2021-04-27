@@ -10,13 +10,22 @@ import PostInput from "../../components/post_input"
 
 import ListResults  from "../../components/list"
 
+import { 
+    searchVideos
+} from "../../../redux/actions/videosActions";
 
-class TabPosts extends Component {
+
+class TabVideos extends Component {
 
     render() {
         return (
             <div className={"tab-content tab-videos theme-" + this.props.theme}>
-                test
+                {this.props.ticker && <ListResults
+                    type="ticker-video-suggestions"
+                    identifier={this.props.ticker.metadata.symbol}
+                    resultType="video-preview-small"
+                    searchCollection={this.props.searchVideos}
+                />}
             </div>
         )
 
@@ -28,9 +37,11 @@ function mapStateToProps(state) {
     return {
         theme: state.app.theme,
         user: state.app.user,
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        ticker: state.ticker.ticker
     };
 }
 
 export default connect(mapStateToProps, {
-})(TabPosts);
+    searchVideos
+})(TabVideos);

@@ -20,12 +20,24 @@ class ListResults extends Component {
         offset: 0,
         limit: 20,
         count: null,
-        updateCollection: false
+        updateCollection: false,
+        horizontalScroll: 0
     }
 
 	componentDidMount() {
         this.searchCollection()
-	}
+
+        let node = document.getElementById(this.props.type)
+        node.addEventListener('scroll', this.handleScroll);
+        
+    }
+    
+    handleScroll = (event) => {
+        this.setState({
+            horizontalScroll: document.getElementById(this.props.type).scrollLeft
+        })
+        // this.props.updateTotalScrolledPixels(document.getElementById("body").scrollTop)
+    }
 
 	componentWillUnmount() {
 	}
@@ -44,14 +56,30 @@ class ListResults extends Component {
             }
         } else {
             const loadMore = document.getElementById("loadmore")
-        
-            if(loadMore && !this.state.loading) {
-                if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
-                    if( !this.props.updateCollectionValue) {
-                        this.searchCollection(20)
+
+            if(!this.props.horizontal) {
+                if(loadMore && !this.state.loading) {
+                    if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
+                        if( !this.props.updateCollectionValue) {
+                            this.searchCollection(20)
+                        }
                     }
                 }
+            } else if (this.props.horizontal) {
+                if(loadMore && !this.state.loading) {
+                    if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().x) {
+                        if( !this.props.updateCollectionValue) {
+                            this.searchCollection(20)
+                        }
+                    }
+                    // if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
+                        // if( !this.props.updateCollectionValue) {
+                        //     this.searchCollection(20)
+                        // }
+                    // }
+                } 
             }
+            
         }
     }
     
@@ -129,7 +157,7 @@ class ListResults extends Component {
                 }
             case "video-preview-small":
                 if(!this.state.updateCollection) {
-                    return (<div>{item.metadata.title}</div>)
+                    return (<div key={item._id}>{item.metadata.title}</div>)
                 } else {
                     return(<div key={item._id}/>)
                 }
@@ -143,7 +171,18 @@ class ListResults extends Component {
 
 	render() {
 		return (
-			<div className="list-results" id="results">
+            <div 
+                className={
+                    classNames({
+                        "list-results": true,
+                        "horizontal": this.props.horizontal
+                    })
+                }
+                style={{
+                    height: this.props.height ? this.props.height: "inherit"
+                }}
+                id={this.props.type}
+            >
 				{this.state.collection.map(item => {
 					return this.renderResultItem(item)
 				})}

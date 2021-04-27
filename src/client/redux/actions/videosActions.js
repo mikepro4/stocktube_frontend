@@ -11,7 +11,7 @@ export const searchVideos = (type, identifier, offset, limit, query, success) =>
 
         params = {
             criteria: {
-                "matadata.symbol": identifier
+                symbol: identifier
             },
             sortProperty: "createdAt",
             offset: offset,

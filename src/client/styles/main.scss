@@ -35,6 +35,7 @@
 @import "../react/components/post_input/index.scss";
 @import "../react/components/drawer/type/new_post.scss";
 @import "../react/components/list/views/postView.scss";
+@import "../react/components/list/index.scss";
 @import "../react/components/player/index.scss";
 
 
@@ -45,6 +46,7 @@
 // pages
 @import "../react/pages/auth/index.scss";
 @import "../react/pages/profile/index.scss";
+@import "../react/pages/ticker/index.scss";
 
 html {
 	// overflow: hidden;
