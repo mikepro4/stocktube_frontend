@@ -19,8 +19,12 @@ import {
     loadTicker,
     getTickerConnection,
     getTickerFollowers,
-    clearTicker
+    clearTicker,
 } from "../../../redux/actions/tickerActions";
+
+import { 
+    resetVideo
+} from "../../../redux/actions/playerActions";
 
 import YoutubePlayer from "../../components/player/";
 
@@ -83,6 +87,7 @@ class Ticker extends Component {
 
     componentWillUnmount() {
         this.props.clearTicker()
+        this.props.resetVideo()
     }
 
     loadProfile(symbol, update) {
@@ -213,6 +218,7 @@ export default {
         loadTicker,
         getTickerConnection,
         getTickerFollowers,
-        clearTicker
+        clearTicker,
+        resetVideo
 	})(Ticker))
 }

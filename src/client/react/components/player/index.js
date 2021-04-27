@@ -257,8 +257,7 @@ class YoutubePlayer extends React.Component {
 				showinfo: 0,
 				playsinline: 1,
 				disablekb: 1,
-				modestbranding: 1,
-				enablejsapi: 1
+				modestbranding: 1
 			}
 		};
 
