@@ -144,7 +144,7 @@ class NewPost extends Component {
                     renderContent = (
                         <span
                             className="mention-tag mention-ticker"
-                            onClick={() => console.log(mentionProps)}
+                            onClick={() => props.history.push("/$" + mentionProps.mention.ticker.metadata.symbol)}
                         >
                             <TypeDollar/> <span className="mention-label">{mentionProps.children}</span>
                         </span>

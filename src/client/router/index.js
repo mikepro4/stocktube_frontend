@@ -5,6 +5,7 @@ import Login from "../react/pages/auth/login"
 import Signup from "../react/pages/auth/signup"
 import Logout from "../react/pages/auth/logout"
 import Profile from "../react/pages/profile"
+import Ticker from "../react/pages/ticker"
 
 export default [
 	{
@@ -23,6 +24,13 @@ export default [
 				path: "/@:username",
 				params: {
 					name: "profile"
+				}
+            },
+			{
+				...Ticker,
+                path: "/$:ticker",
+				params: {
+					name: "ticker"
 				}
 			},
 			{

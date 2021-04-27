@@ -82,6 +82,12 @@
     position: relative;
     border-radius: 3px;
     letter-spacing: 0.47px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background: rgba($cobalt4, 0.2);
+    }
 
     // margin: 0 2px 0 0;
 
@@ -102,7 +108,7 @@
         top: 1px;
 
         svg {
-            top: 0px;
+            top: -2px;
             left: 1px;
         }
     }
