@@ -42,6 +42,21 @@ export const UPDATE_COLLECTION = "app/UPDATE_COLLECTION"
 
 // =============================================================================
 
+// Player
+
+export const UPDATE_STATUS = "app/UPDATE_ACTION";
+export const UPDATE_TIME = "app/UPDATE_TIME";
+export const UPDATE_CURRENT_TIME = "app/UPDATE_CURRENT_TIME";
+export const UPDATE_PLAYER_VIDEO_ID = "app/UPDATE_PLAYER_VIDEO_ID";
+export const RESET_VIDEO = "app/RESET_VIDEO";
+export const SEEK_TO_TIME = "app/SEEK_TO_TIME";
+export const CURRENT_VIDEO_UPDATE = "app/CURRENT_VIDEO_UPDATE";
+export const UPDATE_PLAYLIST = "app/UPDATE_PLAYLIST";
+export const RESET_INITIAL = "app/RESET_INITIAL";
+
+
+// =============================================================================
+
 // Profile
 
 export const LOAD_PROFILE = "app/LOAD_PROFILE"

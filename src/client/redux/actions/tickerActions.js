@@ -131,7 +131,7 @@ export const getFeaturedFollowers = (symbol, userId, success) => async (
 
 // ===========================================================================
 
-export const getFeaturedFollowers = (video, success) => async (
+export const setActiveFeaturedVideo = (video, success) => async (
     dispatch,
 	getState,
 	api

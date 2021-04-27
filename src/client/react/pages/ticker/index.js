@@ -19,6 +19,8 @@ import {
     loadTicker
 } from "../../../redux/actions/tickerActions";
 
+import YoutubePlayer from "../../components/player/";
+
 class Ticker extends Component {
 
     state = {
@@ -94,7 +96,7 @@ class Ticker extends Component {
 
         if(this.props.totalScrolledPixels > document.getElementById("profile-tabs").offsetTop) {
             console.log(document.getElementById("profile-tabs").offsetTop-30)
-            document.getElementById("body").scrollTop = document.getElementById("profile-tabs").offsetTop - 110
+            document.getElementById("body").scrollTop = document.getElementById("ticker-tabs").offsetTop - 110
         }
         
 
@@ -130,7 +132,16 @@ class Ticker extends Component {
         return (
             <div className={"ticker-route theme-" + this.props.theme}>
 
-                {this.props.ticker.metadata.symbol}
+
+                <div className="player">
+                    <YoutubePlayer
+                        width="375px"
+                        height="210px"
+                        videoId="fG2cQ-s8j0E"
+                    />
+                </div>
+
+                {this.props.ticker && this.props.ticker.metadata.symbol}
 
                 <TabBar
                     tabs={this.state.tabs}
@@ -153,7 +164,8 @@ function mapStateToProps(state) {
         loggedInUser: state.app.user,
         updateCollectionValue: state.app.updateCollection,
         totalScrolledPixels: state.app.totalScrolledPixels,
-        ticker: state.ticker.ticker
+        ticker: state.ticker.ticker,
+        currentVideo: state.player.currentVideo
 	};
 }
 
