@@ -32,14 +32,11 @@ export const tickerReducer = function(state = initialState, action) {
         case GET_FOLLOWERS_OF_TICKER:
             return { ...state,
                 followers: action.payload,
+                featuredFollowers: action.featuredFollowers
             };
         case GET_CONNECTION_TO_TICKER:
             return { ...state,
                 connection: action.payload,
-            };
-        case GET_FEATURED_FOLLOWERS:
-            return { ...state,
-                featuredFollowers: action.payload,
             };
         case SET_ACTIVE_FEATURED_VIDEO:
             return { ...state,

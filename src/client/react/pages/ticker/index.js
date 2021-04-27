@@ -16,7 +16,10 @@ import {
 } from "../../../redux/actions/appActions";
 
 import {
-    loadTicker
+    loadTicker,
+    getTickerConnection,
+    getTickerFollowers,
+    clearTicker
 } from "../../../redux/actions/tickerActions";
 
 import YoutubePlayer from "../../components/player/";
@@ -28,22 +31,50 @@ class Ticker extends Component {
         tabs: [
             "Videos",
             "Posts",
-            "Stats",
-            "Likes"
+            "Stats"
         ],
         newCounts: false
     }
 
-    static loadData(store, match, route, path, query) {
-		return store.dispatch(loadTicker(match.params.ticker));
-	}
+    // static loadData(store, match, route, path, query) {
+	// 	return store.dispatch(loadTicker(match.params.ticker));
+	// }
 
     componentDidMount() {
-        // this.props.loadTicker(this.props.match.params.ticker)
+        this.props.loadTicker(this.props.match.params.ticker)
+        document.getElementById("body").scrollTop = 0
     }
 
     componentDidUpdate(prevprops, prevparams) {
+        if(prevprops.match.params.ticker !== this.props.match.params.ticker) {
+            this.props.clearTicker()
+            this.loadTicker(this.props.match.params.ticker)
+            this.setState({
+                newCounts: false
+            })
+        }
 
+        if (this.props.location.search) {
+			if (prevparams.selectedTabId !== this.getQueryParams().selectedTabId) {
+				this.setState({
+					selectedTabId: this.getQueryParams().selectedTabId
+				});
+			}
+        }
+
+        if(this.props.ticker && !this.props.followers) {
+            if(!this.state.newCounts) {
+                this.updateConnections()
+            }
+        }
+
+        if(this.props.ticker && this.props.loggedInUser && !this.props.connection) {
+            this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol )
+        }
+
+        // if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
+        //     this.updateConnections()
+        // }
     }
 
     getQueryParams = () => {
@@ -51,15 +82,15 @@ class Ticker extends Component {
     };
 
     componentWillUnmount() {
-        // this.props.clearProfile()
+        this.props.clearTicker()
     }
 
-    loadProfile(username, update) {
-        // this.props.loadProfile(username, () => {
-        //     if(update) {
-        //         this.updateConnections()
-        //     }
-        // })
+    loadProfile(symbol, update) {
+        this.props.loadTicker(symbol, () => {
+            if(update) {
+                this.updateConnections()
+            }
+        })
     }
     
     renderHead = () => (
@@ -70,6 +101,11 @@ class Ticker extends Component {
     )
 
     updateConnections() {
+        this.setState({
+            newCounts: true
+        })
+        this.props.getTickerFollowers(this.props.ticker.metadata.symbol)
+    
         // this.setState({
         //     newCounts: true
         // })
@@ -94,8 +130,7 @@ class Ticker extends Component {
 			this.props.history
         );
 
-        if(this.props.totalScrolledPixels > document.getElementById("profile-tabs").offsetTop) {
-            console.log(document.getElementById("profile-tabs").offsetTop-30)
+        if(this.props.totalScrolledPixels > document.getElementById("ticker-tabs").offsetTop) {
             document.getElementById("body").scrollTop = document.getElementById("ticker-tabs").offsetTop - 110
         }
         
@@ -165,6 +200,8 @@ function mapStateToProps(state) {
         updateCollectionValue: state.app.updateCollection,
         totalScrolledPixels: state.app.totalScrolledPixels,
         ticker: state.ticker.ticker,
+        followers: state.ticker.followers,
+        connection: state.ticker.connection,
         currentVideo: state.player.currentVideo
 	};
 }
@@ -173,6 +210,9 @@ export default {
 	component: withRouter(connect(mapStateToProps, {
         updateQueryString,
         showDrawer,
-        loadTicker
+        loadTicker,
+        getTickerConnection,
+        getTickerFollowers,
+        clearTicker
 	})(Ticker))
 }

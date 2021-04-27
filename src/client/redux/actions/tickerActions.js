@@ -68,11 +68,12 @@ export const getTickerFollowers = (symbol, success) => async (
 ) => {
 
     await api
-        .post("/ticker/get_followers", { symbol })
+        .post("/public/ticker/get_followers", { symbol })
         .then(response => {
             dispatch({
                 type: GET_FOLLOWERS_OF_TICKER,
-                payload: response.data
+                payload: response.data.count,
+                featuredFollowers: response.data.featured
             });
             if (success) {
                 success(response.data);
@@ -86,39 +87,16 @@ export const getTickerFollowers = (symbol, success) => async (
 // ===========================================================================
 
 
-export const getTickerConnection = (symbol, userId, success) => async (
+export const getTickerConnection = (userId, symbol, success) => async (
     dispatch,
 	getState,
 	api
 ) => {
     await api
-        .post("/ticker/get_connection", { symbol, userId })
+        .post("/public/ticker/get_connection", { symbol, userId })
         .then(response => {
             dispatch({
                 type: GET_CONNECTION_TO_TICKER,
-                payload: response.data
-            });
-            if (success) {
-                success(response.data);
-            }
-        })
-        .catch(() => {
-        });
-}
-
-
-// ===========================================================================
-
-export const getFeaturedFollowers = (symbol, userId, success) => async (
-    dispatch,
-	getState,
-	api
-) => {
-    await api
-        .post("/ticker/get_featured_followers", { symbol, userId })
-        .then(response => {
-            dispatch({
-                type: GET_FEATURED_FOLLOWERS,
                 payload: response.data
             });
             if (success) {

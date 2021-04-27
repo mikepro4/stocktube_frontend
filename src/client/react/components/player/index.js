@@ -227,11 +227,11 @@ class YoutubePlayer extends React.Component {
 		this.setState({ timeInterval });
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		clearInterval(this.state.timeInterval);
 	}
 
-	componentDidUnmount() {
+	componentWillUnmount() {
 		clearInterval(this.state.timeInterval);
 	}
 
