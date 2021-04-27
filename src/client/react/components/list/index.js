@@ -127,6 +127,12 @@ class ListResults extends Component {
                 } else {
                     return(<div key={item._id}/>)
                 }
+            case "video-preview-small":
+                if(!this.state.updateCollection) {
+                    return (<div>{item.metadata.title}</div>)
+                } else {
+                    return(<div key={item._id}/>)
+                }
                 
 			default:
 				return(

@@ -19,14 +19,20 @@ import {
     loadTicker,
     getTickerConnection,
     getTickerFollowers,
-    clearTicker,
+    clearTicker
 } from "../../../redux/actions/tickerActions";
 
 import { 
     resetVideo
 } from "../../../redux/actions/playerActions";
 
+import { 
+    searchVideos
+} from "../../../redux/actions/videosActions";
+
 import YoutubePlayer from "../../components/player/";
+
+import ListResults from "../../components/list"
 
 class Ticker extends Component {
 
@@ -181,6 +187,16 @@ class Ticker extends Component {
                     />
                 </div>
 
+                <div className="video-bar">
+                    {this.props.ticker && <ListResults
+                        type="ticker-video-suggestions"
+                        identifier={this.props.ticker.metadata.symbol}
+                        resultType="video-preview-small"
+                        searchCollection={this.props.searchVideos}
+                    />}
+                    
+                </div>
+
                 {this.props.ticker && this.props.ticker.metadata.symbol}
 
                 <TabBar
@@ -219,6 +235,7 @@ export default {
         getTickerConnection,
         getTickerFollowers,
         clearTicker,
-        resetVideo
+        resetVideo,
+        searchVideos
 	})(Ticker))
 }

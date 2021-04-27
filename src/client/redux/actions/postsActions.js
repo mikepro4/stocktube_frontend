@@ -1,9 +1,4 @@
 import {
-    LOAD_PROFILE,
-    LOAD_PROFILE_SUCCESS,
-    CLEAR_PROFILE,
-    GET_FOLLOWERS,
-    GET_FOLLOWING,
     GET_CONNECTION
 } from '../actions/types';
 
