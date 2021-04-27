@@ -336,15 +336,19 @@ class NewPost extends Component {
 
                     <div className="wall-post-avatar">
 
-                        <Avatar user={this.props.item.user} small={true}/>
+                        <Avatar user={this.props.item.user} mini={true}/>
 
                         <div className="post-avatar-details">
-                            <div className="wall-post-avatar-username">{this.props.item.user.username}</div>
-                            <div className="post-avatar-subtitle">
-                                <div className="post-avatar-time">{this.getPostTime()}</div>
+                            <div className="wall-post-avatar-username">
+                                {this.props.item.user.username} 
+                                <span className="post-avatar-divider">●</span>
+                                <span className="post-avatar-time">{this.getPostTime()}</span>
+                            </div>
+                            {/* <div className="post-avatar-subtitle">
+                                <div className="post-avatar-time">{this.getPostTime()} </div>
                                 <div className="post-avatar-divider">●</div>
                                 <div className="post-avatar-sentiment sentiment-bullish">Bullish</div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="post-actions">
