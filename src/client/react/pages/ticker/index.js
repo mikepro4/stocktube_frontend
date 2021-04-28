@@ -53,14 +53,14 @@ class Ticker extends Component {
 	// }
 
     componentDidMount() {
-        this.props.loadTicker(this.props.match.params.ticker)
+        this.props.loadTicker(this.props.match.params.ticker.toUpperCase())
         document.getElementById("body").scrollTop = 0
     }
 
     componentDidUpdate(prevprops, prevparams) {
         if(prevprops.match.params.ticker !== this.props.match.params.ticker) {
             this.props.clearTicker()
-            this.loadTicker(this.props.match.params.ticker)
+            this.loadTicker(this.props.match.params.ticker.toUpperCase())
             this.setState({
                 newCounts: false
             })
@@ -99,7 +99,7 @@ class Ticker extends Component {
     }
 
     loadProfile(symbol, update) {
-        this.props.loadTicker(symbol, () => {
+        this.props.loadTicker(symbol.toUpperCase(), () => {
             if(update) {
                 this.updateConnections()
             }

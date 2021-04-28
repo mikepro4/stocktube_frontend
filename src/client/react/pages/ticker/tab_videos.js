@@ -38,7 +38,7 @@ class TabVideos extends Component {
                         })}
                     >
                     <YoutubePlayer
-                        width="375px"
+                        width="100%"
                         height="210px"
                         videoId="fG2cQ-s8j0E"
                     />
