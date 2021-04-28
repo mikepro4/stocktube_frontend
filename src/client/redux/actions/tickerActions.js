@@ -120,3 +120,27 @@ export const setActiveFeaturedVideo = (video, success) => async (
     });
 }
 
+// ===========================================================================
+
+
+export const updateTicker = (tickerId, values, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    await api
+        .post("/public/ticker/update", {
+            tickerId,
+            name: values.name
+        })
+        .then(response => {
+            console.log(response)
+            dispatch(loadTicker(response.data.ticker.metadata.symbol))
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+

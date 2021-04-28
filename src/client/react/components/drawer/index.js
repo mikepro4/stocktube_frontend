@@ -16,6 +16,8 @@ import AvatarSelect from "./type/avatar_select"
 import EditProfile from "./type/edit_profile"
 import NewPost from "./type/new_post"
 import PostActions from "./type/post_actions"
+import TickerActions from "./type/ticker_actions"
+import EditTicker from "./type/edit_ticker"
 
 class Drawer extends Component {
 
@@ -48,6 +50,10 @@ class Drawer extends Component {
                 return (<NewPost edit={true} post={this.props.drawerData.post} hideDrawer={() => this.hideDrawer()} enablePortal/>)
             case "post-actions":
                 return(<PostActions post={this.props.post} hideDrawer={() => this.hideDrawer()}/>)
+            case "ticker-actions":
+                return(<TickerActions ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
+            case "edit-ticker":
+                return(<EditTicker ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }
