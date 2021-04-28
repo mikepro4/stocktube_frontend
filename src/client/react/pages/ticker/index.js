@@ -10,6 +10,7 @@ import TabVideos from "./tab_videos"
 
 import qs from "qs";
 
+import moment from 'moment'
 import * as _ from "lodash"
 import { 
     updateQueryString,
@@ -29,10 +30,17 @@ import {
     resetVideo,
 } from "../../../redux/actions/playerActions";
 
+import { 
+    searchPriceWeek, 
+    findPriceWeek 
+} from "../../../redux/actions/pricesActions"
+
 import TickerDisplay from "../../components/ticker_display";
 import classNames from "classnames";
 
 import Avatar from "../../components/avatar"
+
+import ReactECharts from 'echarts-for-react';
 
 class Ticker extends Component {
 
@@ -44,7 +52,10 @@ class Ticker extends Component {
             "Stats"
         ],
         newCounts: false,
-        connectionLoaded: false
+        connectionLoaded: false,
+        week: [],
+        renderWeek: false,
+        weekOptions: {}
     }
 
     // static loadData(store, match, route, path, query) {
@@ -54,6 +65,7 @@ class Ticker extends Component {
     componentDidMount() {
         this.props.loadTicker(this.props.match.params.ticker.toUpperCase())
         document.getElementById("body").scrollTop = 0
+        this.props.searchPriceWeek(this.props.match.params.ticker.toUpperCase())
     }
 
     componentDidUpdate(prevprops, prevparams) {
@@ -90,6 +102,172 @@ class Ticker extends Component {
         // if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
         //     this.updateConnections()
         // }
+
+        //////////////////./././././////////./././././/././././././/..//.
+
+        let symbolIndex = _.findIndex(this.props.prices.week, {
+            symbol: this.props.match.params.ticker.toUpperCase()
+          });
+      
+          if(symbolIndex !== -1 && _.isEmpty(this.state.week)) {
+            let item = this.props.ticker
+      
+              let newWeek = item.week.map((metric, i) => {
+                let color
+      
+                if (i == 0) {
+                  if(metric < item.week[1]) {
+                    color = "red"
+                  } else {
+                    color = "green"
+                  }
+                } else {
+                  color = "#CFD9E0"
+                }
+                          return {
+                  value: metric,
+                  itemStyle: { color: color },
+                }
+              })
+              
+              let weekPrices = this.props.prices.week[symbolIndex].series.map(day => {
+                return day.close
+              })
+      
+              let weekDays = this.props.prices.week[symbolIndex].series.map(day => {
+                return day.date
+              })
+      
+              let final = this.props.prices.week[symbolIndex].series.map(day => {
+                let newDate = moment(day.date).format()
+                return [
+                  newDate,
+                  day.close
+                ]
+              })
+      
+      
+              let finalNewWeek = [
+                {
+                  value: [ 
+                    moment().format(),
+                    newWeek[0].value
+                  ],
+                  itemStyle: newWeek[0].itemStyle
+                },
+                [
+                  moment().subtract(1, "days").format(),
+                  newWeek[1].value
+                ],
+                [
+                  moment().subtract(2, "days").format(),
+                  newWeek[2].value
+                ],
+                [
+                  moment().subtract(3, "days").format(),
+                  newWeek[3].value
+                ],
+                [
+                  moment().subtract(4, "days").format(),
+                  newWeek[4].value
+                ],
+                [
+                  moment().subtract(5, "days").format(),
+                  newWeek[5].value
+                ],
+                [
+                  moment().subtract(6, "days").format(),
+                  newWeek[6].value
+                ]
+              ]
+      
+            this.setState({
+              week: final,
+              renderWeek: true,
+              weekOptions: {
+                  animation: false,
+                  tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {    
+                      type : 'shadow' 
+                    }
+                  },
+                  grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '4%',
+                    top: "5%",
+                    containLabel: true
+                  },
+                  xAxis: {
+                    type : 'time',
+                    splitLine: {show:false},
+                    axisLine: {
+                        lineStyle: {
+                            color: "#D6DFE4"
+                        }
+                    },
+                    axisLabel: {
+                        color: "#8A9BA9",
+                        fontSize: "11px",
+                        fontWeight: "500",
+                        onZero: 0
+                    }
+                  },
+                  yAxis: [
+                      {
+                        type : 'value',
+                        axisLabel: {
+                            color: "#8A9BA9",
+                            fontSize: "11px",
+                            fontWeight: "500",
+                            formatter: '${value}'
+                        },
+                        splitNumber: 3,
+                        min: 0,
+                        splitLine: {
+                          show: false
+                        },
+                      },
+                      {
+                        type : 'value',
+                        axisLabel: {
+                            color: "#8A9BA9",
+                            fontSize: "11px",
+                            fontWeight: "500",
+                            onZero: 0
+                        },
+                       
+                        splitNumber: 3,
+                        min: 0
+                      }
+                  ],
+                  series: [
+                    {
+                      name: 'Videos',
+                      type: 'bar',
+                      stack: 'Videos by week',
+                      itemStyle: {
+                          borderColor: 'rgba(0,0,0,0)',
+                          color: '#CFD9E0'
+                      }
+                      ,
+                      emphasis: {
+                          itemStyle: {
+                              borderColor: 'rgba(0,0,0,1)',
+                          }
+                      },
+                      data: finalNewWeek,
+                      yAxisIndex: 1,
+                      },
+                    {
+                        data: final,
+                        type: 'line'
+                    }
+                  ]
+              }
+            })
+          }
     }
 
     getQueryParams = () => {
@@ -261,7 +439,13 @@ class Ticker extends Component {
 
                 {this.renderConnectionArea()}
 
-                <div className="ticker-chart-area"></div>
+                <div className="ticker-chart-area">
+                    {this.state.renderWeek ? ( <ReactECharts
+                        option={this.state.weekOptions}
+                        theme="my_theme"
+                        style={{ height: 120, width: "100%" }}
+                    />) : "Loading week"}
+                </div>
                 
 
                 <TabBar
@@ -290,7 +474,8 @@ function mapStateToProps(state) {
         followers: state.ticker.followers,
         connection: state.ticker.connection,
         featuredFollowers: state.ticker.featuredFollowers,
-        currentVideo: state.player.currentVideo
+        currentVideo: state.player.currentVideo,
+        prices: state.prices
 	};
 }
 
@@ -304,6 +489,8 @@ export default {
         clearTicker,
         resetVideo,
         tickerFollow,
-        tickerUnfollow
+        tickerUnfollow,
+        searchPriceWeek, 
+        findPriceWeek 
 	})(Ticker))
 }

@@ -8,6 +8,7 @@ import { modalsReducer } from "./modalsReducer";
 import { profileReducer } from "./profileReducer";
 import { tickerReducer } from "./tickerReducer";
 import { playerReducer } from "./playerReducer";
+import { pricesReducer } from "./pricesReducer";
 
 export default (history) => combineReducers({
 	router: connectRouter(history),
@@ -17,5 +18,6 @@ export default (history) => combineReducers({
 	modals: modalsReducer,
     profile: profileReducer,
     ticker: tickerReducer,
-    player: playerReducer
+    player: playerReducer,
+    prices: pricesReducer
 })
