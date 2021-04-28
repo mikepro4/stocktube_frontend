@@ -166,4 +166,46 @@ export const updateTickerAvatar = (tickerId, url, success) => async (
         });
 }
 
+// ===========================================================================
+
+export const tickerFollow = (symbol, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    await api
+        .post("/public/ticker/follow", {
+            symbol
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+export const tickerUnfollow = (connectionId, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    await api
+        .post("/public/ticker/unfollow", {
+            connectionId
+        })
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+
+
 

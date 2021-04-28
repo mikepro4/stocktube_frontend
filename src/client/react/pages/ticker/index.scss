@@ -15,14 +15,72 @@
 }
 
 .ticker-header {
-    padding: 15px;
+    padding: 20px 15px 15px 15px;
     display: flex;
+    min-height: 80px;
 }
 
 .ticker-connection-area {
     height: 40px;
+    display: flex;
+    align-items: center;
 }
 
 .ticker-chart-area {
     height: 170px;
+}
+
+.ticker-follow-button {
+    width: 140px;
+    height: 38px;
+    margin: 0 15px 0 15px;
+    transition: all ease-in 0.1s;
+    position: relative;
+    top: 2px;
+
+    
+}
+
+.bp3-button:not([class*="bp3-intent-"]):not([class*="control"]).theme-light {
+    &.following {
+        width: 90px;
+        height: 25px;
+        font-size: 13px;;
+        background: rgba($cobalt4, 0.1);
+        color: $cobalt4;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+.featured-followers {
+    display: flex;
+
+    .single-avatar {
+        &:nth-child(2) {
+            position: relative;
+            left: -7px
+        }
+
+        &:nth-child(3) {
+            position: relative;
+            left: -14px
+        }
+    }
+
+    
+}
+
+.ticker-followers-count {
+    margin: 0 0 0 0;
+    position: relative;
+    left:-3px;
+
+    &.one {
+        left: 10px
+    }
+
+    &.two {
+        left: 3px
+    }
 }

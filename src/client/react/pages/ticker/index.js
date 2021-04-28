@@ -20,7 +20,9 @@ import {
     loadTicker,
     getTickerConnection,
     getTickerFollowers,
-    clearTicker
+    clearTicker,
+    tickerFollow,
+    tickerUnfollow
 } from "../../../redux/actions/tickerActions";
 
 import { 
@@ -28,6 +30,9 @@ import {
 } from "../../../redux/actions/playerActions";
 
 import TickerDisplay from "../../components/ticker_display";
+import classNames from "classnames";
+
+import Avatar from "../../components/avatar"
 
 class Ticker extends Component {
 
@@ -38,7 +43,8 @@ class Ticker extends Component {
             "Posts",
             "Stats"
         ],
-        newCounts: false
+        newCounts: false,
+        connectionLoaded: false
     }
 
     // static loadData(store, match, route, path, query) {
@@ -74,7 +80,11 @@ class Ticker extends Component {
         }
 
         if(this.props.ticker && this.props.loggedInUser && !this.props.connection) {
-            this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol )
+            this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol, () => {
+                this.setState({
+                    connectionLoaded: true
+                })
+            })
         }
 
         // if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
@@ -155,6 +165,76 @@ class Ticker extends Component {
 				return ;
 		}
     }
+
+    getConnection() {
+        this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol, () => {
+            this.setState({
+                connectionLoaded: true
+            })
+        })
+        this.props.getTickerFollowers(this.props.ticker.metadata.symbol)
+    }
+
+    renderConnectionArea() {
+        if(this.state.connectionLoaded) {
+            let buttonText = this.props.connection && this.props.connection.following ? "Following" : "Follow"
+            return(
+                <div className="ticker-connection-area"> 
+                    <Button 
+                        text={buttonText}
+                        className={"ticker-follow-button theme-"+ this.props.theme + " " + classNames({
+                            "following": this.props.connection && this.props.connection.connection ? true : false,
+                            "follow": !this.props.connection.connection,
+                        })}
+                        onClick={() =>  {
+                            if(this.props.connection.connection) {
+                                this.props.tickerUnfollow(this.props.connection.connection._id, () => {
+                                   this.getConnection()
+                                }) 
+                            } else {
+                                this.props.tickerFollow(this.props.ticker.metadata.symbol, () => {
+                                    this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol, () => {
+                                        this.getConnection()
+                                    })
+                                })
+
+                            }
+                            }
+                        }
+                    />
+
+                    <div className="featured-followers">
+                        {this.props.featuredFollowers && this.props.featuredFollowers.map((follower) => {
+                            if(!follower) {
+                                return
+                            } else {
+                                return(
+                                    <div key={follower._id} className="single-avatar"><Avatar user={follower.object} mini={true}/></div>
+                                )
+                            }
+                            
+                        })}
+                    </div>
+
+                    <div 
+                        className={classNames({
+                            "ticker-followers-count": true,
+                            "one": this.props.followers == 1,
+                            "two": this.props.followers == 2
+                        })}
+                    >
+                            {this.props.followers} followers
+                    </div>
+                    
+                </div>
+            )
+        } else {
+            return(
+                <div className="ticker-connection-area"> </div>
+            )
+        }
+        
+    }
    
 	render() {
 
@@ -179,7 +259,7 @@ class Ticker extends Component {
                     </div>
                 </div>
 
-                <div className="ticker-connection-area"></div>
+                {this.renderConnectionArea()}
 
                 <div className="ticker-chart-area"></div>
                 
@@ -202,12 +282,14 @@ class Ticker extends Component {
 
 function mapStateToProps(state) {
 	return {
+        theme: state.app.theme,
         loggedInUser: state.app.user,
         updateCollectionValue: state.app.updateCollection,
         totalScrolledPixels: state.app.totalScrolledPixels,
         ticker: state.ticker.ticker,
         followers: state.ticker.followers,
         connection: state.ticker.connection,
+        featuredFollowers: state.ticker.featuredFollowers,
         currentVideo: state.player.currentVideo
 	};
 }
@@ -221,5 +303,7 @@ export default {
         getTickerFollowers,
         clearTicker,
         resetVideo,
+        tickerFollow,
+        tickerUnfollow
 	})(Ticker))
 }
