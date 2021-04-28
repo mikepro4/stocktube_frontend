@@ -28,10 +28,21 @@
             padding-right: 20px;
 
             .channel-name {
-                font-size: 11px;
+                font-size: 12px;
                 font-weight: 500;
                 color: $gray2;
                 margin: 2px 0 5px 0;
+
+                .video-name-divider {
+                    font-size: 4px;
+                    margin: 0 5px 5px 5px;
+                    position: relative;
+                    top: -2px;
+                    opacity: 0.5;
+                }
+                .video-time {
+                    font-weight: 400
+                }
             }
 
             .video-title {
