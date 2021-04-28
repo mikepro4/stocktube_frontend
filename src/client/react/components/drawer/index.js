@@ -18,6 +18,7 @@ import NewPost from "./type/new_post"
 import PostActions from "./type/post_actions"
 import TickerActions from "./type/ticker_actions"
 import EditTicker from "./type/edit_ticker"
+import TickerAvatar from "./type/ticker_avatar"
 
 class Drawer extends Component {
 
@@ -54,6 +55,8 @@ class Drawer extends Component {
                 return(<TickerActions ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             case "edit-ticker":
                 return(<EditTicker ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
+            case "upload-ticker-avatar":
+                return(<TickerAvatar ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }

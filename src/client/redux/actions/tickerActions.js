@@ -144,3 +144,26 @@ export const updateTicker = (tickerId, values, success) => async (
         });
 }
 
+// ===========================================================================
+
+export const updateTickerAvatar = (tickerId, url, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    await api
+        .post("/public/ticker/avatar_update", {
+            tickerId,
+            url
+        })
+        .then(response => {
+            dispatch(loadTicker(response.data.metadata.symbol))
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+

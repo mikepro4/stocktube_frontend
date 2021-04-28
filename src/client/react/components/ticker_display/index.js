@@ -16,7 +16,7 @@ class TickerDisplay extends Component {
         let content
 
         if(this.props.ticker.avatar) {
-            content = (<div className="ticker-avatar">Image</div>)
+            content = (<div className="ticker-avatar"><img src={this.props.ticker.avatar}/></div>)
         } else {
             content = (<div className="ticker-avatar empty"><Icon icon="dollar" size={20}/></div>)
         }
