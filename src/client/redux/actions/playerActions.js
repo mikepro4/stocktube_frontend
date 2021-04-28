@@ -13,12 +13,13 @@ import * as _ from "lodash";
 
 // =============================================================================
 
-export const updateCurrentVideo = (id, action, seconds) => dispatch => {
+export const updateCurrentVideo = (id, action, seconds, video) => dispatch => {
 	dispatch({
 		type: CURRENT_VIDEO_UPDATE,
 		payload: id,
 		playerAction: action,
-		seconds
+        seconds,
+        video
 	});
 };
 

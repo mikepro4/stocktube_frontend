@@ -19,5 +19,41 @@
 
 		.player-video {
 		}
-	}
+    }
+    
+    .player-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 55px;
+
+        .video-description-container {
+            background: $black;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            font-size: 13px;
+            padding: 15px 15px;
+            color: $white;
+            transition: all 0.2s;
+            opacity: 1;
+            transition-delay: 3s;
+
+            &.fade {
+                opacity: 0;
+            }
+
+            &.active {
+                transition: all 0s 0s;
+                opacity: 1;
+            }
+
+            &.stopped {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    }
 }

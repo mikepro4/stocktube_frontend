@@ -13,6 +13,10 @@ import {
 
 import { updateCurrentVideo } from "../../../redux/actions/playerActions";
 
+import { disableVideo } from "../../../redux/actions/videosActions";
+
+import { showDrawer } from "../../../redux/actions/appActions";
+
 class YoutubePlayer extends React.Component {
 	constructor(props) {
 		super(props);
@@ -200,14 +204,14 @@ class YoutubePlayer extends React.Component {
 	onPlay(event) {
 		console.log("onPlay");
 		this.setState({ timeInterval: null });
-		this.props.updateCurrentVideo(this.props.videoId, "playing");
+		this.props.updateCurrentVideo(this.props.currentVideo.videoId, "playing");
 		this.startTimeInterval();
 	}
 
 	onPause(event) {
 		console.log("onPause");
 		clearInterval(this.state.timeInterval);
-		this.props.updateCurrentVideo(this.props.videoId, "paused");
+		this.props.updateCurrentVideo(this.props.currentVideo.videoId, "paused");
 		if (this.state.player) {
 			this.props.updateTime(
 				this.state.player.getDuration(),
@@ -246,7 +250,28 @@ class YoutubePlayer extends React.Component {
 		if(this.state.player) {
 			this.props.updateTime(this.state.player.getDuration(), 0);
 		}
-	}
+    }
+    
+    renderDescription() {
+        switch (this.props.currentVideo.playerAction) {
+			case "playing":
+				return(
+                    <div className="video-description-container fade">{this.props.video.metadata.title}</div>
+                );
+			case "paused":
+				return(
+                    <div className="video-description-container active">{this.props.video.metadata.title}</div>
+                )
+			case "stopped":
+				return(
+                    <div className="video-description-container stopped">{this.props.video.metadata.title}</div>
+                )
+			case undefined:
+				return(<div className="video-description-container"></div>);
+			default:
+				return (<div className="video-description-container"></div>)
+		}
+    }
 
 	render() {
 		const videoPlayerOptions = {
@@ -254,7 +279,7 @@ class YoutubePlayer extends React.Component {
 			width: this.props.width ? this.props.width : "270",
 			playerVars: {
 				controls: 1,
-				showinfo: 0,
+				showinfo: 1,
 				playsinline: 1,
 				disablekb: 1,
 				modestbranding: 1
@@ -263,7 +288,7 @@ class YoutubePlayer extends React.Component {
 
 		let videoClasses = classnames({
 			"video-container": true,
-			"video-loaded": this.props.videoId
+			"video-loaded": this.props.currentVideo.videoId
 		});
 
 		return (
@@ -271,17 +296,19 @@ class YoutubePlayer extends React.Component {
 				<div
 					className="player-overlay"
 					onClick={() => {
-						this.playPauseSwitch();
+						this.props.showDrawer("video-drawer");
 					}}
-				/>
+				>
+                </div>
 				<YouTube
-					videoId={this.props.videoId}
+					videoId={this.props.currentVideo.videoId}
 					opts={videoPlayerOptions}
 					onReady={this.onReady.bind(this)}
 					onPlay={this.onPlay.bind(this)}
 					onStop={this.onStop.bind(this)}
 					onPause={this.onPause.bind(this)}
-					onEnd={this.onEnd.bind(this)}
+                    onEnd={this.onEnd.bind(this)}
+                    onError={() => this.props.disableVideo(this.props.currentVideo.videoId)}  
 					className="player-video"
 					onStateChange={this.onStateChange.bind(this)}
 				/>
@@ -294,12 +321,15 @@ function mapStateToProps(state) {
 	return {
 		player: state.player,
 		playlist: state.player.playlist,
-		currentVideo: state.player.currentVideo
+        currentVideo: state.player.currentVideo,
+        video: state.player.currentVideo.video
 	};
 }
 
 export default connect(mapStateToProps, {
 	updateCurrentVideo,
 	updateTime,
-	updatePlaylist,
+    updatePlaylist,
+    disableVideo,
+    showDrawer
 })(YoutubePlayer);

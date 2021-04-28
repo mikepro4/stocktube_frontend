@@ -23,7 +23,8 @@ import {
 } from "../../../redux/actions/tickerActions";
 
 import { 
-    resetVideo
+    resetVideo,
+    updateCurrentVideo
 } from "../../../redux/actions/playerActions";
 
 import { 
@@ -172,7 +173,6 @@ class Ticker extends Component {
 				return ;
 		}
     }
-
    
 	render() {
 
@@ -180,32 +180,24 @@ class Ticker extends Component {
             <div className={"ticker-route theme-" + this.props.theme}>
 
 
-                <div 
-                    className={classNames({
-                        "ticker-player": true,
-                        sticky: this.state.selectedTabId == "1"
-                    })}
-                >
-                    <YoutubePlayer
-                        width="375px"
-                        height="210px"
-                        videoId="fG2cQ-s8j0E"
-                    />
-                </div>
+                
 
-                <div className="video-bar">
+                {/* <div className="video-bar">
                     {this.props.ticker && <ListResults
                         type="ticker-video-suggestions"
                         identifier={this.props.ticker.metadata.symbol}
                         resultType="video-preview-small"
                         searchCollection={this.props.searchVideos}
+                        onInitialLoad={(results) => this.loadInitialVideo(results)}
                         horizontal={true}
                         height="100px"
                     />}
                     
-                </div>
+                </div> */}
 
                 {this.props.ticker && this.props.ticker.metadata.symbol}
+
+
 
                 <TabBar
                     tabs={this.state.tabs}
@@ -244,6 +236,7 @@ export default {
         getTickerFollowers,
         clearTicker,
         resetVideo,
-        searchVideos
+        searchVideos,
+        updateCurrentVideo
 	})(Ticker))
 }

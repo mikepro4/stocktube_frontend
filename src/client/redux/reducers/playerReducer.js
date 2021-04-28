@@ -19,7 +19,8 @@ const initialPlayerState = {
 	currentVideo: {
 		videoId: null,
 		playerAction: null,
-		seconds: null
+        seconds: null,
+        video: null
 	},
 	playlist: {
 		current: {
@@ -53,9 +54,11 @@ export const playerReducer = (state = initialPlayerState, action) => {
 			return assign({}, state, {
 				currentVideo: {
 					videoId: action.payload,
-					playerAction: action.playerAction
+                    playerAction: action.playerAction,
+                    video: action.video ? action.video : state.currentVideo.video
 				},
-				initial: action.initial
+                initial: action.initial
+                
 			});
 		case RESET_INITIAL:
 			return assign({}, state, {

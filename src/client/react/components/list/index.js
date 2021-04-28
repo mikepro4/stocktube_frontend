@@ -11,6 +11,7 @@ import {
 
 
 import PostView from "./views/postView"
+import VideoPreview from "./views/videoPreview"
 
 class ListResults extends Component {
 
@@ -59,11 +60,14 @@ class ListResults extends Component {
 
             if(!this.props.horizontal) {
                 if(loadMore && !this.state.loading) {
-                    if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
-                        if( !this.props.updateCollectionValue) {
-                            this.searchCollection(20)
+                    if(this.refs.loadMore) {
+                        if((this.props.app.totalScrolledPixels + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
+                            if( !this.props.updateCollectionValue) {
+                                this.searchCollection(20)
+                            }
                         }
                     }
+                    
                 }
             } else if (this.props.horizontal) {
                 if(loadMore && !this.state.loading) {
@@ -72,11 +76,6 @@ class ListResults extends Component {
                             this.searchCollection(20)
                         }
                     }
-                    // if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
-                        // if( !this.props.updateCollectionValue) {
-                        //     this.searchCollection(20)
-                        // }
-                    // }
                 } 
             }
             
@@ -108,6 +107,11 @@ class ListResults extends Component {
             "",
             (results) => {
                 let newCollection = _.concat(this.state.collection, results.all)
+
+                if(this.props.onInitialLoad && this.state.collection.length == 0) {
+                    this.props.onInitialLoad(results.all)
+                }
+
                 if(reset) {
                     this.setState({
                         collection: results.all,
@@ -116,6 +120,7 @@ class ListResults extends Component {
                         loading: false,
                         updateCollection: false
                     })
+                    
                 } else {
                     this.setState({
                         collection: newCollection,
@@ -125,6 +130,8 @@ class ListResults extends Component {
                         updateCollection: false
                     })
                 }
+
+               
 
                 this.props.updateCollection(false)
 
@@ -138,7 +145,8 @@ class ListResults extends Component {
 			this.state.offset 
 		) {
 			return (
-				<a className="anchor-button" id="loadmore" onClick={() => this.searchCollection(20)}>
+				<a className="anchor-button" id="loadmore" ref="loadMore"onClick={() => this.searchCollection(20)}>
+                    load more
 				</a>
 			);
 		}
@@ -157,7 +165,11 @@ class ListResults extends Component {
                 }
             case "video-preview-small":
                 if(!this.state.updateCollection) {
-                    return (<div key={item._id}>{item.metadata.title}</div>)
+                    return (<VideoPreview
+                        item={item}
+                        key={item._id}
+                        small={true}
+                    />)
                 } else {
                     return(<div key={item._id}/>)
                 }

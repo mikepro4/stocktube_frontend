@@ -11,20 +11,44 @@ import PostInput from "../../components/post_input"
 import ListResults  from "../../components/list"
 
 import { 
+    updateCurrentVideo
+} from "../../../redux/actions/playerActions";
+
+import { 
     searchVideos
 } from "../../../redux/actions/videosActions";
+
+import YoutubePlayer from "../../components/player/";
 
 
 class TabVideos extends Component {
 
+    loadInitialVideo(results) {
+        this.props.updateCurrentVideo(results[0].metadata.id, "stop", 0, results[0])
+    }
+
     render() {
         return (
             <div className={"tab-content tab-videos theme-" + this.props.theme}>
+
+                    <div 
+                        className={classNames({
+                            "ticker-player": true,
+                            "sticky": true
+                        })}
+                    >
+                    <YoutubePlayer
+                        width="375px"
+                        height="210px"
+                        videoId="fG2cQ-s8j0E"
+                    />
+                </div>
                 {this.props.ticker && <ListResults
                     type="ticker-video-suggestions"
                     identifier={this.props.ticker.metadata.symbol}
                     resultType="video-preview-small"
                     searchCollection={this.props.searchVideos}
+                    onInitialLoad={(results) => this.loadInitialVideo(results)}
                 />}
             </div>
         )
@@ -43,5 +67,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    updateCurrentVideo,
     searchVideos
 })(TabVideos);

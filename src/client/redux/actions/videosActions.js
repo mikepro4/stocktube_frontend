@@ -1,5 +1,7 @@
 import * as _ from "lodash";
 
+// ===========================================================================
+
 export const searchVideos = (type, identifier, offset, limit, query, success) => async (
     dispatch,
 	getState,
@@ -22,6 +24,25 @@ export const searchVideos = (type, identifier, offset, limit, query, success) =>
 
     await api
         .post("/public/videos/search", params)
+        .then(response => {
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}
+
+// ===========================================================================
+
+export const disableVideo = (videoId, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    await api
+        .post("/public/video/disable", { videoId })
         .then(response => {
             if (success) {
                 success(response.data);
