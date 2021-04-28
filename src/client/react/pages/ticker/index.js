@@ -9,6 +9,7 @@ import TabBar from "../../components/tab_bar"
 import TabVideos from "./tab_videos"
 
 import qs from "qs";
+
 import * as _ from "lodash"
 import { 
     updateQueryString,
@@ -24,17 +25,9 @@ import {
 
 import { 
     resetVideo,
-    updateCurrentVideo
 } from "../../../redux/actions/playerActions";
 
-import { 
-    searchVideos
-} from "../../../redux/actions/videosActions";
-
-import YoutubePlayer from "../../components/player/";
-
-import ListResults from "../../components/list"
-import classNames from "classnames";
+import TickerDisplay from "../../components/ticker_display";
 
 class Ticker extends Component {
 
@@ -119,19 +112,8 @@ class Ticker extends Component {
         })
         this.props.getTickerFollowers(this.props.ticker.metadata.symbol)
     
-        // this.setState({
-        //     newCounts: true
-        // })
-        // this.props.getFollowers(this.props.user._id)
-        // this.props.getFollowing(this.props.user._id)
-        // this.props.getFollowingTickers(this.props.user._id)
     }
     
-    getConnection() {
-        // this.props.getConnection(this.props.loggedInUser._id, this.props.user._id )
-    }
-
-
     handleTabChange = value => {
 		this.setState({
 			selectedTabId: value
@@ -179,25 +161,28 @@ class Ticker extends Component {
         return (
             <div className={"ticker-route theme-" + this.props.theme}>
 
+                <div className="ticker-header">
+                    <TickerDisplay
+                        ticker={this.props.ticker}
+                    />
 
+                    <div className="ticker-actions">
+                        <Button 
+                            minimal="true"
+                            icon="more"
+                            className={"control theme-"+ this.props.theme}
+                            onClick={() =>  {
+                                this.props.showDrawer("ticker-actions", { ticker: this.props.ticker })
+                                }
+                            }
+                        />
+                    </div>
+                </div>
+
+                <div className="ticker-connection-area"></div>
+
+                <div className="ticker-chart-area"></div>
                 
-
-                {/* <div className="video-bar">
-                    {this.props.ticker && <ListResults
-                        type="ticker-video-suggestions"
-                        identifier={this.props.ticker.metadata.symbol}
-                        resultType="video-preview-small"
-                        searchCollection={this.props.searchVideos}
-                        onInitialLoad={(results) => this.loadInitialVideo(results)}
-                        horizontal={true}
-                        height="100px"
-                    />}
-                    
-                </div> */}
-
-                {this.props.ticker && this.props.ticker.metadata.symbol}
-
-
 
                 <TabBar
                     tabs={this.state.tabs}
@@ -236,7 +221,5 @@ export default {
         getTickerFollowers,
         clearTicker,
         resetVideo,
-        searchVideos,
-        updateCurrentVideo
 	})(Ticker))
 }
