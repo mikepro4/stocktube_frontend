@@ -84,11 +84,3 @@ export const SET_ACTIVE_FEATURED_VIDEO = "app/SET_ACTIVE_FEATURED_VIDEO"
 
 
 // =============================================================================
-
-// Prices
-
-export const ADD_PRICE_WEEK = "app/ADD_PRICE_WEEK";
-export const ADD_PRICE_WEEK_SUCCESS = "app/ADD_PRICE_WEEK_SUCCESS";
-export const CLEAR_PRICES = "app/CLEAR_PRICES";
-
-// =============================================================================
