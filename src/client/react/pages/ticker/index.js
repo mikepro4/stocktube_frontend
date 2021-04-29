@@ -35,6 +35,8 @@ import classNames from "classnames";
 
 import Avatar from "../../components/avatar"
 
+import TickerMainChart from "../../components/charts/ticker_main_chart"
+
 class Ticker extends Component {
 
     state = {
@@ -48,9 +50,9 @@ class Ticker extends Component {
         connectionLoaded: false,
     }
 
-    // static loadData(store, match, route, path, query) {
-	// 	return store.dispatch(loadTicker(match.params.ticker));
-	// }
+    static loadData(store, match, route, path, query) {
+		return store.dispatch(loadTicker(match.params.ticker));
+	}
 
     componentDidMount() {
         this.props.loadTicker(this.props.match.params.ticker.toUpperCase())
@@ -88,9 +90,9 @@ class Ticker extends Component {
             })
         }
 
-        // if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
-        //     this.updateConnections()
-        // }
+        if(prevprops.updateCollectionValue !== this.props.updateCollectionValue) {
+            this.updateConnections()
+        }
     }
 
     getQueryParams = () => {
@@ -263,6 +265,9 @@ class Ticker extends Component {
                 {this.renderConnectionArea()}
 
                 <div className="ticker-chart-area">
+                    <TickerMainChart
+                        ticker={this.props.ticker}
+                    />
                 </div>
                 
 

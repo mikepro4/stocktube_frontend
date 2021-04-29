@@ -17,6 +17,6 @@ export const getTickerPrices = (symbol, success) => async (dispatch, getState, a
     });
 
     if (success) {
-        success(res.data);
+        success(res.data.history, res.data.current);
     }
 }

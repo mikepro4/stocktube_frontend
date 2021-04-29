@@ -24,8 +24,6 @@ class TickerDisplay extends Component {
     }
 
 	render() {
-        console.log(this.props.ticker)
-
         if(this.props.ticker) {
             return (
                 <div className="ticker-display">
