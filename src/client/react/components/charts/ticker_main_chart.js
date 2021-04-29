@@ -211,7 +211,7 @@ class TickerMainChart extends Component {
 
                 {this.state.chartOptions && <ReactECharts
                     option={this.state.chartOptions}
-                    style={{ height: 120, width: "100%" }}
+                    style={{ height: this.props.height, width: "100%" }}
                 /> }
 
             </div>

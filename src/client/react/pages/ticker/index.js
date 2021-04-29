@@ -267,6 +267,7 @@ class Ticker extends Component {
                 <div className="ticker-chart-area">
                     <TickerMainChart
                         ticker={this.props.ticker}
+                        height="140px"
                     />
                 </div>
                 
