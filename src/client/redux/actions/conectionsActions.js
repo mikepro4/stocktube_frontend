@@ -62,6 +62,13 @@ export const searchConnectionsFollowing = (type, identifier, offset, limit, quer
         }
     }
 
+    if(type == "user-tickers") {
+        criteria = {
+            userId: identifier,
+            userTickers: true
+        }
+    }
+
     await api
         .post("/connections/following", {
             criteria: criteria,

@@ -15,6 +15,7 @@ import VideoPreview from "./views/videoPreview"
 import VideoCard from "./views/videoCard"
 import UserDisplay from "./views/userDisplay"
 
+import TickerListDisplay from "./views/tickerListDisplay"
 
 class ListResults extends Component {
 
@@ -192,12 +193,21 @@ class ListResults extends Component {
                         key={item._id}
                         small={true}
                         followingUser={this.props.followingUser}
-                        followingTicker={this.props.followingTicker}
                     />)
                 } else {
                     return(<div key={item._id}/>)
                 }
-                
+            case "ticker-display":
+                if(!this.state.updateCollection) {
+                    return (<TickerListDisplay
+                        item={item}
+                        key={item._id}
+                        small={true}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+                       
 			default:
 				return(
 					<div></div>

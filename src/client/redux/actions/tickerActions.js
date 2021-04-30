@@ -206,5 +206,22 @@ export const tickerUnfollow = (connectionId, success) => async (
         });
 }
 
+// ===========================================================================
 
+export const loadTickerToState = (symbol, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
 
+    await api
+        .post("/public/tickers/item", { symbol })
+        .then(response => {
+
+            if (success) {
+                success(response.data);
+            }
+        })
+        .catch(() => {
+        });
+}

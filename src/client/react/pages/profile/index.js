@@ -291,7 +291,7 @@ class Profile extends Component {
                    <ul className="counts-container">
                        <li 
                             className="single-count"
-                            onClick={() =>  this.props.showDrawer("user-ticker-followubg", { user: this.props.user })}
+                            onClick={() =>  this.props.showDrawer("following-tickers", { user: this.props.user })}
                         >
                            <div className="count-number">{this.props.followingTickers && this.props.followingTickers.count}</div>
                            <div className="count-label">Tickers</div>
