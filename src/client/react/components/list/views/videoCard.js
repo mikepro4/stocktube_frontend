@@ -45,8 +45,7 @@ class VideoPreview extends Component {
                 />
                 <div 
                 className={classNames({
-                    "video-preview": true,
-                    "small": this.props.small
+                    "video-card": true
                 })}
                 onClick={() =>  {
                     this.props.updateCurrentVideo(this.props.item.metadata.id, "play", 0, this.props.item)
@@ -54,11 +53,12 @@ class VideoPreview extends Component {
                     
 
                     <div className="video-details">
+                        <div className="video-title">{this.props.item.metadata.title}</div>
+
                         <div className="channel-name">{this.props.item.metadata.channel.name} 
                             <span className="video-name-divider">●</span> 
                             <span className="video-time">{this.getVideoTime()}</span>
                         </div>
-                        <div className="video-title">{this.props.item.metadata.title}</div>
                     </div>
                 </div>
             </div>

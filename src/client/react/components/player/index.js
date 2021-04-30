@@ -22,6 +22,7 @@ class YoutubePlayer extends React.Component {
 		super(props);
 
 		this.state = {
+            loaded: false,
 			player: null,
 			timeInterval: null
 		};
@@ -30,7 +31,9 @@ class YoutubePlayer extends React.Component {
 	onReady(event) {
 		this.setState({
 			player: event.target
-		});
+        },()=> {
+        });
+        
 	}
 
 	onStateChange(event) {
@@ -75,7 +78,7 @@ class YoutubePlayer extends React.Component {
         }
 
         if(prevProps.currentVideo.videoId !== this.props.currentVideo.videoId) {
-            if(this.props.currentVideo.videoId !== this.props.videoId) {
+            if(this.props.currentVideo.videoId !== this.props.videoId && this.state.player) {
                 this.state.player.pauseVideo();
             }
         }
@@ -295,6 +298,18 @@ class YoutubePlayer extends React.Component {
 		}
     }
 
+    renderThumbnail() {
+        return(
+            <div 
+                className=""
+                onClick={() => {
+                    this.setState({ loaded: true})
+                }
+                }
+            > thumbnail</div>
+        )
+    }
+
 	render() {
         
 		const videoPlayerOptions = {
@@ -316,14 +331,16 @@ class YoutubePlayer extends React.Component {
 
 		return (
 			<div className={videoClasses}>
-				<div
+				
+                {this.state.loaded ? <div> 
+                    <div
 					className="player-overlay"
 					onClick={() => {
 						this.props.showDrawer("video-drawer");
 					}}
 				>
                 </div>
-				<YouTube
+                    <YouTube
 					videoId={this.props.videoId}
 					opts={videoPlayerOptions}
 					onReady={this.onReady.bind(this)}
@@ -334,7 +351,8 @@ class YoutubePlayer extends React.Component {
                     onError={() => this.props.disableVideo(this.props.currentVideo.videoId)}  
 					className="player-video"
 					onStateChange={this.onStateChange.bind(this)}
-				/>
+				/> </div>: this.renderThumbnail()}
+				
 			</div>
 		);
 	}
