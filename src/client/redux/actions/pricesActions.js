@@ -20,3 +20,15 @@ export const getTickerPrices = (symbol, success) => async (dispatch, getState, a
         success(res.data.history, res.data.current);
     }
 }
+
+// =============================================================================
+
+export const getSingleTickerPrice = (symbol, success) => async (dispatch, getState, api) => {
+    const res = await api.post("/public/ticker/single_price", {
+        symbol: symbol
+    });
+
+    if (success) {
+        success(res.data.price);
+    }
+}

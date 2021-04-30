@@ -3,8 +3,8 @@
     display: flex;
 
     .ticker-avatar {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 50px;
         flex-grow: 0;
         flex-shrink: 0;
@@ -35,14 +35,16 @@
     }
 
     .ticker-display-info {
+        position: relative;
+        top: -2px;
+        
         .ticker-symbol {
             letter-spacing: 0.6px;
             font-weight: 600;
-            font-size: 23px;
+            font-size: 20px;
             margin: 1px 0 0 0;
             position: relative;
             left: 0px;
-            top: 1px;
         }
 
         .ticker-name {

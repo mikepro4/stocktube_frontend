@@ -31,6 +31,7 @@ import {
 } from "../../../redux/actions/playerActions";
 
 import TickerDisplay from "../../components/ticker_display";
+import TickerPrice from "../../components/ticker_price";
 import classNames from "classnames";
 
 import Avatar from "../../components/avatar"
@@ -51,7 +52,7 @@ class Ticker extends Component {
     }
 
     static loadData(store, match, route, path, query) {
-		return store.dispatch(loadTicker(match.params.ticker));
+		return store.dispatch(loadTicker(match.params.ticker.toUpperCase()));
 	}
 
     componentDidMount() {
@@ -262,12 +263,18 @@ class Ticker extends Component {
                     </div>
                 </div>
 
+                {this.props.ticker && (
+                    <TickerPrice 
+                        symbol={this.props.ticker.metadata.symbol}
+                    />
+                )}
+
                 {this.renderConnectionArea()}
 
                 <div className="ticker-chart-area">
                     <TickerMainChart
                         ticker={this.props.ticker}
-                        height="140px"
+                        height="120px"
                     />
                 </div>
                 
