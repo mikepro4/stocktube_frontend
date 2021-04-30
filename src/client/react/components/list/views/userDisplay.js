@@ -6,19 +6,37 @@ import { Icon, Button, Classes, Intent, Position, Toaster } from "@blueprintjs/c
 import * as _ from "lodash"
 import moment from "moment"
 
+import Avatar from "../../avatar"
+
+import {
+    hideDrawer
+} from "../../../../redux/actions/appActions"
 
 class UserDisplay extends Component {
-
-
     render() {
+        console.log(this.props.item)
         return(
             <div 
-            className={classNames({
-                "user-display": true,
-                "small": this.props.small,
-            })}
-           >
-                user display
+                className={classNames({
+                    "user-display": true,
+                    "small": this.props.small,
+                })}
+                onClick={() => { 
+                    this.props.history.push("/@" + this.props.item.object.username)
+                    this.props.hideDrawer()
+                }}
+            >
+
+                <Avatar user={this.props.item.object} small={true}/>
+
+                <div className="user-display-username">
+                    {this.props.item.object.username} 
+                </div>
+                
+                <Icon icon="chevron-right" iconSize={16} />
+
+                
+                
             </div>
         )
         
@@ -35,4 +53,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
+    hideDrawer
 })(UserDisplay));

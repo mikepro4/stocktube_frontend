@@ -18,7 +18,7 @@ class Followers extends Component {
 
 	render() {
             return (
-                <div className={"app-drawer-content-container standard-drawer theme-" + this.props.theme}>
+                <div className={"app-drawer-content-container standard-drawer followers-drawer theme-" + this.props.theme}>
                    
                     <div className={"details-container theme-" + this.props.theme}>
                         <div className="drawer-header">
@@ -42,7 +42,7 @@ class Followers extends Component {
                                 resultType="user-display"
                                 searchCollection={this.props.searchConnections}
                             />}
-
+                            
                         </div>
                     </div>
                 </div>

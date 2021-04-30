@@ -90,7 +90,6 @@ class TickerPrice extends Component {
     }
 
 	render() {
-        console.log(this.state.price)
         if(this.state.price) {
             return(
                 <div className="price-container">
