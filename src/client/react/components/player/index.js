@@ -74,11 +74,11 @@ class YoutubePlayer extends React.Component {
 			this.playNextClip();
         }
 
-        if(prevProps.currentVideo.videoId !== this.props.currentVideo.videoId) {
-            if(this.props.currentVideo.videoId !== this.props.videoId) {
-                this.state.player.pauseVideo();
-            }
-        }
+        // if(prevProps.currentVideo.videoId !== this.props.currentVideo.videoId) {
+        //     if(this.props.currentVideo.videoId !== this.props.videoId) {
+        //         this.state.player.pauseVideo();
+        //     }
+        // }
 
         // if(this.props.currentVideo.videoId !== this.props.videoId && this.props.currentVideo.playerAction == "playing") {
         //     this.state.player.pauseVideo();
@@ -219,7 +219,7 @@ class YoutubePlayer extends React.Component {
         // } 
 
         this.setState({ timeInterval: null });
-        this.props.updateCurrentVideo(this.props.videoId, "playing");
+        this.props.updateCurrentVideo(this.props.currentVideo.videoId, "playing");
 
         this.startTimeInterval();
     }
@@ -324,7 +324,7 @@ class YoutubePlayer extends React.Component {
 				>
                 </div>
 				<YouTube
-					videoId={this.props.videoId}
+					videoId={this.props.currentVideo.videoId}
 					opts={videoPlayerOptions}
 					onReady={this.onReady.bind(this)}
 					onPlay={this.onPlay.bind(this)}
@@ -345,7 +345,7 @@ function mapStateToProps(state) {
 		player: state.player,
 		playlist: state.player.playlist,
         currentVideo: state.player.currentVideo,
-        video: state.player.currentVideo.video
+        video: state.player.currentVideo.video,
 	};
 }
 

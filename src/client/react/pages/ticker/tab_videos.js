@@ -23,18 +23,32 @@ import YoutubePlayer from "../../components/player/";
 
 class TabVideos extends Component {
 
-    // loadInitialVideo(results) {
-    //     this.props.updateCurrentVideo(results[0].metadata.id, "stop", 0, results[0])
-    // }
+    loadInitialVideo(results) {
+        this.props.updateCurrentVideo(results[0].metadata.id, "stop", 0, results[0])
+    }
 
     render() {
         return (
             <div className={"tab-content tab-videos theme-" + this.props.theme}>
+
+                    <div 
+                        className={classNames({
+                            "ticker-player": true,
+                            "sticky": true
+                        })}
+                    >
+                    <YoutubePlayer
+                        width="100%"
+                        height="210px"
+                        videoId="fG2cQ-s8j0E"
+                    />
+                </div>
                 {this.props.ticker && <ListResults
                     type="ticker-video-suggestions"
                     identifier={this.props.ticker.metadata.symbol}
-                    resultType="video-card"
+                    resultType="video-preview-small"
                     searchCollection={this.props.searchVideos}
+                    onInitialLoad={(results) => this.loadInitialVideo(results)}
                 />}
             </div>
         )
