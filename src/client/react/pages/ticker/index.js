@@ -51,9 +51,9 @@ class Ticker extends Component {
         connectionLoaded: false,
     }
 
-    static loadData(store, match, route, path, query) {
-		return store.dispatch(loadTicker(match.params.ticker.toUpperCase()));
-	}
+    // static loadData(store, match, route, path, query) {
+	// 	return store.dispatch(loadTicker(match.params.ticker.toUpperCase()));
+	// }
 
     componentDidMount() {
         this.props.loadTicker(this.props.match.params.ticker.toUpperCase())

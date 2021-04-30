@@ -12,14 +12,16 @@
     .regular-price-change-block {
         font-size: 12px;
         position: relative;
-        top: 2px;
+        top: 4px;
 
         .positive {
-            color: $green4
+            color: $green4;
+            font-weight: 500;
         }
 
         .negative {
-            color: $red4
+            color: $red4;
+            font-weight: 500;
         }
     }
 }
@@ -35,6 +37,7 @@
 
     .afterhours-value {
         margin: 0 2px 0 0;
+        font-weight: 500;
     }
 }
 
