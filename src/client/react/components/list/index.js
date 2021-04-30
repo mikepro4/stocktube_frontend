@@ -191,6 +191,8 @@ class ListResults extends Component {
                         item={item}
                         key={item._id}
                         small={true}
+                        followingUser={this.props.followingUser}
+                        followingTicker={this.props.followingTicker}
                     />)
                 } else {
                     return(<div key={item._id}/>)

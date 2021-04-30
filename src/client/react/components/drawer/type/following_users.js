@@ -6,7 +6,7 @@ import { Icon, Button, Classes, Intent, Position, Toaster  } from "@blueprintjs/
 
 import * as _ from "lodash"
 
-import { searchConnectionsFollowers } from "../../../../redux/actions/conectionsActions"
+import { searchConnectionsFollowing } from "../../../../redux/actions/conectionsActions"
 import ListResults  from "../../../components/list"
 
 class Followers extends Component {
@@ -21,7 +21,7 @@ class Followers extends Component {
                     <div className={"details-container theme-" + this.props.theme}>
                         <div className="drawer-header">
                             <div className="drawer-title">
-                                Followers
+                                Following
                             </div>
 
                             <Button 
@@ -34,18 +34,12 @@ class Followers extends Component {
                                 }
                             />
 
-                            {this.props.ticker && <ListResults
-                                type="ticker"
-                                identifier={this.props.ticker.metadata.symbol}
-                                resultType="user-display"
-                                searchCollection={this.props.searchConnectionsFollowers}
-                            />}
-
                             {this.props.user && <ListResults
                                 type="user"
                                 identifier={this.props.user._id}
                                 resultType="user-display"
-                                searchCollection={this.props.searchConnectionsFollowers}
+                                followingUser={true}
+                                searchCollection={this.props.searchConnectionsFollowing}
                             />}
                             
                         </div>
@@ -66,5 +60,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
-    searchConnectionsFollowers
+    searchConnectionsFollowing
 })(Followers));

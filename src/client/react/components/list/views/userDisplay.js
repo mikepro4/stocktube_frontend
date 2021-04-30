@@ -15,6 +15,14 @@ import {
 class UserDisplay extends Component {
     render() {
         console.log(this.props.item)
+
+        let user
+
+        if(this.props.followingUser) {
+            user = this.props.item.subject
+        } else {
+            user = this.props.item.object
+        }
         return(
             <div 
                 className={classNames({
@@ -22,15 +30,15 @@ class UserDisplay extends Component {
                     "small": this.props.small,
                 })}
                 onClick={() => { 
-                    this.props.history.push("/@" + this.props.item.object.username)
+                    this.props.history.push("/@" + user.username)
                     this.props.hideDrawer()
                 }}
             >
 
-                <Avatar user={this.props.item.object} small={true}/>
+                <Avatar user={user} small={true}/>
 
                 <div className="user-display-username">
-                    {this.props.item.object.username} 
+                    {user.username} 
                 </div>
                 
                 <Icon icon="chevron-right" iconSize={16} />

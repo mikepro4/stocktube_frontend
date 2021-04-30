@@ -21,6 +21,7 @@ import EditTicker from "./type/edit_ticker"
 import TickerAvatar from "./type/ticker_avatar"
 
 import Followers from "./type/followers"
+import FollowingUsers from "./type/following_users"
 
 class Drawer extends Component {
 
@@ -63,6 +64,8 @@ class Drawer extends Component {
                 return(<Followers ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             case "user-followers":
                 return(<Followers user={this.props.drawerData.user} hideDrawer={() => this.hideDrawer()}/>)
+            case "following-users":
+                return(<FollowingUsers user={this.props.drawerData.user} followingUser={this.props.followingUser} hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }
