@@ -22,6 +22,7 @@ class TabPosts extends Component {
     render() {
         return (
             <div className={"tab-content tab-posts theme-" + this.props.theme}>
+                <PostInput/>
                 {this.props.ticker && <ListResults
                     type="ticker"
                     identifier={this.props.ticker.metadata.symbol}

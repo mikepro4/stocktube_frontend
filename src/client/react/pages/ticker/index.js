@@ -325,6 +325,7 @@ class Ticker extends Component {
                     tabs={this.state.tabs}
                     activeTab={this.state.selectedTabId}
                     onTabChange={(tab) => this.handleTabChange(tab)}
+                    sticky={this.state.selectedTabId !== "1"}
                 />
 
                 <div id="ticker-tabs">

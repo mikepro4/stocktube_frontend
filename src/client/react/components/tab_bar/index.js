@@ -10,6 +10,7 @@ class TabBar extends Component {
 
         let tabClasses = classNames({
             "tab-container": true,
+            "sticky": this.props.sticky
         });
 
 		return (
