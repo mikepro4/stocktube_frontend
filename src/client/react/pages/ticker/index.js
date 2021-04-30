@@ -180,31 +180,17 @@ class Ticker extends Component {
     }
 
     renderConnectionArea() {
-        if(this.state.connectionLoaded) {
-            let buttonText = this.props.connection && this.props.connection.following ? "Following" : "Follow"
+        if(!this.props.loggedInUser && this.props.ticker) {
             return(
                 <div className="ticker-connection-area"> 
                     <Button 
-                        text={buttonText}
+                        text="Follow"
                         className={"ticker-follow-button theme-"+ this.props.theme + " " + classNames({
-                            "following": this.props.connection && this.props.connection.connection ? true : false,
-                            "follow": !this.props.connection.connection,
+                            "follow": true
                         })}
                         onClick={() =>  {
-                            if(this.props.connection.connection) {
-                                this.props.tickerUnfollow(this.props.connection.connection._id, () => {
-                                   this.getConnection()
-                                }) 
-                            } else {
-                                this.props.tickerFollow(this.props.ticker.metadata.symbol, () => {
-                                    this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol, () => {
-                                        this.getConnection()
-                                    })
-                                })
-
-                            }
-                            }
-                        }
+                           alert("please register")
+                        }}
                     />
 
                     <div className="featured-followers">
@@ -233,10 +219,65 @@ class Ticker extends Component {
                 </div>
             )
         } else {
-            return(
-                <div className="ticker-connection-area"> </div>
-            )
+            if(this.state.connectionLoaded) {
+                let buttonText = this.props.connection && this.props.connection.following ? "Following" : "Follow"
+                return(
+                    <div className="ticker-connection-area"> 
+                        <Button 
+                            text={buttonText}
+                            className={"ticker-follow-button theme-"+ this.props.theme + " " + classNames({
+                                "following": this.props.connection && this.props.connection.connection ? true : false,
+                                "follow": !this.props.connection.connection,
+                            })}
+                            onClick={() =>  {
+                                if(this.props.connection.connection) {
+                                    this.props.tickerUnfollow(this.props.connection.connection._id, () => {
+                                       this.getConnection()
+                                    }) 
+                                } else {
+                                    this.props.tickerFollow(this.props.ticker.metadata.symbol, () => {
+                                        this.props.getTickerConnection(this.props.loggedInUser._id, this.props.ticker.metadata.symbol, () => {
+                                            this.getConnection()
+                                        })
+                                    })
+    
+                                }
+                                }
+                            }
+                        />
+    
+                        <div className="featured-followers">
+                            {this.props.featuredFollowers && this.props.featuredFollowers.map((follower) => {
+                                if(!follower) {
+                                    return
+                                } else {
+                                    return(
+                                        <div key={follower._id} className="single-avatar"><Avatar user={follower.object} mini={true}/></div>
+                                    )
+                                }
+                                
+                            })}
+                        </div>
+    
+                        <div 
+                            className={classNames({
+                                "ticker-followers-count": true,
+                                "one": this.props.followers == 1,
+                                "two": this.props.followers == 2
+                            })}
+                        >
+                                {this.props.followers} followers
+                        </div>
+                        
+                    </div>
+                )
+            } else {
+                return(
+                    <div className="ticker-connection-area"> </div>
+                )
+            }
         }
+        
         
     }
    
