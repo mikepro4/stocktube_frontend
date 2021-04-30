@@ -12,6 +12,7 @@ import {
 
 import PostView from "./views/postView"
 import VideoPreview from "./views/videoPreview"
+import VideoCard from "./views/videoCard"
 
 class ListResults extends Component {
 
@@ -146,7 +147,6 @@ class ListResults extends Component {
 		) {
 			return (
 				<a className="anchor-button" id="loadmore" ref="loadMore"onClick={() => this.searchCollection(20)}>
-                    load more
 				</a>
 			);
 		}
@@ -166,6 +166,16 @@ class ListResults extends Component {
             case "video-preview-small":
                 if(!this.state.updateCollection) {
                     return (<VideoPreview
+                        item={item}
+                        key={item._id}
+                        small={true}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+            case "video-card":
+                if(!this.state.updateCollection) {
+                    return (<VideoCard
                         item={item}
                         key={item._id}
                         small={true}
