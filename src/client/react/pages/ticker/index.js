@@ -7,6 +7,7 @@ import { Icon, Button, Classes  } from "@blueprintjs/core";
 
 import TabBar from "../../components/tab_bar"
 import TabVideos from "./tab_videos"
+import TabPosts from "./tab_posts"
 
 import qs from "qs";
 
@@ -155,7 +156,7 @@ class Ticker extends Component {
                     )
 			case "2":
 				return(
-					<div className="placeholder">2</div>
+					<TabPosts />
 				)
 			case "3":
 				return(
