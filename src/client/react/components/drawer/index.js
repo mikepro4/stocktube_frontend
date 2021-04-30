@@ -20,6 +20,8 @@ import TickerActions from "./type/ticker_actions"
 import EditTicker from "./type/edit_ticker"
 import TickerAvatar from "./type/ticker_avatar"
 
+import Followers from "./type/followers"
+
 class Drawer extends Component {
 
     state = {
@@ -57,6 +59,8 @@ class Drawer extends Component {
                 return(<EditTicker ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             case "upload-ticker-avatar":
                 return(<TickerAvatar ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
+            case "followers":
+                return(<Followers ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }

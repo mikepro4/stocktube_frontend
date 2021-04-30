@@ -246,28 +246,34 @@ class Ticker extends Component {
                                 }
                             }
                         />
-    
-                        <div className="featured-followers">
-                            {this.props.featuredFollowers && this.props.featuredFollowers.map((follower) => {
-                                if(!follower) {
-                                    return
-                                } else {
-                                    return(
-                                        <div key={follower._id} className="single-avatar"><Avatar user={follower.object} mini={true}/></div>
-                                    )
-                                }
-                                
-                            })}
-                        </div>
-    
-                        <div 
-                            className={classNames({
-                                "ticker-followers-count": true,
-                                "one": this.props.followers == 1,
-                                "two": this.props.followers == 2
-                            })}
-                        >
-                                {this.props.followers} followers
+
+                        <div className="ticker-followers-container" onClick={() => {
+                            this.props.showDrawer("followers", { ticker: this.props.ticker })
+                        }}>
+
+                            <div className="featured-followers">
+                                {this.props.featuredFollowers && this.props.featuredFollowers.map((follower) => {
+                                    if(!follower) {
+                                        return
+                                    } else {
+                                        return(
+                                            <div key={follower._id} className="single-avatar"><Avatar user={follower.object} mini={true}/></div>
+                                        )
+                                    }
+                                    
+                                })}
+                            </div>
+        
+                            <div 
+                                className={classNames({
+                                    "ticker-followers-count": true,
+                                    "one": this.props.followers == 1,
+                                    "two": this.props.followers == 2
+                                })}
+                            >
+                                    {this.props.followers} followers
+                            </div>
+
                         </div>
                         
                     </div>

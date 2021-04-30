@@ -13,6 +13,8 @@ import {
 import PostView from "./views/postView"
 import VideoPreview from "./views/videoPreview"
 import VideoCard from "./views/videoCard"
+import UserDisplay from "./views/userDisplay"
+
 
 class ListResults extends Component {
 
@@ -176,6 +178,16 @@ class ListResults extends Component {
             case "video-card":
                 if(!this.state.updateCollection) {
                     return (<VideoCard
+                        item={item}
+                        key={item._id}
+                        small={true}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+            case "user-display":
+                if(!this.state.updateCollection) {
+                    return (<UserDisplay
                         item={item}
                         key={item._id}
                         small={true}
