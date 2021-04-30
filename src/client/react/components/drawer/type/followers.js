@@ -42,6 +42,13 @@ class Followers extends Component {
                                 resultType="user-display"
                                 searchCollection={this.props.searchConnections}
                             />}
+
+                            {this.props.user && <ListResults
+                                type="user"
+                                identifier={this.props.user._id}
+                                resultType="user-display"
+                                searchCollection={this.props.searchConnections}
+                            />}
                             
                         </div>
                     </div>
@@ -56,7 +63,6 @@ class Followers extends Component {
 function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
-        user: state.app.user,
         authenticated: state.auth.authenticated
 	};
 }

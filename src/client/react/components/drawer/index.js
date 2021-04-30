@@ -61,6 +61,8 @@ class Drawer extends Component {
                 return(<TickerAvatar ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
             case "followers":
                 return(<Followers ticker={this.props.drawerData.ticker} hideDrawer={() => this.hideDrawer()}/>)
+            case "user-followers":
+                return(<Followers user={this.props.drawerData.user} hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }
