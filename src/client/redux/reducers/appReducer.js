@@ -38,7 +38,7 @@ export const initialState = {
     drawerData: {},
     suggestions: [],
     updateCollection: false,
-	searchOpen: true,
+	searchOpen: false,
 	search: {
 		loading: false,
 		results: []
