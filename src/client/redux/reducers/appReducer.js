@@ -13,13 +13,11 @@ import {
 	HIDE_DRAWER,
 	UPDATE_TOTAL_PIXELS,
 	UPDATE_TOTAL_SCROLLED_PIXELS,
-	SCROLL_TO,
-	SCROLL_TO_RESET,
-	UPDATE_DRAWER,
-    RESET_DRAWER,
     SUGGESTIONS_UPDATE,
     SUGGESTIONS_CLEAR,
     UPDATE_COLLECTION,
+	SHOW_SEARCH,
+	HIDE_SEARCH
 } from "../actions/types";
 
 export const initialState = {
@@ -36,7 +34,8 @@ export const initialState = {
     drawerType: null,
     drawerData: {},
     suggestions: [],
-    updateCollection: false
+    updateCollection: false,
+	searchOpen: false
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -125,6 +124,16 @@ export const appReducer = (state = initialState, action) => {
                 ...state,
                 updateCollection: action.payload
             };
+		case SHOW_SEARCH:
+			return {
+				...state,
+				searchOpen: true
+			}
+		case HIDE_SEARCH:
+			return {
+				...state,
+				searchOpen: false
+			}
 		default:
 			return state;
 	}

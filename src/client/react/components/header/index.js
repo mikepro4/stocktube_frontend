@@ -10,7 +10,8 @@ import * as _ from "lodash"
 import {
     showMenu,
     hideMenu,
-    showDrawer
+    showDrawer,
+    showSearch
 } from '../../../redux/actions/appActions'
 
 import Avatar from "../avatar/index"
@@ -36,7 +37,7 @@ class Header extends Component {
                                 icon="search"
                                 className={"control theme-"+ this.props.theme}
                                 onClick={() =>  {
-                                    console.log("search")
+                                    this.props.showSearch()
                                     }
                                 }
                             />
@@ -87,5 +88,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     showMenu,
     hideMenu,
-    showDrawer
+    showDrawer,
+    showSearch
 })(Header);

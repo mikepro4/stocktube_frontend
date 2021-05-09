@@ -40,6 +40,9 @@ export const TOGGLE_THEME = "app/TOGGLE_THEME"
 
 export const UPDATE_COLLECTION = "app/UPDATE_COLLECTION"
 
+export const SHOW_SEARCH = "app/SHOW_SEARCH"
+export const HIDE_SEARCH = "app/HIDE_SEARCH"
+
 // =============================================================================
 
 // Player

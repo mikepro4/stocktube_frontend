@@ -1,0 +1,31 @@
+.search-container {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    overflow-y: scroll;
+    flex-direction: column;
+
+    &.theme-dark {
+        background: $black;
+    }
+
+    &.theme-light {
+        background: $white;
+    }
+
+    .search-content  {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    .query-reset-button {
+        position: absolute;
+        top: 2px;
+        right: 0;
+    }
+
+}

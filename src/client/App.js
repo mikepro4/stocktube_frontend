@@ -24,6 +24,7 @@ import MobileMenu from "./react/components/mobile_menu"
 import Username from "./react/components/username"
 import Drawer from "./react/components/drawer"
 import Scroll from "./react/components/scroll"
+import Search from "./react/components/search"
 
 import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
 
@@ -97,6 +98,7 @@ class App extends Component {
 				{this.props.menuOpen && <MobileMenu/>}
 				{this.props.usernameOpen && <Username />}
 				{this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
+				{this.props.searchOpen && <Search />}
 				<Header />
 				<div className={"app-route-container theme-" + this.props.theme}>
 					{renderRoutes(this.props.route.routes)}
@@ -116,7 +118,8 @@ function mapStateToProps(state) {
 		drawerOpen: state.app.drawerOpen,
 		drawerType: state.app.drawerType,
 		coverSelectOpen: state.app.coverSelectOpen,
-		user: state.app.user
+		user: state.app.user,
+		searchOpen: state.app.searchOpen
 	};
 }
 

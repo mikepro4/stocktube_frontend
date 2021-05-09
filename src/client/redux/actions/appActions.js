@@ -12,7 +12,9 @@ import {
     SCROLL_TO_RESET,
     SUGGESTIONS_UPDATE,
     SUGGESTIONS_CLEAR,
-    UPDATE_COLLECTION
+    UPDATE_COLLECTION,
+	SHOW_SEARCH,
+	HIDE_SEARCH,
 } from "./types";
 
 import moment from "moment";
@@ -75,6 +77,43 @@ export const hideDrawer = (success) => async (
 	if (success) {
 		success();
 	}
+	document.body.classList.remove("no-scroll");
+};
+
+/////////////////////////////////////////////////
+
+export const showSearch = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+	dispatch({
+		type: SHOW_SEARCH
+	});
+    
+
+	if (success) {
+		success();
+	}
+	document.body.classList.add("no-scroll");
+};
+
+export const hideSearch = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+	dispatch({
+		type: HIDE_SEARCH
+	});
+    
+
+	if (success) {
+		success();
+	}
+
 	document.body.classList.remove("no-scroll");
 };
 
