@@ -13,6 +13,10 @@ import {
     searchResultsClear
 } from '../../../redux/actions/appActions'
 
+import {
+    searchTrending
+} from '../../../redux/actions/trendingActions'
+
 import QueryForm from "./query_form"
 
 import Throbber from "../throbber"
@@ -21,6 +25,8 @@ import SearchTickerView from "../list/views/search/ticker"
 import SearchUserView from "../list/views/search/user"
 import SearchVideoView from "../list/views/search/video"
 import SearchChannelView from "../list/views/search/channel"
+
+import ListResults from "../list"
 
 class Search extends Component {
 
@@ -46,8 +52,8 @@ class Search extends Component {
 
     renderTickers() {
         return(
-            <div>
-                Tickers 
+            <div className="search-results-group results-tickers">
+                <div className="group-title">Tickers</div> 
                 {this.props.search.results.tickers.map(item => {
 					return <SearchTickerView item={item} key={item._id} />
 				})}
@@ -57,8 +63,8 @@ class Search extends Component {
 
     renderUsers() {
         return(
-            <div>
-                Users 
+            <div className="search-results-group results-users">
+                <div className="group-title">Users</div>  
                 {this.props.search.results.users.map(item => {
 					return <SearchUserView item={item} key={item._id} />
 				})}
@@ -68,8 +74,8 @@ class Search extends Component {
 
     renderVideos() {
         return(
-            <div>
-                Videos 
+            <div className="search-results-group results-videos">
+                <div className="group-title">Videos</div>   
                 {this.props.search.results.videos.map(item => {
 					return <SearchVideoView item={item} key={item._id} />
 				})}
@@ -79,8 +85,8 @@ class Search extends Component {
 
     renderChannels() {
         return(
-            <div>
-                Channels 
+            <div className="search-results-group results-channels">
+                <div className="group-title">Channels</div>    
                 {this.props.search.results.channels.map(item => {
 					return <SearchChannelView item={item} key={item._id} />
 				})}
@@ -98,6 +104,24 @@ class Search extends Component {
                     {this.props.search.results.users && this.props.search.results.users.length > 0 && this.renderUsers()}
                     {this.props.search.results.videos && this.props.search.results.videos.length > 0 && this.renderVideos()}
                     {this.props.search.results.channels && this.props.search.results.channels.length > 0 && this.renderChannels()}
+                </div>
+            )
+        }
+    }
+
+    renderTrending() {
+        if(this.props.queryForm && !this.props.queryForm.values) {
+            return(
+                <div className="search-results-group results-channels trending">
+                    <div className="group-title">Trending</div>    
+                    
+                    <ListResults
+                        type="tickers"
+                        resultType="search-ticker-display"
+                        searchCollection={this.props.searchTrending}
+                    />
+
+                    
                 </div>
             )
         }
@@ -153,7 +177,9 @@ class Search extends Component {
                 </div>
 
                 <div className="search-content">
-                    {this.renderContent()}
+                    
+                    {this.props.queryForm && this.props.queryForm.values && this.props.queryForm.values.query && this.renderContent()}
+                    {this.renderTrending()}
                 </div>
                 
             </div>
@@ -175,5 +201,6 @@ export default withRouter(connect(mapStateToProps, {
     hideSearch,
     resetForm,
     searchResults,
-    searchResultsClear
+    searchResultsClear,
+    searchTrending
 })(Search));

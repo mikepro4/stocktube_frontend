@@ -17,6 +17,8 @@ import UserDisplay from "./views/userDisplay"
 
 import TickerListDisplay from "./views/tickerListDisplay"
 
+import SearchTickerDisplay from "./views/search/ticker"
+
 class ListResults extends Component {
 
     state = {
@@ -200,6 +202,16 @@ class ListResults extends Component {
             case "ticker-display":
                 if(!this.state.updateCollection) {
                     return (<TickerListDisplay
+                        item={item}
+                        key={item._id}
+                        small={true}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+            case "search-ticker-display":
+                if(!this.state.updateCollection) {
+                    return (<SearchTickerDisplay
                         item={item}
                         key={item._id}
                         small={true}

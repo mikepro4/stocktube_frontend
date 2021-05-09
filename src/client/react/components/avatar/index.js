@@ -78,7 +78,8 @@ class Avatar extends Component {
                         "medium": this.props.medium,
                         "big": this.props.big,
                         "huge": this.props.huge,
-                        "mini": this.props.mini
+                        "mini": this.props.mini,
+                        "search": this.props.search
                     })}
                     onClick={() => this.props.showDrawer("avatar-select") }
                 >
@@ -97,7 +98,8 @@ class Avatar extends Component {
                         "medium": this.props.medium,
                         "big": this.props.big,
                         "huge": this.props.huge,
-                        "mini": this.props.mini
+                        "mini": this.props.mini,
+                        "search": this.props.search
                     })}
                 > {this.props.user && !this.props.user.avatarGradient ? (
                     <img src={this.props.user && this.props.user.avatar}/>

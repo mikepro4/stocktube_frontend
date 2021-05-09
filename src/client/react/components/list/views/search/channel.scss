@@ -1,6 +1,7 @@
 .search-channel-display {
     width: 100%;
     display: flex;
+    margin-bottom: 15px;
 
     .channel-avatar {
         width: 40px;
@@ -37,12 +38,13 @@
     .channel-display-info {
         position: relative;
         top: -2px;
+        display: flex;
+        align-items: center;
         
         .channel-name {
-            letter-spacing: 0.6px;
             font-weight: 600;
-            font-size: 20px;
-            margin: 1px 0 0 0;
+            font-size: 17px;
+            margin: 4px 0 0 0;
             position: relative;
             left: 0px;
         }

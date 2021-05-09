@@ -30,7 +30,7 @@ class UserDisplay extends Component {
                 }}
             >
 
-                <Avatar user={user} small={true}/>
+                <Avatar user={user} search={true}/>
 
                 <div className="user-display-username">
                     {user.username} 

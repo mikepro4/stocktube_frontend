@@ -1,6 +1,7 @@
 .search-ticker-display {
     width: 100%;
     display: flex;
+    margin-bottom: 15px;
 
     .ticker-avatar {
         width: 40px;
@@ -28,8 +29,8 @@
 
             svg {
                 color: $white;
-                width: 20px;
-                height: 20px;
+                width: 16px;
+                height: 16px;
             }
         }
     }
@@ -39,10 +40,9 @@
         top: -2px;
         
         .ticker-symbol {
-            letter-spacing: 0.6px;
             font-weight: 600;
-            font-size: 20px;
-            margin: 1px 0 0 0;
+            font-size: 17px;
+            margin: 4px 0 0 0;
             position: relative;
             left: 0px;
         }

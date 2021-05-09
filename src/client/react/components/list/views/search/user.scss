@@ -1,12 +1,21 @@
 .search-user-display {
     display: flex;
-    margin: 5px 0 10px 0;
+    // margin: 5px 0 10px 0;
+    margin-bottom: 15px;
     position: relative;
+
+    // .user-display-username {
+    //     margin: 10px 0 0 10px;
+    //     font-size: 16px;
+    //     font-weight: 400;
+    // }
 
     .user-display-username {
         margin: 10px 0 0 10px;
-        font-size: 16px;
-        font-weight: 400;
+        font-weight: 600;
+        font-size: 17px;
+        position: relative;
+        left: 0px;
     }
 
     svg {

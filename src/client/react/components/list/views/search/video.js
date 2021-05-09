@@ -7,6 +7,10 @@ import * as _ from "lodash"
 import moment from "moment"
 import {updateLocale } from "moment"
 
+import {
+    hideSearch
+} from "../../../../../redux/actions/appActions"
+
 import { updateCurrentVideo } from "../../../../../redux/actions/playerActions"
 
 class VideoPreview extends Component {
@@ -41,8 +45,9 @@ class VideoPreview extends Component {
                 "small": true,
                 "active": this.props.item.metadata.id == this.props.player.currentVideo.videoId
             })}
-            onClick={() =>  {
-                this.props.updateCurrentVideo(this.props.item.metadata.id, "play", 0, this.props.item)
+            onClick={() => { 
+                this.props.history.push("/video/" + this.props.item.googleId)
+                this.props.hideSearch()
             }}>
                 <div className="video-thumbnail">
                     <img src={this.props.item.metadata.thumbnail} />
@@ -72,5 +77,6 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
-    updateCurrentVideo
+    updateCurrentVideo,
+    hideSearch
 })(VideoPreview));

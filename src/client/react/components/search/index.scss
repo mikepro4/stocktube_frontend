@@ -57,4 +57,26 @@
         opacity: 0;
         @extend .animation-fadeIn;
     }
+
+    .search-results-group {
+        padding: 15px;
+        border-bottom: 1px solid $light-gray4;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .group-title {
+            font-size: 14px;
+            margin: 0 0 15px 0;
+        }
+
+        &.trending {
+            @extend .animation-fadeIn;
+
+            .search-ticker-display {
+                @extend .animation-fadeIn;
+            }
+        }
+    }
 }
