@@ -1,0 +1,11 @@
+.bp3-input:focus, .bp3-input.bp3-active {
+    box-shadow: 0 0 0 1px $gray5, 0 0 0 5px $light-gray4, inset 0 1px 1px rgba($dark-gray1, 0);
+}
+
+.bp3-input-group .bp3-input {
+    font-size: 14px;
+    line-height: inherit !important;
+    height: auto !important;
+    padding-top: 6px !important;
+    padding-bottom: 8px !important;
+}

@@ -78,7 +78,7 @@ class Search extends Component {
                                 <Button 
                                     minimal="true"
                                     text="Cancel"
-                                    className={"control theme-"+ this.props.theme}
+                                    className={"control control-text theme-"+ this.props.theme}
                                     onClick={() =>  {
                                         this.props.hideSearch()
                                         }

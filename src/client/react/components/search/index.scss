@@ -22,10 +22,34 @@
         flex-shrink: 1;
     }
 
-    .query-reset-button {
-        position: absolute;
-        top: 2px;
-        right: 0;
+    .input-group .bp3-input-group {
+        svg {
+            width: 12px;
+            margin-left: 4px;
+            margin-top: 1px;
+        }
     }
 
+    .query-reset-button {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+
+        .bp3-button:not([class*="bp3-intent-"]) {
+            padding: 0px;
+            border-radius: 30px;
+            background: $light-gray4;
+
+            svg {
+                width: 12px;
+            }
+        }
+    }
+    
+    .options-query-container {
+        flex-grow: 1;
+        flex-shrink: 1;
+        position: relative;
+        top: 10px;
+    }
 }

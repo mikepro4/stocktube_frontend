@@ -12,14 +12,14 @@ const Input = ({
 	small,
 	right,
 	autoFocus,
-	minimal,
+	rounded,
 	meta: { touched, error }
 }) => {
 	let containerClassName = classnames({
 		"input-group": true,
 		"input-valid": touched && !error,
 		"input-invalid": touched && error,
-		"minimal": minimal
+		"rounded": rounded
 	});
 
 	return (

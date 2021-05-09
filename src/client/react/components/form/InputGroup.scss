@@ -77,4 +77,10 @@
 			}
 		}
 	}
+
+	&.rounded {
+		input.bp3-input {
+			border-radius: 34px;
+		}
+	}
 }

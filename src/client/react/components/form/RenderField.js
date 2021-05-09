@@ -24,7 +24,7 @@ class RenderField extends Component {
 						large={property.large}
 						small={property.small}
 						autoFocus={property.autoFocus}
-						minimal={property.minimal}
+						rounded={property.rounded}
 					/>
 				);
 			case "protected":

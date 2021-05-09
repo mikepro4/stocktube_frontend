@@ -22,7 +22,8 @@ class QueryForm extends React.Component {
               propertyType: "string",
               description: "Search...",
               icon: "search",
-              minimal: true
+              autoFocus: true,
+              rounded: true,
             }
           } 
         />
