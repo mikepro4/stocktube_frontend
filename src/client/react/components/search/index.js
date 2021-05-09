@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {  withRouter, NavLink, Link } from "react-router-dom";
 import classNames from "classnames"
-import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
+import { Icon, Button, Classes, Intent, Spinner  } from "@blueprintjs/core";
 import debounce from 'lodash/debounce';
 
 import { resetForm } from "../../../redux/actions/formActions"
@@ -13,6 +13,8 @@ import {
 } from '../../../redux/actions/appActions'
 
 import QueryForm from "./query_form"
+
+import Throbber from "../throbber"
 
 class Search extends Component {
 
@@ -40,6 +42,13 @@ class Search extends Component {
 
     onSearchClear() {
         console.log("clear")
+    }
+
+    renderContent() {
+        if(this.props.search.loading) {
+            console.log("loading")
+            return(<Throbber/>)
+        }
     }
 
 	render() {
@@ -90,9 +99,9 @@ class Search extends Component {
                         </ul>
                     </div>
                 </div>
-                
+
                 <div className="search-content">
-                    <div className="placeholder">test</div>
+                    {this.renderContent()}
                 </div>
                 
             </div>
@@ -105,7 +114,8 @@ function mapStateToProps(state) {
 	return {
         theme: state.app.theme,
         authenticated: state.auth.authenticated,
-        queryForm: state.form.queryForm
+        queryForm: state.form.queryForm,
+        search: state.app.search
 	};
 }
 

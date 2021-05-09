@@ -93,6 +93,7 @@
 		"react-dropzone": "^11.3.2",
 		"react-helmet": "^6.1.0",
 		"react-keydown": "^1.9.12",
+		"react-md-spinner": "^1.0.0",
 		"react-portal": "^4.2.1",
 		"react-redux": "^7.2.0",
 		"react-router": "^5.1.2",
