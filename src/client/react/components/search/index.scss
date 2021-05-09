@@ -52,4 +52,9 @@
         position: relative;
         top: 10px;
     }
+
+    .search-results {
+        opacity: 0;
+        @extend .animation-fadeIn;
+    }
 }

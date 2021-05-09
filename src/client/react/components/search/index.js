@@ -9,12 +9,18 @@ import { resetForm } from "../../../redux/actions/formActions"
 
 import {
     hideSearch,
-    searchResults
+    searchResults,
+    searchResultsClear
 } from '../../../redux/actions/appActions'
 
 import QueryForm from "./query_form"
 
 import Throbber from "../throbber"
+
+import SearchTickerView from "../list/views/search/ticker"
+import SearchUserView from "../list/views/search/user"
+import SearchVideoView from "../list/views/search/video"
+import SearchChannelView from "../list/views/search/channel"
 
 class Search extends Component {
 
@@ -23,17 +29,11 @@ class Search extends Component {
     
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.debouncedOnChange = debounce(this.onChange, 500);
+        this.debouncedOnChange = debounce(this.onChange, 250);
       }
 
     onSubmit(values) {
-
         this.props.searchResults(values.query)
-
-		this.setState({
-			loading: true
-        })
-
     }
 
     onChange(values) {
@@ -41,13 +41,65 @@ class Search extends Component {
     }
 
     onSearchClear() {
-        console.log("clear")
+        this.props.searchResultsClear()
+    }
+
+    renderTickers() {
+        return(
+            <div>
+                Tickers 
+                {this.props.search.results.tickers.map(item => {
+					return <SearchTickerView item={item} key={item._id} />
+				})}
+            </div>
+        )
+    }
+
+    renderUsers() {
+        return(
+            <div>
+                Users 
+                {this.props.search.results.users.map(item => {
+					return <SearchUserView item={item} key={item._id} />
+				})}
+            </div>
+        )
+    }
+
+    renderVideos() {
+        return(
+            <div>
+                Videos 
+                {this.props.search.results.videos.map(item => {
+					return <SearchVideoView item={item} key={item._id} />
+				})}
+            </div>
+        )
+    }
+
+    renderChannels() {
+        return(
+            <div>
+                Channels 
+                {this.props.search.results.channels.map(item => {
+					return <SearchChannelView item={item} key={item._id} />
+				})}
+            </div>
+        )
     }
 
     renderContent() {
         if(this.props.search.loading) {
-            console.log("loading")
             return(<Throbber/>)
+        } else {
+            return(
+                <div className="search-results">
+                    {this.props.search.results.tickers && this.props.search.results.tickers.length > 0 && this.renderTickers()}
+                    {this.props.search.results.users && this.props.search.results.users.length > 0 && this.renderUsers()}
+                    {this.props.search.results.videos && this.props.search.results.videos.length > 0 && this.renderVideos()}
+                    {this.props.search.results.channels && this.props.search.results.channels.length > 0 && this.renderChannels()}
+                </div>
+            )
         }
     }
 
@@ -122,5 +174,6 @@ function mapStateToProps(state) {
 export default withRouter(connect(mapStateToProps, {
     hideSearch,
     resetForm,
-    searchResults
+    searchResults,
+    searchResultsClear
 })(Search));

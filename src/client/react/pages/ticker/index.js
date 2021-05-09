@@ -62,9 +62,9 @@ class Ticker extends Component {
     }
 
     componentDidUpdate(prevprops, prevparams) {
-        if(prevprops.match.params.ticker !== this.props.match.params.ticker) {
+        if(prevprops.match.params.ticker !== this.props.match.params.ticker &&  this.props.match.params.ticker) {
             this.props.clearTicker()
-            this.loadTicker(this.props.match.params.ticker.toUpperCase())
+            this.props.loadTicker(this.props.match.params.ticker.toUpperCase())
             this.setState({
                 newCounts: false
             })
@@ -228,7 +228,7 @@ class Ticker extends Component {
                             text={buttonText}
                             className={"ticker-follow-button theme-"+ this.props.theme + " " + classNames({
                                 "following": this.props.connection && this.props.connection.connection ? true : false,
-                                "follow": !this.props.connection.connection,
+                                "follow": this.props.connection && !this.props.connection.connection,
                             })}
                             onClick={() =>  {
                                 if(this.props.connection.connection) {

@@ -111,6 +111,8 @@ export const hideSearch = (success) => async (
 	dispatch({
 		type: HIDE_SEARCH
 	});
+
+	dispatch(searchResultsClear());
     
 
 	if (success) {
@@ -404,4 +406,12 @@ export const searchResults = (query, success) => async (
 		.catch(() => {
 			console.log("error")
         });
+}
+
+/////////////////////////////////////////////////
+
+export const searchResultsClear = (px) => async (dispatch) => {
+	dispatch({
+		type: CLEAR_SEARCH_RESULTS,
+    });
 }

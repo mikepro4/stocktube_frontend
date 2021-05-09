@@ -50,6 +50,12 @@
 @import "../react/components/list/views/userDisplay.scss";
 
 
+// list search views
+@import "../react/components/list/views/search/ticker.scss";
+@import "../react/components/list/views/search/user.scss";
+@import "../react/components/list/views/search/video.scss";
+@import "../react/components/list/views/search/channel.scss";
+
 // form
 @import "../react/components/form/BladeInput.scss";
 @import "../react/components/form/InputGroup.scss";
