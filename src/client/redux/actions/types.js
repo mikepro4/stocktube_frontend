@@ -43,6 +43,11 @@ export const UPDATE_COLLECTION = "app/UPDATE_COLLECTION"
 export const SHOW_SEARCH = "app/SHOW_SEARCH"
 export const HIDE_SEARCH = "app/HIDE_SEARCH"
 
+export const SEARCH_RESULTS = "app/SEARCH_RESULTS"
+export const SEARCH_RESULTS_SUCCESS = "app/SEARCH_RESULTS_SUCCESS"
+export const CLEAR_SEARCH_RESULTS = "app/CLEAR_SEARCH_RESULTS"
+
+
 // =============================================================================
 
 // Player

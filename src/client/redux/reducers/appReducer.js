@@ -17,7 +17,10 @@ import {
     SUGGESTIONS_CLEAR,
     UPDATE_COLLECTION,
 	SHOW_SEARCH,
-	HIDE_SEARCH
+	HIDE_SEARCH,
+	SEARCH_RESULTS,
+	SEARCH_RESULTS_SUCCESS,
+	CLEAR_SEARCH_RESULTS
 } from "../actions/types";
 
 export const initialState = {
@@ -35,7 +38,11 @@ export const initialState = {
     drawerData: {},
     suggestions: [],
     updateCollection: false,
-	searchOpen: false
+	searchOpen: true,
+	search: {
+		loading: false,
+		results: []
+	}
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -133,6 +140,32 @@ export const appReducer = (state = initialState, action) => {
 			return {
 				...state,
 				searchOpen: false
+			}
+		case SEARCH_RESULTS:
+			return {
+				...state,
+				search: {
+					...state.search,
+					loading: true
+				}
+			}
+		case SEARCH_RESULTS_SUCCESS:
+			return {
+				...state,
+				search: {
+					...state.search,
+					loading: false,
+					results: action.payload
+				}
+			}
+		case CLEAR_SEARCH_RESULTS:
+			return {
+				...state,
+				search: {
+					...state.search,
+					loading: false,
+					results: []
+				}
 			}
 		default:
 			return state;

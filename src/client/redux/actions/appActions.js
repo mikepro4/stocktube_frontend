@@ -15,6 +15,9 @@ import {
     UPDATE_COLLECTION,
 	SHOW_SEARCH,
 	HIDE_SEARCH,
+	SEARCH_RESULTS,
+	SEARCH_RESULTS_SUCCESS,
+	CLEAR_SEARCH_RESULTS
 } from "./types";
 
 import moment from "moment";
@@ -200,6 +203,7 @@ export const assignAvatar = ({success }) => async (
 	api
 ) => {
 
+
     api
         .post("/assign_avatar", {})
 		.then(response => {
@@ -369,4 +373,35 @@ export const suggestionsClear = (px) => async (dispatch) => {
 	dispatch({
 		type: SUGGESTIONS_CLEAR,
     });
+}
+
+
+/////////////////////////////////////////////////
+
+export const searchResults = (query, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+	dispatch({
+        type: SEARCH_RESULTS
+    });
+
+    api
+        .post("/search/results", { query })
+		.then(response => {
+
+			dispatch({
+				type: SEARCH_RESULTS_SUCCESS,
+				payload: response.data
+			});
+			
+			if (success) {
+				success(response.data);
+            }
+		})
+		.catch(() => {
+			console.log("error")
+        });
 }

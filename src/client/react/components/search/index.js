@@ -3,23 +3,30 @@ import { connect } from "react-redux";
 import {  withRouter, NavLink, Link } from "react-router-dom";
 import classNames from "classnames"
 import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
+import debounce from 'lodash/debounce';
 
 import { resetForm } from "../../../redux/actions/formActions"
 
 import {
-    hideSearch
+    hideSearch,
+    searchResults
 } from '../../../redux/actions/appActions'
 
 import QueryForm from "./query_form"
 
 class Search extends Component {
 
-    state = {
-        loading: false,
-    }
+    constructor(props) {
+        super(props);
+    
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.debouncedOnChange = debounce(this.onChange, 500);
+      }
 
     onSubmit(values) {
-        console.log(values)
+
+        this.props.searchResults(values.query)
 
 		this.setState({
 			loading: true
@@ -28,18 +35,13 @@ class Search extends Component {
     }
 
     onChange(values) {
-        console.log(values)
-
-		this.setState({
-			loading: true
-        })
-
+        this.props.searchResults(values.query)
     }
 
     onSearchClear() {
         console.log("clear")
     }
- 
+
 	render() {
 
 		return (
@@ -52,7 +54,7 @@ class Search extends Component {
                             <QueryForm 
                                 ref="QueryForm"
                                 enableReinitialize="true"
-                                onChange={this.onChange.bind(this)}
+                                onChange={this.debouncedOnChange}
                                 onSubmit={this.onSubmit.bind(this)}
                             />
 
@@ -66,7 +68,7 @@ class Search extends Component {
                                         small="true"
                                         onClick={() =>  {
                                             this.props.resetForm("queryForm")
-                                            this.props.onSearchClear()
+                                            this.onSearchClear()
                                         }}
                                     />
                                 </div>}
@@ -88,9 +90,9 @@ class Search extends Component {
                         </ul>
                     </div>
                 </div>
+                
                 <div className="search-content">
                     <div className="placeholder">test</div>
-
                 </div>
                 
             </div>
@@ -109,5 +111,6 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(mapStateToProps, {
     hideSearch,
-    resetForm
+    resetForm,
+    searchResults
 })(Search));
