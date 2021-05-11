@@ -131,7 +131,10 @@ export const updateTicker = (tickerId, values, success) => async (
     await api
         .post("/public/ticker/update", {
             tickerId,
-            name: values.name
+            name: values.name,
+            altNames: values.altNames,
+            strictNameCheck: values.strictNameCheck,
+            type: values.type
         })
         .then(response => {
             console.log(response)

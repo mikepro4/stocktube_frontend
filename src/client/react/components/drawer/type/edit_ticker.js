@@ -52,9 +52,7 @@ class EditTicker extends Component {
                    
                     <div className={"details-container theme-" + this.props.theme}>
                         <div className="drawer-header">
-                            <div className="drawer-title">
-                                Edit ticker
-                            </div>
+                            
 
                             <Button 
                                 minimal="true"
@@ -71,6 +69,9 @@ class EditTicker extends Component {
                                 initialValues={
                                     {
                                         name: this.props.ticker.metadata.name,
+                                        altNames: this.props.ticker.altNames,
+                                        strictNameCheck: this.props.ticker.strictNameCheck,
+                                        type: this.props.ticker.type
                                     }
                                 }
                                 loading={this.state.loading}

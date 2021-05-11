@@ -22,7 +22,7 @@ const Select = ({
 				{label ? <div className="input-label">{label}</div> : ""}
 			</div>
 
-			<div className="input-group-right bp3-select">
+			<div className="input-group-right ">
 				<select {...input}>{children}</select>
 
 				{touched && error ? (
