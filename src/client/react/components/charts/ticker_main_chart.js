@@ -48,7 +48,6 @@ class TickerMainChart extends Component {
     updateChartOptions() {
 
         let item = this.props.ticker
-
         let newWeek = item.week.map((metric, i) => {
           let color
 
@@ -82,40 +81,43 @@ class TickerMainChart extends Component {
             ...chartPrices
         ]
 
-
-        let chartUploadsCount = [
-          {
-            value: [ 
-              moment().subtract(0, "days").format(),
-              newWeek[0].value
+        let chartUploadsCount = []
+        if(newWeek[0]) {
+          chartUploadsCount = [
+            {
+              value: [ 
+                moment().subtract(0, "days").format(),
+                newWeek[0].value
+              ],
+              itemStyle: newWeek[0].itemStyle
+            },
+            [
+              moment().subtract(1, "days").format(),
+              newWeek[1].value
             ],
-            itemStyle: newWeek[0].itemStyle
-          },
-          [
-            moment().subtract(1, "days").format(),
-            newWeek[1].value
-          ],
-          [
-            moment().subtract(2, "days").format(),
-            newWeek[2].value
-          ],
-          [
-            moment().subtract(3, "days").format(),
-            newWeek[3].value
-          ],
-          [
-            moment().subtract(4, "days").format(),
-            newWeek[4].value
-          ],
-          [
-            moment().subtract(5, "days").format(),
-            newWeek[5].value
-          ],
-          [
-            moment().subtract(6, "days").format(),
-            newWeek[6].value
+            [
+              moment().subtract(2, "days").format(),
+              newWeek[2].value
+            ],
+            [
+              moment().subtract(3, "days").format(),
+              newWeek[3].value
+            ],
+            [
+              moment().subtract(4, "days").format(),
+              newWeek[4].value
+            ],
+            [
+              moment().subtract(5, "days").format(),
+              newWeek[5].value
+            ],
+            [
+              moment().subtract(6, "days").format(),
+              newWeek[6].value
+            ]
           ]
-        ]
+        }
+        
 
 
         this.setState({
