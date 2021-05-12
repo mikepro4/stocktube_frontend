@@ -28,7 +28,7 @@ class ListResults extends Component {
         limit: 20,
         count: null,
         updateCollection: false,
-        horizontalScroll: 0
+        horizontalScroll: 0,
     }
 
 	componentDidMount() {
@@ -41,7 +41,7 @@ class ListResults extends Component {
     
     handleScroll = (event) => {
         this.setState({
-            horizontalScroll: document.getElementById(this.props.type).scrollLeft
+            horizontalScroll: document.getElementById(this.props.type).scrollLeft,
         })
         // this.props.updateTotalScrolledPixels(document.getElementById("body").scrollTop)
     }
@@ -50,6 +50,19 @@ class ListResults extends Component {
 	}
 
 	componentDidUpdate(prevprops) {
+
+        if(prevprops.scrollTop !== this.props.scrollTop) {
+            if(this.props.searchOpen || this.props.drawerOpen) {
+                if(this.refs.loadMore) {
+                    if((this.props.scrollTop + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
+                        if( !this.props.updateCollectionValue) {
+                            this.searchCollection(20)
+                        }
+                    }
+                }
+            }
+        }
+        
         if(prevprops.identifier !== this.props.identifier) {
             this.searchCollection(null, true)
         }
@@ -66,10 +79,22 @@ class ListResults extends Component {
 
             if(!this.props.horizontal) {
                 if(loadMore && !this.state.loading) {
-                    if(this.refs.loadMore) {
-                        if((this.props.app.totalScrolledPixels + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
-                            if( !this.props.updateCollectionValue) {
-                                this.searchCollection(20)
+                   
+
+                    if(this.props.searchOpen || this.props.drawerOpen) {
+                        if(this.refs.loadMore) {
+                            if((this.props.scrollTop + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
+                                if( !this.props.updateCollectionValue) {
+                                    this.searchCollection(20)
+                                }
+                            }
+                        }
+                    } else {
+                        if(this.refs.loadMore) {
+                            if((this.props.app.totalScrolledPixels + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
+                                if( !this.props.updateCollectionValue) {
+                                    this.searchCollection(20)
+                                }
                             }
                         }
                     }
@@ -146,12 +171,14 @@ class ListResults extends Component {
     };
 
 	renderLoadMoreButton = () => {
+        console.log(this.state.count)
 		if (
 			this.state.count >
 			this.state.offset 
 		) {
 			return (
-				<a className="anchor-button" id="loadmore" ref="loadMore"onClick={() => this.searchCollection(20)}>
+				<a className="anchor-button" id="loadMore"  ref="loadMore" onClick={() => this.searchCollection(20)}>
+                    load more
 				</a>
 			);
 		}
@@ -257,7 +284,9 @@ function mapStateToProps(state) {
         location: state.router.location,
         app: state.app,
         updateCollectionValue: state.app.updateCollection,
-        location: state.router.pathname
+        location: state.router.pathname,
+        drawerOpen: state.app.drawerOpen,
+        searchOpen: state.app.searchOpen
 	};;
 }
 

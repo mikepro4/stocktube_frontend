@@ -39,6 +39,10 @@ class TickerListDisplay extends Component {
                     <div className="ticker-symbol">{this.props.item.metadata.symbol}</div>
                     <div className="ticker-name">{this.props.item.metadata.name}</div>
                 </div>
+
+                <div className="ticker-number-of-videos">
+                    {this.props.item.last24hours} videos
+                </div>
             </div>
         ) 
 		

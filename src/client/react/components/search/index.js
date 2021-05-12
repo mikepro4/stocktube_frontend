@@ -38,6 +38,27 @@ class Search extends Component {
         this.debouncedOnChange = debounce(this.onChange, 250);
       }
 
+    state = {
+        scrollTop: 0
+    }
+
+    componentDidMount() {
+        let node = document.getElementById("search-content")
+        node.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        let node = document.getElementById("search-content")
+        node.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll = (event) => {
+        this.setState({
+            scrollTop: document.getElementById("search-content").scrollTop
+        })
+    }
+
+
     onSubmit(values) {
         this.props.searchResults(values.query)
     }
@@ -119,6 +140,7 @@ class Search extends Component {
                         type="tickers"
                         resultType="search-ticker-display"
                         searchCollection={this.props.searchTrending}
+                        scrollTop={this.state.scrollTop}
                     />
 
                     
@@ -130,7 +152,7 @@ class Search extends Component {
 	render() {
 
 		return (
-            <div className={"search-container theme-" + this.props.theme}>
+            <div className={"search-container theme-" + this.props.theme}  id="search-content">
                 <div className={"app-header main-header theme-" + this.props.theme}>
                     <div className={"app-header-container theme-" + this.props.theme}>
 

@@ -93,7 +93,7 @@ class EditTickerForm extends Component {
                                 dropdownValues: [
                                     {
                                         _id: 1,
-                                        valuePropertyName: "nysenasdaq",
+                                        valuePropertyName: "regular",
                                         valueDisplayName: "NYSE / NASDAQ"
                                     },
                                     {

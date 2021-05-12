@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     margin-bottom: 15px;
+    position: relative;
 
     .ticker-avatar {
         width: 40px;
@@ -38,6 +39,7 @@
     .ticker-display-info {
         position: relative;
         top: -2px;
+        width: 100%;
         
         .ticker-symbol {
             font-weight: 600;
@@ -51,6 +53,19 @@
             font-size: 12px;
             color: $gray2;
             letter-spacing: 0.31px;
+            max-width: 70%;
         }
+    }
+
+    .ticker-number-of-videos {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        padding: 3px 10px 5px 10px;
+        border-radius: 30px;
+        background: $gray4;
+        color: $white;
+        font-size: 12px;
+        font-weight: 500;
     }
 }
