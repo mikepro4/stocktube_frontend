@@ -53,7 +53,7 @@ class ListResults extends Component {
 
         if(prevprops.scrollTop !== this.props.scrollTop) {
             if(this.props.searchOpen || this.props.drawerOpen) {
-                if(this.refs.loadMore) {
+                if(this.refs.loadMore && !this.state.loading) {
                     if((this.props.scrollTop + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
                         if( !this.props.updateCollectionValue) {
                             this.searchCollection(20)
@@ -62,7 +62,7 @@ class ListResults extends Component {
                 }
             }
         }
-        
+
         if(prevprops.identifier !== this.props.identifier) {
             this.searchCollection(null, true)
         }
@@ -79,16 +79,8 @@ class ListResults extends Component {
 
             if(!this.props.horizontal) {
                 if(loadMore && !this.state.loading) {
-                   
-
                     if(this.props.searchOpen || this.props.drawerOpen) {
-                        if(this.refs.loadMore) {
-                            if((this.props.scrollTop + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
-                                if( !this.props.updateCollectionValue) {
-                                    this.searchCollection(20)
-                                }
-                            }
-                        }
+                       
                     } else {
                         if(this.refs.loadMore) {
                             if((this.props.app.totalScrolledPixels + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
