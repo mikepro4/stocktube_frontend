@@ -27,8 +27,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            
 
             svg {
+                position: relative;
+                top: 0px;
                 color: $white;
                 width: 16px;
                 height: 16px;

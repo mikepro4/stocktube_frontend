@@ -27,9 +27,11 @@
             align-items: center;
 
             svg {
+                position: relative;
+                top: 0px;
                 color: $white;
-                width: 20px;
-                height: 20px;
+                width: 16px;
+                height: 16px;
             }
         }
     }

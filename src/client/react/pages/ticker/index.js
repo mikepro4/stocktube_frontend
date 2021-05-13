@@ -251,7 +251,7 @@ class Ticker extends Component {
                             this.props.showDrawer("followers", { ticker: this.props.ticker })
                         }}>
 
-                            <div className="featured-followers">
+                            {/* <div className="featured-followers">
                                 {this.props.featuredFollowers && this.props.featuredFollowers.map((follower) => {
                                     if(!follower) {
                                         return
@@ -262,7 +262,7 @@ class Ticker extends Component {
                                     }
                                     
                                 })}
-                            </div>
+                            </div> */}
         
                             <div 
                                 className={classNames({
@@ -320,10 +320,10 @@ class Ticker extends Component {
                 {this.renderConnectionArea()}
 
                 <div className="ticker-chart-area">
-                    <TickerMainChart
+                    {/* <TickerMainChart
                         ticker={this.props.ticker}
                         height="120px"
-                    />
+                    /> */}
                 </div>
                 
 

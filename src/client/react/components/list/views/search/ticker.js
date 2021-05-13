@@ -14,6 +14,14 @@ class TickerListDisplay extends Component {
       
     }
 
+    selectIcon() {
+        if(this.props.item.special) {
+            return(<div className="ticker-avatar empty"><Icon icon="star" size={20}/></div>)
+        } else {
+            return(<div className="ticker-avatar empty"><Icon icon="dollar" size={20}/></div>)
+        }
+    }
+
     renderTickerAvatar() {
 
         let content
@@ -21,7 +29,7 @@ class TickerListDisplay extends Component {
         if(this.props.item.avatar) {
             content = (<div className="ticker-avatar"><img src={this.props.item.avatar}/></div>)
         } else {
-            content = (<div className="ticker-avatar empty"><Icon icon="dollar" size={20}/></div>)
+            content = (this.selectIcon())
         }
         return(content)
     }

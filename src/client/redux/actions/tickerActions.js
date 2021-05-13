@@ -134,7 +134,9 @@ export const updateTicker = (tickerId, values, success) => async (
             name: values.name,
             altNames: values.altNames,
             strictNameCheck: values.strictNameCheck,
-            type: values.type
+            type: values.type,
+            active: values.active,
+            special: values.special,
         })
         .then(response => {
             console.log(response)

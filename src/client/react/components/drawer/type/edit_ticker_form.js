@@ -113,6 +113,30 @@ class EditTickerForm extends Component {
                 </div>
 
                 <div className="blade-input-group">
+                    <RenderField 
+                        property={
+                            {
+                                propertyName: "active",
+                                fieldType: "checkbox",
+                                label: "Active",
+                            }
+                        } 
+                        />
+                </div>
+
+                <div className="blade-input-group">
+                    <RenderField 
+                        property={
+                            {
+                                propertyName: "special",
+                                fieldType: "checkbox",
+                                label: "Special",
+                            }
+                        } 
+                        />
+                </div>
+
+                <div className="blade-input-group">
                     <Button
                         disabled={this.props.pristine}
                         className={"submit-button theme-" + this.props.theme}

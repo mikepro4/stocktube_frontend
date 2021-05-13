@@ -71,7 +71,9 @@ class EditTicker extends Component {
                                         name: this.props.ticker.metadata.name,
                                         altNames: this.props.ticker.altNames,
                                         strictNameCheck: this.props.ticker.strictNameCheck,
-                                        type: this.props.ticker.type
+                                        type: this.props.ticker.type,
+                                        active: this.props.ticker.active,
+                                        special: this.props.ticker.special
                                     }
                                 }
                                 loading={this.state.loading}
