@@ -208,3 +208,49 @@ a {
 .tab-content {
     min-height: 800px;
 }
+
+#room-container  > div {
+    width: 100%;
+	position: relative;
+
+    video {
+        width: 100%;
+    }
+
+	.mute {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+	}
+}
+
+#room-container {
+	position: relative;
+	.mute {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+		&:before {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 30px;
+			z-index: 10;
+			content: "Click to unmute";
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 20px;
+			font-weight: 500;
+			color: $white;
+		}
+	}
+}

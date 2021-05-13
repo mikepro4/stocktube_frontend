@@ -3,14 +3,17 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import classNames from "classnames";
-import socketIOClient from "socket.io-client";
 import keydown from "react-keydown";
 
 import { FocusStyleManager } from "@blueprintjs/core";
 
+import socketIOClient from "socket.io-client";
 import { io } from "./socket"
 
+import { createSocketConnectionInstance } from "./services/socketConnection/"
+
 import { 
+	join,
 	toggleTheme, 
 	assignAvatar,
 	showUsername,
@@ -28,15 +31,20 @@ import Search from "./react/components/search"
 
 import { authUser, fetchCurrentUser, clearCurrentUser } from "../client/redux/actions/authActions"
 
-export let socket
+let socket
 
 class App extends Component {
 	state = {
-		appVisible: false
+		appVisible: false,
+		mediaType: null,
+		micStatus: null,
+		camStatus: false,
+		streaming: null,
+		displayStream: null,
 	}
 
 	componentDidMount() {
-        let socket = io()
+        socket = io()
 
 		this.auth()
 
@@ -48,7 +56,71 @@ class App extends Component {
 			this.props.toggleTheme("light")
 			document.body.classList.add("theme-light");
 		}
+
+		this.startConnection()
+
+		// socket.on('connect', () => {
+        //     console.log('socket connected');
+        // });
+
+
+		// window.navigator.mediaDevices.getUserMedia({
+		// 	video: true,
+		// 	audio: true,
+		//   })
+		// .then(() => {
+		// });
 	}
+
+	disconnect() {
+		socket.current.destoryConnection();
+	}
+
+	startConnection = () => {
+		this.props.join((id) => {
+			console.log(id)
+			let params;
+			if (!params) params = {quality: 12, id: id}
+			socket.current = createSocketConnectionInstance({
+				updateInstance: this.updateFromInstance,
+				params
+			});
+		})
+		
+        
+    }
+
+	updateFromInstance = (key, value) => {
+        if (key === 'streaming') {
+			this.setState({
+				streaming: value
+			})
+		};
+        if (key === 'displayStream') {
+			this.setState({
+				displayStream: value
+			})
+		};
+    }
+
+	// handleMyMic = () => {
+    //     const { getMyVideo, reInitializeStream } = socket.current;
+    //     const myVideo = getMyVideo();
+    //     if (myVideo) myVideo.srcObject?.getAudioTracks().forEach((track:any) => {
+    //         if (track.kind === 'audio')
+    //             // track.enabled = !micStatus;
+    //             micStatus ? track.stop() : reInitializeStream(camStatus, !micStatus);
+    //     });
+    //     setMicStatus(!micStatus);
+    // }
+
+    // handleMyCam = () => {
+    //     if (!displayStream) {
+    //         const { toggleVideoTrack } = socketInstance.current;
+    //         toggleVideoTrack({ video: !camStatus, audio: micStatus });
+    //         setCamStatus(!camStatus);
+    //     }
+    // }
 
 	componentDidUpdate(prevprops) {
 		if(prevprops.user !== this.props.user) {
@@ -92,9 +164,32 @@ class App extends Component {
 		this.props.toggleTheme()
 	}
 
+	// reInitializeStream(false, true, displayStream).then(() => {
+	// 	setMediaType(!mediaType)
+	// });
+
+	toggleScreenShare = () => {
+        const { reInitializeStream, toggleVideoTrack } = socket.current;
+        this.state.displayStream && toggleVideoTrack({video: false, audio: true});
+        reInitializeStream(false, true, !this.state.displayStream ? 'displayMedia' : 'userMedia').then(() => {
+			this.setState({
+				displayStream: null,
+				camStatus: false
+			})
+        });
+    }
+	
 	render() {
 		return (
 			<div className={"app theme-"+ this.props.theme}>
+
+				<button 
+					onClick={() => this.startConnection()}
+				>
+				{this.state.displayStream ? 'Stop Screen Share' : 'Share Screen'}</button>
+
+				<div id="room-container"></div>
+
 				{this.props.menuOpen && <MobileMenu/>}
 				{this.props.usernameOpen && <Username />}
 				{this.props.drawerOpen && <Drawer type={this.props.drawerType} />}
@@ -104,6 +199,10 @@ class App extends Component {
 					{renderRoutes(this.props.route.routes)}
 				</div>
 				<Scroll/>
+
+
+
+				
 			</div>
 		)
 	}
@@ -131,6 +230,7 @@ export default {
 		clearCurrentUser,
 		assignAvatar,
 		showUsername,
-		hideUsername
+		hideUsername,
+		join
 	})(App))
 };

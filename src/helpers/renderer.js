@@ -61,6 +61,8 @@ export default (
       <head>
         ${helmetInstance.title.toString()}
 		${helmetInstance.meta.toString()}
+		<script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+
         <link rel="stylesheet" href="/${buildAssets.bundle.css}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </head>

@@ -29,6 +29,28 @@ import { fetchCurrentUser } from "./authActions"
 
 /////////////////////////////////////////////////
 
+
+export const join = (success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+
+    api
+        .post("/join", {})
+		.then(response => {
+				// console.log(response.data)
+			if (success) {
+				success(response.data.link);
+            }
+		})
+		.catch(() => {
+			console.log("error")
+        });
+}
+
+/////////////////////////////////////////////////
+
 export const updateCollection = (update, success) => async (
     dispatch,
 	getState,
