@@ -29,11 +29,15 @@ class EditTicker extends Component {
             this.setState({
                 loading: false
             })
+            this.props.history.push("/$" + values.symbol)
+
         }, () => {
             this.showFailToast("Couldn't save")
             this.setState({
                 loading: false
             })
+
+
         })
     }
 
@@ -68,6 +72,7 @@ class EditTicker extends Component {
                                 enableReinitialize="true"
                                 initialValues={
                                     {
+                                        symbol: this.props.ticker.metadata.symbol,
                                         name: this.props.ticker.metadata.name,
                                         altNames: this.props.ticker.altNames,
                                         strictNameCheck: this.props.ticker.strictNameCheck,

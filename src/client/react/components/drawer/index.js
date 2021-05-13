@@ -19,6 +19,7 @@ import PostActions from "./type/post_actions"
 import TickerActions from "./type/ticker_actions"
 import EditTicker from "./type/edit_ticker"
 import TickerAvatar from "./type/ticker_avatar"
+import NewTicker from "./type/new_ticker"
 
 import Followers from "./type/followers"
 import FollowingUsers from "./type/following_users"
@@ -69,6 +70,8 @@ class Drawer extends Component {
                 return(<FollowingUsers user={this.props.drawerData.user} followingUser={this.props.followingUser} hideDrawer={() => this.hideDrawer()}/>)
             case "following-tickers":
                 return(<FollowingTickers user={this.props.drawerData.user} hideDrawer={() => this.hideDrawer()}/>)
+            case "new-ticker":
+                return(<NewTicker hideDrawer={() => this.hideDrawer()}/>)
             default:
                 return ;
         }

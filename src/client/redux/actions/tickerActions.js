@@ -131,6 +131,7 @@ export const updateTicker = (tickerId, values, success) => async (
     await api
         .post("/public/ticker/update", {
             tickerId,
+            symbol: values.symbol,
             name: values.name,
             altNames: values.altNames,
             strictNameCheck: values.strictNameCheck,
@@ -229,4 +230,39 @@ export const loadTickerToState = (symbol, success) => async (
         })
         .catch(() => {
         });
+}
+
+// =============================================================================
+
+export const validateSymbol = (values, dispatch, props, field)  => {
+	if (props.initialValues && props.initialValues.symbol == values.symbol) {
+		return Promise.resolve();
+	} else {
+		return axios
+		.post("/api/tickers/validate_symbol", {
+			symbol: values.symbol
+		})
+		.then(response => {
+			if (response.status === 200) {
+			}
+		})
+		.catch(error => {
+			throw { symbol: "Already Exists" };
+		});
+	}
+		
+};
+
+// =============================================================================
+
+export const createTicker = (ticker, success) => async (dispatch, getState, api) => {
+
+	const res = await api.post("/tickers/create", {
+        ticker
+    });
+
+
+  if (success) {
+		success(res.data);
+	}
 }

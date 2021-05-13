@@ -10,6 +10,9 @@ import Input from "../../../components/form/BladeInput";
 import Textarea from "../../../components/form/BladeTextarea";
 import RenderField from "../../../components/form/RenderField";
 
+import {
+	validateSymbol
+} from '../../../../redux/actions/tickerActions'
 
 class EditTickerForm extends Component {
 	render() {
@@ -17,6 +20,16 @@ class EditTickerForm extends Component {
 
 		return (
             <Form onSubmit={handleSubmit} autoComplete="off">
+                <div className="blade-input-group">
+                    <Field
+                        name="symbol"
+                        component={Input}
+                        placeholder="Type symbol..."
+                        title="Symbol"
+                    />
+
+                
+                </div>
                 <div className="blade-input-group">
                     <Field
                         name="name"
@@ -154,18 +167,24 @@ class EditTickerForm extends Component {
 const validate = values => {
     const errors = {}
 
+    if (!values.symbol) {
+        errors.symbol = 'Please enter a symbol';
+    }
+
+    if (values.symbol) {
+      let containsSpaces = values.symbol.indexOf(" ") >= 0;
+      if (containsSpaces) {
+        errors.symbol = "Can't contain spaces";
+      }
+    }
+
     return errors
-  }
+}
 
-EditTickerForm = reduxForm({
-    form: 'editTicker',
-    validate
+export default reduxForm({
+    form: 'tickerNew',
+    validate,
+    asyncValidate: validateSymbol,
+    asyncBlurFields: ["symbol"]
 })(EditTickerForm);
-
-const mapStateToProps = state => ({
-});
-
-export default connect(mapStateToProps, {
-})(EditTickerForm);
-
   
