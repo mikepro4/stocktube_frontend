@@ -2,6 +2,15 @@ import React, { Component, useCallback, useEffect, useState, useRef, useMemo } f
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import uuid from "uuid";
+
+import {
+    searchTrending
+} from '../../../redux/actions/trendingActions'
+
+import ListResults from "../../components/list"
+
+
 
 class HomePage extends Component {
 
@@ -13,7 +22,7 @@ class HomePage extends Component {
     
     renderHead = () => (
 		<Helmet>
-			<title>Stocktube - Home</title>
+			<title>Tickerrr - Home</title>
 			<meta property="og:title" content="Homepage" />
 		</Helmet>
     )
@@ -22,8 +31,15 @@ class HomePage extends Component {
 
 		return (
      		<div>
-                 {this.renderHead()}
-				<div className="placeholder">Home</div>
+				{this.renderHead()}
+
+				<ListResults
+					type="videos"
+					resultType="horizontal-videos"
+					searchCollection={this.props.searchTrending}
+					limit={5}
+				/>
+
 			</div>
 				
 		);
@@ -39,5 +55,6 @@ function mapStateToProps(state) {
 
 export default {
 	component: withRouter(connect(mapStateToProps, {
+		searchTrending
 	})(HomePage))
 }

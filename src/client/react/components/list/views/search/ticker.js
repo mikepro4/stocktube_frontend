@@ -16,7 +16,7 @@ class TickerListDisplay extends Component {
 
     selectIcon() {
         if(this.props.item.special) {
-            return(<div className="ticker-avatar empty"><Icon icon="star" size={20}/></div>)
+            return(<div className="ticker-avatar empty star"><Icon icon="star" size={20}/></div>)
         } else {
             return(<div className="ticker-avatar empty"><Icon icon="dollar" size={20}/></div>)
         }
@@ -37,18 +37,25 @@ class TickerListDisplay extends Component {
 	render() {
 
         return (
-            <div className="search-ticker-display"  onClick={() => { 
+            <div className="search-ticker-display"  >
+                <div onClick={() => { 
+                    this.props.history.push("/$" + this.props.item.metadata.symbol)
+                    this.props.hideSearch()
+                }}>{this.renderTickerAvatar()}</div>
+                
+
+                <div className="ticker-display-info" onClick={() => { 
                 this.props.history.push("/$" + this.props.item.metadata.symbol)
                 this.props.hideSearch()
             }}>
-                {this.renderTickerAvatar()}
-
-                <div className="ticker-display-info">
                     <div className="ticker-symbol">{this.props.item.metadata.symbol}</div>
                     <div className="ticker-name">{this.props.item.metadata.name}</div>
                 </div>
 
-                <div className="ticker-number-of-videos">
+                <div className="ticker-number-of-videos" onClick={() => { 
+                this.props.history.push("/$" + this.props.item.metadata.symbol)
+                this.props.hideSearch()
+            }}>
                     {this.props.item.last24hours} videos
                 </div>
             </div>

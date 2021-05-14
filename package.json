@@ -112,6 +112,7 @@
 		"style-loader": "^0.19.1",
 		"tslib": "^2.2.0",
 		"url-loader": "^4.1.1",
+		"uuid": "^8.3.2",
 		"webpack-cli": "^4.5.0",
 		"yahoo-finance": "^0.3.7",
 		"yahoo-stock-prices": "^1.1.0"

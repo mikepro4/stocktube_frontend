@@ -141,6 +141,7 @@ class Search extends Component {
                         resultType="search-ticker-display"
                         searchCollection={this.props.searchTrending}
                         scrollTop={this.state.scrollTop}
+                        limit={20}
                     />
 
                     

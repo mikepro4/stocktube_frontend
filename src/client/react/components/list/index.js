@@ -19,13 +19,15 @@ import TickerListDisplay from "./views/tickerListDisplay"
 
 import SearchTickerDisplay from "./views/search/ticker"
 
+import HorizontalVideos from "./views/horizontalVideos"
+
 class ListResults extends Component {
 
     state = {
         collection: [],
         loading: false,
         offset: 0,
-        limit: 20,
+        limit: 5,
         count: null,
         updateCollection: false,
         horizontalScroll: 0,
@@ -56,7 +58,7 @@ class ListResults extends Component {
                 if(this.refs.loadMore && !this.state.loading) {
                     if((this.props.scrollTop + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
                         if( !this.props.updateCollectionValue) {
-                            this.searchCollection(20)
+                            this.searchCollection(this.getLimit())
                         }
                     }
                 }
@@ -75,9 +77,10 @@ class ListResults extends Component {
                 this.searchCollection(null, true)
             }
         } else {
-            const loadMore = document.getElementById("loadMore"+this.props.resultType)
 
             if(!this.props.horizontal) {
+                const loadMore = document.getElementById("loadMore"+this.props.resultType+this.props.identifier)
+
                 if(loadMore && !this.state.loading) {
                     if(this.props.searchOpen || this.props.drawerOpen) {
                        
@@ -86,7 +89,7 @@ class ListResults extends Component {
                             console.log(loadMore.offsetTop )
                             if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
                                 if( !this.props.updateCollectionValue) {
-                                    this.searchCollection(20)
+                                    this.searchCollection(this.getLimit())
                                 }
                             }
                         }
@@ -94,16 +97,21 @@ class ListResults extends Component {
                     
                 }
             } else if (this.props.horizontal) {
-                if(loadMore && !this.state.loading) {
-                    if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().x) {
-                        if( !this.props.updateCollectionValue) {
-                            this.searchCollection(20)
-                        }
-                    }
-                } 
+
+                // if(loadMore && !this.state.loading) {
+                //     if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().x) {
+                //         if( !this.props.updateCollectionValue) {
+                //             this.searchCollection(this.getLimit())
+                //         }
+                //     }
+                // } 
             }
             
         }
+    }
+
+    getLimit = () => {
+        return this.props.limit ? this.props.limit : 20
     }
     
 
@@ -127,7 +135,7 @@ class ListResults extends Component {
             this.props.type,
             this.props.identifier,
 			newOffset,
-            this.state.limit, 
+            this.getLimit(), 
             "",
             (results) => {
                 let newCollection = _.concat(this.state.collection, results.all)
@@ -170,7 +178,7 @@ class ListResults extends Component {
 			this.state.offset 
 		) {
 			return (
-				<a className="anchor-button" id={"loadMore"+this.props.resultType}  ref="loadMore" onClick={() => this.searchCollection(20)}>
+				<a className="anchor-button" id={"loadMore"+this.props.resultType+this.props.identifier}  ref="loadMore" onClick={() => this.searchCollection(5)}>
                     
 				</a>
 			);
@@ -235,6 +243,15 @@ class ListResults extends Component {
                         item={item}
                         key={item._id}
                         small={true}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+            case "horizontal-videos":
+                if(!this.state.updateCollection) {
+                    return (<HorizontalVideos
+                        item={item}
+                        key={item._id}
                     />)
                 } else {
                     return(<div key={item._id}/>)

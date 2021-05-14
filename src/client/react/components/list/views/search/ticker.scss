@@ -37,6 +37,14 @@
                 height: 16px;
             }
         }
+
+        &.star {
+            &.empty {
+                svg {
+                    top: -1px;
+                }
+            }
+        }
     }
 
     .ticker-display-info {
