@@ -14,6 +14,10 @@ import ListResults from "../../components/list"
 
 class HomePage extends Component {
 
+	state = {
+		scrollTop: 0
+	}
+
 	componentDidMount() {
 	}
 
@@ -26,6 +30,22 @@ class HomePage extends Component {
 			<meta property="og:title" content="Homepage" />
 		</Helmet>
     )
+
+	// componentDidMount() {
+    //     let node = document.getElementById("body")
+    //     node.addEventListener('scroll', this.handleScroll);
+    // }
+
+    // componentWillUnmount() {
+    //     let node = document.getElementById("body")
+    //     node.removeEventListener('scroll', this.handleScroll);
+    // }
+
+    // handleScroll = (event) => {
+    //     this.setState({
+    //         scrollTop: document.getElementById("body").scrollTop
+    //     })
+    // }
 
 	render() {
 

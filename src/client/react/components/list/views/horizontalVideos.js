@@ -23,19 +23,51 @@ import TickerListDisplay from './search/ticker'
 
 class HorizontalView extends Component {
 
+    componentDidMount() {
+        this.setState({
+            mounted: true
+        })
+    }
+
+    componentDidUpdate() {
+        const container = document.getElementById("horizontalVideos" + this.props.item.metadata.symbol)
+        console.log(this.props.totalScrolledPixels)
+        console.log(container.offsetTop)
+
+        let visible
+        if((this.props.totalScrolledPixels + 200) > container.offsetTop) {
+            visible = true
+        }
+    }
+
     render() {
+        const container = document.getElementById("horizontalVideos" + this.props.item.metadata.symbol)
+
+        let visible = false
+        if(container) {
+            if((this.props.totalScrolledPixels + this.props.clientHeight - 100) > container.offsetTop) {
+                visible = true
+            }
+
+            if(container.offsetTop < this.props.totalScrolledPixels - this.props.clientHeight) {
+                visible = false
+            }
+        }
+
+
         return(
-            <div className="horizontal-videos-container">
+            <div className="horizontal-videos-container" id={"horizontalVideos" + this.props.item.metadata.symbol}>
                 <TickerListDisplay item={this.props.item}/>
 
-                <ListResults
+                {visible &&  <ListResults
                     type="ticker-video-suggestions"
                     identifier={this.props.item.metadata.symbol}
                     resultType="video-preview-small"
                     searchCollection={this.props.searchVideos}
                     horizontal={true}
                     limit={5}
-                />
+                />}
+               
             </div>
         )
         
@@ -48,7 +80,10 @@ function mapStateToProps(state) {
         user: state.app.user,
         authenticated: state.auth.authenticated,
         clientWidth: state.app.clientWidth,
-        player: state.player
+        clientHeight: state.app.clientHeight,
+        player: state.player,
+        totalScrolledPixels: state.app.totalScrolledPixels
+
     };
 }
 

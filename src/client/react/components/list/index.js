@@ -33,18 +33,25 @@ class ListResults extends Component {
         horizontalScroll: 0,
     }
 
+
+
+
 	componentDidMount() {
         this.searchCollection()
 
-        let node = document.getElementById(this.props.type)
-        node.addEventListener('scroll', this.handleScroll);
-        
+        if(this.props.horizontal) {
+            let node = document.getElementById(this.props.type+this.props.identifier)
+            node.addEventListener('scroll', this.handleScroll);
+        }
     }
     
     handleScroll = (event) => {
-        this.setState({
-            horizontalScroll: document.getElementById(this.props.type).scrollLeft,
-        })
+        if(this.props.horizontal) {
+            this.setState({
+                horizontalScroll: document.getElementById(this.props.type+this.props.identifier).scrollLeft,
+            })
+        }
+       
         // this.props.updateTotalScrolledPixels(document.getElementById("body").scrollTop)
     }
 
@@ -55,8 +62,8 @@ class ListResults extends Component {
 
         if(prevprops.scrollTop !== this.props.scrollTop) {
             if(this.props.searchOpen || this.props.drawerOpen) {
-                if(this.refs.loadMore && !this.state.loading) {
-                    if((this.props.scrollTop + 200)  > (this.refs.loadMore.offsetTop - this.props.app.totalPixels)) {
+                if(this.refs["loadMore"+this.props.resultType+this.props.identifier] && !this.state.loading) {
+                    if((this.props.scrollTop + 200)  > (this.refs["loadMore"+this.props.resultType+this.props.identifier] - this.props.app.totalPixels)) {
                         if( !this.props.updateCollectionValue) {
                             this.searchCollection(this.getLimit())
                         }
@@ -77,16 +84,17 @@ class ListResults extends Component {
                 this.searchCollection(null, true)
             }
         } else {
-
+            // const loadMore = document.getElementById("loadMore"+this.props.resultType+this.props.identifier)
             if(!this.props.horizontal) {
-                const loadMore = document.getElementById("loadMore"+this.props.resultType+this.props.identifier)
+                const loadMore = this.refs["loadMore"+this.props.resultType+this.props.identifier]
+
+                
 
                 if(loadMore && !this.state.loading) {
                     if(this.props.searchOpen || this.props.drawerOpen) {
                        
                     } else {
                         if(loadMore) {
-                            console.log(loadMore.offsetTop )
                             if((this.props.app.totalScrolledPixels + 200)  > (loadMore.offsetTop - this.props.app.totalPixels)) {
                                 if( !this.props.updateCollectionValue) {
                                     this.searchCollection(this.getLimit())
@@ -97,14 +105,15 @@ class ListResults extends Component {
                     
                 }
             } else if (this.props.horizontal) {
+                const loadMore = this.refs["loadMore"+this.props.resultType+this.props.identifier]
 
-                // if(loadMore && !this.state.loading) {
-                //     if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().x) {
-                //         if( !this.props.updateCollectionValue) {
-                //             this.searchCollection(this.getLimit())
-                //         }
-                //     }
-                // } 
+                if(loadMore && !this.state.loading) {
+                    if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().x) {
+                        if( !this.props.updateCollectionValue) {
+                            this.searchCollection(this.getLimit())
+                        }
+                    }
+                } 
             }
             
         }
@@ -139,6 +148,7 @@ class ListResults extends Component {
             "",
             (results) => {
                 let newCollection = _.concat(this.state.collection, results.all)
+                console.log(newCollection)
 
                 if(this.props.onInitialLoad && this.state.collection.length == 0) {
                     this.props.onInitialLoad(results.all)
@@ -172,13 +182,12 @@ class ListResults extends Component {
     };
 
 	renderLoadMoreButton = () => {
-        console.log(this.state.count)
 		if (
 			this.state.count >
 			this.state.offset 
 		) {
 			return (
-				<a className="anchor-button" id={"loadMore"+this.props.resultType+this.props.identifier}  ref="loadMore" onClick={() => this.searchCollection(5)}>
+				<a className="anchor-button" id={"loadMore"+this.props.resultType+this.props.identifier}  ref={"loadMore"+this.props.resultType+this.props.identifier} onClick={() => this.searchCollection(5)}>
                     
 				</a>
 			);
@@ -276,7 +285,7 @@ class ListResults extends Component {
                 style={{
                     height: this.props.height ? this.props.height: "inherit"
                 }}
-                id={this.props.type}
+                id={this.props.type+this.props.identifier}
             >
 				{this.state.collection.map(item => {
 					return this.renderResultItem(item)
