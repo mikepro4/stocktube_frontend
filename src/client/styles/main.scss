@@ -55,6 +55,7 @@
 @import "../react/components/list/views/search/user.scss";
 @import "../react/components/list/views/search/video.scss";
 @import "../react/components/list/views/search/channel.scss";
+@import "../react/components/list/views/search/videoVertical.scss";
 @import "../react/components/list/views/horizontalVideos.scss";
 
 // form
@@ -92,7 +93,7 @@ body {
 	bottom: 0;
 	overflow-y: auto;
 	overflow-x: hidden;
-	opacity: 0;
+	opacity: 1;
 	transition: opacity 1s;
 
 	&.theme-light {

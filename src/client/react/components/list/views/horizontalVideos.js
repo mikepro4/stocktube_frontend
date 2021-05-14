@@ -35,7 +35,7 @@ class HorizontalView extends Component {
         console.log(container.offsetTop)
 
         let visible
-        if((this.props.totalScrolledPixels + 200) > container.offsetTop) {
+        if((this.props.totalScrolledPixels + 1000) > container.offsetTop) {
             visible = true
         }
     }
@@ -45,7 +45,7 @@ class HorizontalView extends Component {
 
         let visible = false
         if(container) {
-            if((this.props.totalScrolledPixels + this.props.clientHeight - 100) > container.offsetTop) {
+            if((this.props.totalScrolledPixels + this.props.clientHeight + 100) > container.offsetTop) {
                 visible = true
             }
 
@@ -62,7 +62,7 @@ class HorizontalView extends Component {
                 {visible &&  <ListResults
                     type="ticker-video-suggestions"
                     identifier={this.props.item.metadata.symbol}
-                    resultType="video-preview-small"
+                    resultType="video-preview-vertical"
                     searchCollection={this.props.searchVideos}
                     horizontal={true}
                     limit={5}

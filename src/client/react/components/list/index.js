@@ -21,6 +21,8 @@ import SearchTickerDisplay from "./views/search/ticker"
 
 import HorizontalVideos from "./views/horizontalVideos"
 
+import VideoPreviewVertical from "./views/search/videoVertical"
+
 class ListResults extends Component {
 
     state = {
@@ -259,6 +261,16 @@ class ListResults extends Component {
             case "horizontal-videos":
                 if(!this.state.updateCollection) {
                     return (<HorizontalVideos
+                        item={item}
+                        key={item._id}
+                    />)
+                } else {
+                    return(<div key={item._id}/>)
+                }
+
+            case "video-preview-vertical":
+                if(!this.state.updateCollection) {
+                    return (<VideoPreviewVertical
                         item={item}
                         key={item._id}
                     />)

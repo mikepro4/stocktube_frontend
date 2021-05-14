@@ -1,14 +1,22 @@
 .horizontal-videos-container {
     padding: 20px 0 20px 0;
-    height: 350px;
+    height: 430px;
     overflow: hidden;
-    box-shadow: 0 1px 0 0 rgba($dark-gray5,0.07);
+    border-bottom: 7px solid rgba($dark-gray5,0.07);
+    @extend .animation-fadeIn;
+
+    @for $i from 1 through 10 {
+          &:nth-child(#{$i}) {
+            animation-delay: $i * 0.2s;
+          }
+    }
 
     .search-ticker-display {
-        padding: 0 15px;
+        padding: 0 15px 0  15px;
 
         .ticker-number-of-videos {
             right: 15px;
+            top: 10px;
         }
     }
 }

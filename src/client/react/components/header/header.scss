@@ -18,6 +18,15 @@
     max-width: 100%;
     position: sticky;
 
+    .logo-ticker {
+        position: relative;
+        top: 1px;
+        
+        svg {
+            // width: 70px
+        }
+    }
+
     &.main-header {
 
         &.theme-light {
