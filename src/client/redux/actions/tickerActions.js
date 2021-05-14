@@ -142,6 +142,7 @@ export const updateTicker = (tickerId, values, success) => async (
         .then(response => {
             console.log(response)
             dispatch(loadTicker(response.data.ticker.metadata.symbol))
+            dispatch(updateTickerVideos(response.data.ticker.metadata.symbol))
             if (success) {
                 success(response.data);
             }
@@ -261,6 +262,19 @@ export const createTicker = (ticker, success) => async (dispatch, getState, api)
         ticker
     });
 
+
+  if (success) {
+		success(res.data);
+	}
+}
+
+// =============================================================================
+
+export const updateTickerVideos = (ticker, success) => async (dispatch, getState, api) => {
+
+	const res = await api.post("https://tickerrrdata.herokuapp.com/searchSingleTicker", {
+        symbol: ticker
+    });
 
   if (success) {
 		success(res.data);

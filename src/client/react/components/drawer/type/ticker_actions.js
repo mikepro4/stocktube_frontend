@@ -61,15 +61,6 @@ class TickerActions extends Component {
                                     }
                                 > <Icon icon="link" iconSize="20" />Copy link </a>
                             </li>
-
-                            <li className="drawer-nav-item">
-                                <a 
-                                    onClick={() =>  {
-                                        this.props.showDrawer("new-ticker")
-                                        }
-                                    }
-                                > <Icon icon="plus" iconSize="20" />New Ticker</a>
-                            </li>
                         </ul>
     
                         <div className="drawer-footer">

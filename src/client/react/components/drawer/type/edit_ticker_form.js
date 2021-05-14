@@ -176,6 +176,12 @@ const validate = values => {
       if (containsSpaces) {
         errors.symbol = "Can't contain spaces";
       }
+
+      let uppercase = values.symbol == values.symbol.toUpperCase()
+      if (!uppercase) {
+        errors.symbol = "Must be uppercase";
+      }
+      
     }
 
     return errors

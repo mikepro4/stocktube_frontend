@@ -5,8 +5,7 @@ import classNames from "classnames"
 import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
 
 import * as _ from "lodash"
-
-
+import { showDrawer } from "../../../../redux/actions/appActions"
 import Avatar from '../../avatar'
 
 class UserDrawer extends Component {
@@ -82,6 +81,16 @@ class UserDrawer extends Component {
                                     }
                                 ><Icon icon="cog" iconSize="20" />Settings</Link>
                             </li>
+
+
+                            <li className="drawer-nav-item">
+                                <a 
+                                    onClick={() =>  {
+                                        this.props.showDrawer("new-ticker")
+                                        }
+                                    }
+                                > <Icon icon="plus" iconSize="20" />New Ticker</a>
+                            </li>
                         </ul>
     
                         <div className="drawer-footer">
@@ -117,4 +126,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
+    showDrawer
 })(UserDrawer));
