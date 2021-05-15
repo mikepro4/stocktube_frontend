@@ -1,0 +1,55 @@
+.video-route {
+    .video-details.main {
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: 30px 20px;
+
+        .channel-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: $gray2;
+            margin: 0px 0 10px 0;
+
+            .video-name-divider {
+                font-size: 4px;
+                margin: 0 7px 5px 7px;
+                position: relative;
+                top: -2px;
+                opacity: 0.5;
+            }
+            .video-time {
+                font-weight: 400
+            }
+        }
+
+        .video-title.main-title {
+            font-size: 30px;
+            line-height: 34px;
+        }
+    }
+
+    .video-area {
+        width: 100%;
+    }
+
+    .suggested-group {
+        padding: 0 0 5px 0px;
+        display: block;
+
+        .ticker-name {
+            display: block;
+            width: 100%;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 30px 0 25px 20px;
+            font-family: 'Neue Machina';
+            border-top: 7px solid rgba($dark-gray5,0.07);
+        }
+
+        .search-video-preview-vertical {
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+    }
+}

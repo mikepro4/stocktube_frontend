@@ -316,13 +316,13 @@ class YoutubePlayer extends React.Component {
 
 		return (
 			<div className={videoClasses}>
-				<div
+				{/* <div
 					className="player-overlay"
 					onClick={() => {
 						this.props.showDrawer("video-drawer");
 					}}
 				>
-                </div>
+                </div> */}
 				<YouTube
 					videoId={this.props.currentVideo.videoId}
 					opts={videoPlayerOptions}

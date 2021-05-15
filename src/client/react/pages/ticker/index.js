@@ -311,11 +311,11 @@ class Ticker extends Component {
                     </div>
                 </div>
 
-                {this.props.ticker && (
+                {/* {this.props.ticker && (
                     <TickerPrice 
                         symbol={this.props.ticker.metadata.symbol}
                     />
-                )}
+                )} */}
 
                 {this.renderConnectionArea()}
 

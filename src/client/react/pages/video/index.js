@@ -26,8 +26,20 @@ import {
 
 import YoutubePlayer from "../../components/player/";
 
+import {updateLocale } from "moment"
 
-class Ticker extends Component {
+import {
+    searchTrending
+} from '../../../redux/actions/trendingActions'
+
+import ListResults from "../../components/list"
+
+import { 
+    searchVideos
+} from "../../../redux/actions/videosActions";
+
+
+class Video extends Component {
 
     state = {
     }
@@ -47,7 +59,10 @@ class Ticker extends Component {
 
     componentDidUpdate(prevprops, prevparams) {
        if(this.props.currentVideo.videoId !== this.props.match.params.video) {
-           this.playVideo()
+            if(this.props.preloadVideoValue.googleId == this.props.match.params.video) {
+                this.preloadVideo(this.props.preloadVideoValue)
+                document.getElementById("body").scrollTop = 0
+            }
        }
     }
 
@@ -88,21 +103,97 @@ class Ticker extends Component {
 		</Helmet>
     )
 
+    getVideoTime() {
+        let date =  moment(this.props.video.createdAt).startOf('hour').fromNow( updateLocale("en", {
+            relativeTime: {
+              future: "in %s",
+              past: "%s ",
+              s: "sec",
+              m: "%d m",
+              mm: "%d m",
+              h: "%d h",
+              hh: "%d h",
+              d: "%d d",
+              dd: "%d d",
+              M: "a mth",
+              MM: "%d mths",
+              y: "y",
+              yy: "%d y"
+            }
+        }))
+
+        return(date.replace(/\s/g, ''))
+    }
+
+    getHeight() {
+        if(this.props.clientWidth < 900) {
+            return Math.round((this.props.clientWidth/16)*9)
+        }
+
+        if(this.props.clientWidth >= 900) {
+            return Math.round((this.props.clientHeight*0.8))
+        }
+    }
+
+    getLinkedTickerLists() {
+        if(this.props.video) {
+            console.log(this.props.video.linkedTickers)
+
+            return(
+                <div>
+                    {this.props.video.linkedTickers.map(ticker => {
+                        return (<div key={ticker._id} className="suggested-group">
+                            <Link to={"/$" + ticker.symbol} className="ticker-name">${ticker.symbol}</Link>
+                            <ListResults
+                                type="ticker-video-suggestions"
+                                identifier={ticker.symbol}
+                                resultType="video-preview-vertical"
+                                searchCollection={this.props.searchVideos}
+                                horizontal={true}
+                                limit={10}
+                            /></div>)
+                        }
+                    )}
+                </div>
+            )
+        }
+    }
    
 	render() {
+        if(this.props.clientWidth && this.props.video) {
 
-        return (
-            <div className={"video-route theme-" + this.props.theme}>
-                {this.renderHead()}
+            return (
+                <div className={"video-route theme-" + this.props.theme}>
+                    {this.renderHead()}
+                    <div 
+                        className="video-area"
+                        style={{
+                            height: this.getHeight()
+                        }}
+                    >
+                        {this.props.video && <YoutubePlayer
+                            width="100%"
+                            height="100%"
+                            videoId="fG2cQ-s8j0E"
+                        />}
+                    </div>
+                    
 
-                {this.props.video && <YoutubePlayer
-                    width="100%"
-                    height="210px"
-                    videoId="fG2cQ-s8j0E"
-                />}
-                {this.props.video && this.props.video.metadata.title}
-            </div>
-        );
+                    {this.props.video && <div className="video-details main">
+                        <div className="channel-name">{this.props.video.metadata.channel.name} 
+                            <span className="video-name-divider">●</span> 
+                            <span className="video-time">{this.getVideoTime()}</span>
+                        </div>
+                        <div className="video-title main-title">{this.props.video.metadata.title}</div>
+                    </div> }
+
+                    {this.getLinkedTickerLists()}
+                </div>
+            );
+        } else {
+            return <div></div>
+        }
+
 	}
 }
 
@@ -114,7 +205,9 @@ function mapStateToProps(state) {
         totalScrolledPixels: state.app.totalScrolledPixels,
         video: state.video.video,
         currentVideo: state.player.currentVideo,
-        preloadVideoValue: state.app.preloadVideo
+        preloadVideoValue: state.app.preloadVideo,
+        clientWidth: state.app.clientWidth,
+        clientHeight: state.app.clientHeight
 	};
 }
 
@@ -125,6 +218,7 @@ export default {
         preloadVideo,
         loadVideo,
         clearVideo,
-        updateCurrentVideo
-	})(Ticker))
+        updateCurrentVideo,
+        searchVideos
+	})(Video))
 }
