@@ -65,7 +65,7 @@ class HorizontalView extends Component {
                     resultType="video-preview-vertical"
                     searchCollection={this.props.searchVideos}
                     horizontal={true}
-                    limit={5}
+                    limit={10}
                 />}
                
             </div>

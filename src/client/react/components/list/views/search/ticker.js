@@ -6,7 +6,7 @@ import { Icon, Button, Classes, Intent  } from "@blueprintjs/core";
 
 import * as _ from "lodash"
 
-import { hideSearch } from "../../../../../redux/actions/appActions"
+import { hideSearch, preloadTicker } from "../../../../../redux/actions/appActions"
 
 class TickerListDisplay extends Component {
 
@@ -39,6 +39,7 @@ class TickerListDisplay extends Component {
         return (
             <div className="search-ticker-display"  >
                 <div onClick={() => { 
+                    this.props.preloadTicker(this.props.item)
                     this.props.history.push("/$" + this.props.item.metadata.symbol)
                     this.props.hideSearch()
                 }}>{this.renderTickerAvatar()}</div>
@@ -73,5 +74,6 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
-    hideSearch
+    hideSearch,
+    preloadTicker
 })(TickerListDisplay));

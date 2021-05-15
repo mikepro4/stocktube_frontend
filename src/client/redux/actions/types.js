@@ -22,6 +22,9 @@ export const AUTH_CLEAR = "app/AUTH_CLEAR"
 export const SUGGESTIONS_UPDATE = "app/SUGGESTIONS_UPDATE"
 export const SUGGESTIONS_CLEAR = "app/SUGGESTIONS_CLEAR"
 
+export const PRELOAD_TICKER = "app/PRELOAD_TICKER"
+export const PRELOAD_VIDEO = "app/PRELOAD_VIDEO"
+
 
 // =============================================================================
 

@@ -17,7 +17,9 @@ import {
 	HIDE_SEARCH,
 	SEARCH_RESULTS,
 	SEARCH_RESULTS_SUCCESS,
-	CLEAR_SEARCH_RESULTS
+	CLEAR_SEARCH_RESULTS,
+	PRELOAD_TICKER,
+	PRELOAD_VIDEO
 } from "./types";
 
 import moment from "moment";
@@ -39,6 +41,33 @@ export const updateCollection = (update, success) => async (
         payload: update
     });
 };
+
+/////////////////////////////////////////////////
+
+export const preloadTicker = (ticker, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: PRELOAD_TICKER,
+        payload: ticker
+    });
+};
+
+/////////////////////////////////////////////////
+
+export const preloadVideo = (video, success) => async (
+    dispatch,
+	getState,
+	api
+) => {
+    dispatch({
+        type: PRELOAD_VIDEO,
+        payload: video
+    });
+};
+
 
 
 /////////////////////////////////////////////////

@@ -20,7 +20,9 @@ import {
 	HIDE_SEARCH,
 	SEARCH_RESULTS,
 	SEARCH_RESULTS_SUCCESS,
-	CLEAR_SEARCH_RESULTS
+	CLEAR_SEARCH_RESULTS,
+	PRELOAD_TICKER,
+	PRELOAD_VIDEO
 } from "../actions/types";
 
 export const initialState = {
@@ -42,7 +44,9 @@ export const initialState = {
 	search: {
 		loading: false,
 		results: []
-	}
+	},
+	preloadTicker: {},
+	preloadVideo: {}
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -166,6 +170,16 @@ export const appReducer = (state = initialState, action) => {
 					loading: false,
 					results: []
 				}
+			}
+		case PRELOAD_TICKER:
+			return {
+				...state,
+				preloadTIcker: action.payload
+			}
+		case PRELOAD_VIDEO:
+			return {
+				...state,
+				preloadVideo: action.payload
 			}
 		default:
 			return state;

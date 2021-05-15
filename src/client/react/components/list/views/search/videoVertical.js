@@ -8,7 +8,8 @@ import moment from "moment"
 import {updateLocale } from "moment"
 
 import {
-    hideSearch
+    hideSearch,
+    preloadVideo
 } from "../../../../../redux/actions/appActions"
 
 import { updateCurrentVideo } from "../../../../../redux/actions/playerActions"
@@ -45,6 +46,7 @@ class VideoPreviewVertical extends Component {
                 "active": this.props.item.metadata.id == this.props.player.currentVideo.videoId
             })}
             onClick={() => { 
+                this.props.preloadVideo(this.props.item)
                 this.props.history.push("/video/" + this.props.item.googleId)
                 this.props.hideSearch()
             }}>
@@ -77,5 +79,6 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(mapStateToProps, {
     updateCurrentVideo,
-    hideSearch
+    hideSearch,
+    preloadVideo
 })(VideoPreviewVertical));
