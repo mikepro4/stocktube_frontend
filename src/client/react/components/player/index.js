@@ -159,11 +159,11 @@ class YoutubePlayer extends React.Component {
 	seekToClip() {}
 
 	playVideo() {
-		if (this.props.player.initial) {
-			this.state.player.mute();
-		} else {
-			this.state.player.unMute();
-		}
+		// if (this.props.player.initial) {
+		// 	this.state.player.mute();
+		// } else {
+		// 	this.state.player.unMute();
+		// }
 
 		console.log("play video");
 		clearInterval(this.state.timeInterval);

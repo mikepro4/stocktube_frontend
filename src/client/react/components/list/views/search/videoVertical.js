@@ -43,7 +43,6 @@ class VideoPreviewVertical extends Component {
             <div 
             className={classNames({
                 "search-video-preview-vertical": true,
-                "active": this.props.item.metadata.id == this.props.player.currentVideo.videoId
             })}>
 
                 <Link 
