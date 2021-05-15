@@ -6,6 +6,7 @@ import Signup from "../react/pages/auth/signup"
 import Logout from "../react/pages/auth/logout"
 import Profile from "../react/pages/profile"
 import Ticker from "../react/pages/ticker"
+import Video from "../react/pages/video"
 
 export default [
 	{
@@ -53,7 +54,14 @@ export default [
 				params: {
 					name: "logout"
 				}
-			}
+			},
+			{
+				...Video,
+				path: "/video/:video",
+				params: {
+					name: "video"
+				}
+			},
 		]
 		
 	}

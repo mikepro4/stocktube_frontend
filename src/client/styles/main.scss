@@ -142,11 +142,11 @@ a {
 .theme-light {
 
 	a {
-		color: $cobalt4;
+		color: $black;
 	}
 
 	a:hover {
-		color: $cobalt5;
+		color: $black;
 
 		@media only screen and (max-width: $mobile) {
             color: inherit !important;

@@ -44,23 +44,26 @@ class VideoPreviewVertical extends Component {
             className={classNames({
                 "search-video-preview-vertical": true,
                 "active": this.props.item.metadata.id == this.props.player.currentVideo.videoId
-            })}
-            onClick={() => { 
-                this.props.preloadVideo(this.props.item)
-                this.props.history.push("/video/" + this.props.item.googleId)
-                this.props.hideSearch()
-            }}>
-                <div className="video-thumbnail">
-                    <img src={this.props.item.metadata.thumbnail} />
-                </div>
+            })}>
 
-                <div className="video-details">
-                    <div className="channel-name">{this.props.item.metadata.channel.name} 
-                        <span className="video-name-divider">●</span> 
-                        <span className="video-time">{this.getVideoTime()}</span>
+                <Link 
+                    to={"/video/" + this.props.item.googleId}
+                    onClick={() => { 
+                        this.props.preloadVideo(this.props.item)
+                    }} 
+                >
+                    <div className="video-thumbnail">
+                        <img src={this.props.item.metadata.thumbnail} />
                     </div>
-                    <div className="video-title">{this.props.item.metadata.title}</div>
-                </div>
+
+                    <div className="video-details">
+                        <div className="channel-name">{this.props.item.metadata.channel.name} 
+                            <span className="video-name-divider">●</span> 
+                            <span className="video-time">{this.getVideoTime()}</span>
+                        </div>
+                        <div className="video-title">{this.props.item.metadata.title}</div>
+                    </div>
+                </Link>
             </div>
         )
         

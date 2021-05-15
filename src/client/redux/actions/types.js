@@ -82,7 +82,7 @@ export const GET_CONNECTION = "app/GET_CONNECTION"
 // =============================================================================
 
 
-// Profile
+// Ticker
 
 export const LOAD_TICKER = "app/LOAD_TICKER"
 export const LOAD_TICKER_SUCCESS = "app/LOAD_TICKER_SUCCESS"
@@ -92,6 +92,16 @@ export const GET_CONNECTION_TO_TICKER = "app/GET_CONNECTION_TO_TICKER"
 
 export const GET_FEATURED_FOLLOWERS = "app/GET_FEATURED_FOLLOWERS"
 export const SET_ACTIVE_FEATURED_VIDEO = "app/SET_ACTIVE_FEATURED_VIDEO"
+
+
+// =============================================================================
+
+
+// Video
+
+export const LOAD_VIDEO = "app/LOAD_VIDEO"
+export const LOAD_VIDEO_SUCCESS = "app/LOAD_VIDEO_SUCCESS"
+export const CLEAR_VIDEO = "app/CLEAR_VIDEO"
 
 
 // =============================================================================
