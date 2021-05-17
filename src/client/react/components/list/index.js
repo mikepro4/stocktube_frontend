@@ -110,8 +110,9 @@ class ListResults extends Component {
                 const loadMore = this.refs["loadMore"+this.props.resultType+this.props.identifier]
 
                 if(loadMore && !this.state.loading) {
-                    if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().y) {
+                    if(this.state.horizontalScroll + 100 > loadMore.getBoundingClientRect().x) {
                         if( !this.props.updateCollectionValue) {
+                            console.log("test")
                             this.searchCollection(this.getLimit())
                         }
                     }
